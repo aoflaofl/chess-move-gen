@@ -1,7 +1,7 @@
 package com.spamalot.chess.fen;
 
+import com.spamalot.chess.Color;
 import com.spamalot.chess.movegen.ChessPiece;
-import com.spamalot.chess.movegen.PieceColor;
 import com.spamalot.chess.movegen.PieceType;
 
 import java.util.ArrayList;
@@ -33,15 +33,15 @@ public final class FENUtil {
       rank--;
     }
 
-    PieceColor s = toColor(x[1]);
+    Color s = toColor(x[1]);
     board.setToMove(s);
 
   }
 
-  private PieceColor toColor(String string) {
+  private Color toColor(String string) {
     if ("w".equals(string))
-      return PieceColor.WHITE;
-    return PieceColor.BLACK;
+      return Color.WHITE;
+    return Color.BLACK;
   }
 
   private void processFENRow(String fenRow, int rank) {
@@ -71,11 +71,11 @@ public final class FENUtil {
   private void genPiece(char pieceChar, int file, int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.blackChar == pieceChar) {
-        this.board.addPiece(pt, PieceColor.BLACK, file, rank);
+        this.board.addPiece(pt, Color.BLACK, file, rank);
       }
 
       if (pt.whiteChar == pieceChar) {
-        this.board.addPiece(pt, PieceColor.BLACK, file, rank);
+        this.board.addPiece(pt, Color.BLACK, file, rank);
       }
     }
 
