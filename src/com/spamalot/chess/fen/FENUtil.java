@@ -1,8 +1,8 @@
 package com.spamalot.chess.fen;
 
 import com.spamalot.chess.Color;
+import com.spamalot.chess.PieceType;
 import com.spamalot.chess.movegen.ChessPiece;
-import com.spamalot.chess.movegen.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +34,40 @@ public final class FENUtil {
     }
 
     Color s = toColor(x[1]);
-    board.setToMove(s);
+    this.board.setToMove(s);
+
+    toCastle(x[2]);
+
+  }
+
+  private void toCastle(String string) {
+    if ("-".equals(string)) {
+      return;
+    }
+
+    for (char ch : string.toCharArray()) {
+      switch (ch) {
+        case 'K':
+          this.board.setCastling(PieceType.KING, Color.WHITE, true);
+          break;
+        case 'Q':
+          this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+          break;
+        case 'k':
+          this.board.setCastling(PieceType.KING, Color.BLACK, true);
+          break;
+        case 'q':
+          this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+          break;
+      }
+    }
 
   }
 
   private Color toColor(String string) {
-    if ("w".equals(string))
+    if ("w".equals(string)) {
       return Color.WHITE;
+    }
     return Color.BLACK;
   }
 

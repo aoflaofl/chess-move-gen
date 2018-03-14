@@ -1,4 +1,4 @@
-package com.spamalot.chess.movegen;
+package com.spamalot.chess;
 
 /**
  * Enum for type of Chess Piece.

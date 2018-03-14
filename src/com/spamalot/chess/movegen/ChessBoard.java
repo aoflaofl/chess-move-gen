@@ -3,6 +3,7 @@ package com.spamalot.chess.movegen;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.spamalot.chess.Color;
+import com.spamalot.chess.PieceType;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
@@ -144,6 +145,12 @@ final class ChessBoard implements FENboardable {
 
   @Override
   public void setToMove(Color s) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setCastling(PieceType king, Color white, boolean b) {
     // TODO Auto-generated method stub
 
   }

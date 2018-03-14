@@ -1,6 +1,7 @@
 package com.spamalot.chess.movegen;
 
 import com.spamalot.chess.Color;
+import com.spamalot.chess.PieceType;
 
 /**
  * Entry class for Chess Move Generator program.
