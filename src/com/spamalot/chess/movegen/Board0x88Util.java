@@ -24,6 +24,8 @@ final class Board0x88Util {
   }
 
   /**
+   * Given a square's number in an 0x88 board, give the rank.
+   * 
    * @param s
    *          The Square's number
    * @return The rank the square is in.

@@ -13,6 +13,7 @@ final class SquareNames {
 
   /** Map square number to name. */
   private static String[] sqNames = new String[128];
+
   static {
     for (int i = 0; i < 128; i++) {
       sqNames[i] = SquareNames._sqName(i);

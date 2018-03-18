@@ -10,12 +10,12 @@ import java.util.LinkedList;
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
  * 
- * I'll give it a catchy name: "Spacky"
+ * <p>I'll give it a catchy name: "Spacky"
  * 
- * First goal: Make it solve mate in X problems. This will require move
+ * <p>First goal: Make it solve mate in X problems. This will require move
  * generation and tree traversing code.
  * 
- * WCGW?
+ * <p>WCGW?
  * 
  * @author gej
  *
@@ -33,20 +33,6 @@ final class ChessBoard implements FENboardable {
   static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
   /** Knight diffs. */
   static final int[] KNIGHT_DIFF = new int[] { 14, 18, 31, 33, -18, -14, -31, -33 };
-
-  /**
-   * Put a Chess piece on the board.
-   * 
-   * @param p
-   *          the Chess Piece
-   * @param sq
-   *          the Piece's square
-   */
-  void addPiece(final ChessPiece p, final int sq) {
-    this.pieceList.offer(new PieceNode(p, sq));
-
-    this.board[sq] = p;
-  }
 
   /**
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
@@ -135,6 +121,20 @@ final class ChessBoard implements FENboardable {
     return builder.toString();
   }
 
+  /**
+   * Put a Chess piece on the board.
+   * 
+   * @param p
+   *          the Chess Piece
+   * @param sq
+   *          the Piece's square
+   */
+  void addPiece(final ChessPiece p, final int sq) {
+    this.pieceList.offer(new PieceNode(p, sq));
+
+    this.board[sq] = p;
+  }
+
   @Override
   public void addPiece(final PieceType p, final Color c, final int file, final int rank) {
     // TODO Auto-generated method stub
@@ -154,19 +154,19 @@ final class ChessBoard implements FENboardable {
   }
 
   @Override
-  public void setEnPassantSquare(int file, int rank) {
+  public void setEnPassantSquare(final int file, final int rank) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setHalfMovesSinceCaptureOrPawnMove(int intValue) {
+  public void setHalfMovesSinceCaptureOrPawnMove(final int intValue) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setMoveNumber(int intValue) {
+  public void setMoveNumber(final int intValue) {
     // TODO Auto-generated method stub
 
   }

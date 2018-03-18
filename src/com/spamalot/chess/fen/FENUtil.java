@@ -6,7 +6,8 @@ import com.spamalot.chess.base.PieceType;
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  * 
- * TODO: call a method in board to clear board? Or make it a prereq to be empty?
+ * <p>TODO: call a method in board to clear board? Or make it a prereq to be
+ * empty?
  * 
  * @author gej
  *
@@ -55,20 +56,20 @@ public final class FENUtil {
 
   }
 
-  private void moveNumber(String string) {
-    board.setMoveNumber(Integer.valueOf(string).intValue());
+  private void moveNumber(final String string) {
+    this.board.setMoveNumber(Integer.parseInt(string));
 
   }
 
-  private void halfMovesSinceCaptureOrPawnMove(String string) {
-    board.setHalfMovesSinceCaptureOrPawnMove(Integer.valueOf(string).intValue());
+  private void halfMovesSinceCaptureOrPawnMove(final String string) {
+    this.board.setHalfMovesSinceCaptureOrPawnMove(Integer.parseInt(string));
   }
 
-  private void enPassantSquare(String string) {
+  private void enPassantSquare(final String string) {
     int file = string.charAt(0) - 'a' + 1;
     int rank = string.charAt(1) - '0';
 
-    board.setEnPassantSquare(file, rank);
+    this.board.setEnPassantSquare(file, rank);
   }
 
   /**
