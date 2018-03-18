@@ -19,7 +19,7 @@ final class Board0x88Util {
    *          The Square's number
    * @return The file the square is in.
    */
-  static int fileFromSquare(int s) {
+  static int fileFromSquare(final int s) {
     return s & 7;
   }
 
@@ -28,7 +28,7 @@ final class Board0x88Util {
    *          The Square's number
    * @return The rank the square is in.
    */
-  static int rankFromSquare(int s) {
+  static int rankFromSquare(final int s) {
     return s >> 4;
   }
 
@@ -41,7 +41,7 @@ final class Board0x88Util {
    *          the rank
    * @return the index of the square in the 0x88 board.
    */
-  static int fileAndRankToSquare(int file, int rank) {
+  static int fileAndRankToSquare(final int file, final int rank) {
     return 16 * rank + file;
   }
 
@@ -52,7 +52,7 @@ final class Board0x88Util {
    *          index of square in the 0x88 board array
    * @return true if the square is on the board.
    */
-  static boolean isOnBoard(int s) {
+  static boolean isOnBoard(final int s) {
     return ((s & 0x88) == 0);
   }
 }

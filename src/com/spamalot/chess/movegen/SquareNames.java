@@ -26,7 +26,7 @@ final class SquareNames {
    *          the square's number
    * @return the name of the square.
    */
-  static String toName(int s) {
+  static String toName(final int s) {
     return sqNames[s];
   }
 
@@ -37,7 +37,7 @@ final class SquareNames {
    *          the square's name
    * @return the number of the square.
    */
-  static int toNumber(String s) {
+  static int toNumber(final String s) {
     int file = s.charAt(0);
     file = file - 'a';
     int rank = s.charAt(1);
@@ -53,7 +53,7 @@ final class SquareNames {
    *          the file number
    * @return the letter of the file.
    */
-  private static char fileLetter(int file) {
+  private static char fileLetter(final int file) {
     return "abcdefgh".charAt(file);
   }
 
@@ -64,7 +64,7 @@ final class SquareNames {
    *          the Square
    * @return the square's name.
    */
-  private static String _sqName(int s) {
+  private static String _sqName(final int s) {
     int file = Board0x88Util.fileFromSquare(s);
     int rank = Board0x88Util.rankFromSquare(s) + 1;
     if (Board0x88Util.isOnBoard(s)) {

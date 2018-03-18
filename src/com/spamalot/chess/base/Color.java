@@ -1,6 +1,8 @@
-package com.spamalot.chess;
+package com.spamalot.chess.base;
 
 /**
+ * Enum for Chess colors.
+ * 
  * @author gej
  *
  */

@@ -1,28 +1,37 @@
 package com.spamalot.chess.fen;
 
-import com.spamalot.chess.Color;
-import com.spamalot.chess.PieceType;
-import com.spamalot.chess.movegen.ChessPiece;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.spamalot.chess.base.Color;
+import com.spamalot.chess.base.PieceType;
 
 /**
  * Process Forsythe Edwards Notation for Chess positions.
+ * 
+ * TODO: call a method in board to clear board? Or make it a prereq to be empty?
  * 
  * @author gej
  *
  */
 public final class FENUtil {
-  private List<FENChessPiece> pieces = new ArrayList<>();
+  /** Board that can be updated with information from FEN String. */
   private FENboardable board;
 
-  /** Why? */
-  public FENUtil(FENboardable board) {
-    this.board = board;
+  /**
+   * Construct the FEN parser.
+   * 
+   * @param b
+   *          an object that can be updated with FEN information
+   */
+  public FENUtil(final FENboardable b) {
+    this.board = b;
   }
 
-  public void processFENString(String fen) {
+  /**
+   * Parse a FEN String.
+   * 
+   * @param fen
+   *          the FEN String
+   */
+  public void processFENString(final String fen) {
     String[] x = fen.split(" ");
 
     String[] ranks = x[0].split("/");
@@ -38,14 +47,42 @@ public final class FENUtil {
 
     toCastle(x[2]);
 
+    enPassantSquare(x[3]);
+
+    halfMovesSinceCaptureOrPawnMove(x[4]);
+
+    moveNumber(x[5]);
+
   }
 
-  private void toCastle(String string) {
-    if ("-".equals(string)) {
+  private void moveNumber(String string) {
+    board.setMoveNumber(Integer.valueOf(string).intValue());
+
+  }
+
+  private void halfMovesSinceCaptureOrPawnMove(String string) {
+    board.setHalfMovesSinceCaptureOrPawnMove(Integer.valueOf(string).intValue());
+  }
+
+  private void enPassantSquare(String string) {
+    int file = string.charAt(0) - 'a' + 1;
+    int rank = string.charAt(1) - '0';
+
+    board.setEnPassantSquare(file, rank);
+  }
+
+  /**
+   * Parse the castling part of the FEN String.
+   * 
+   * @param castlingString
+   *          the String describing castling
+   */
+  private void toCastle(final String castlingString) {
+    if ("-".equals(castlingString)) {
       return;
     }
 
-    for (char ch : string.toCharArray()) {
+    for (char ch : castlingString.toCharArray()) {
       switch (ch) {
         case 'K':
           this.board.setCastling(PieceType.KING, Color.WHITE, true);
@@ -59,19 +96,36 @@ public final class FENUtil {
         case 'q':
           this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
           break;
+        default:
+          throw new IllegalStateException();
       }
     }
 
   }
 
-  private Color toColor(String string) {
-    if ("w".equals(string)) {
+  /**
+   * Convert w or b to the Color.
+   * 
+   * @param colorString
+   *          "w" or "b"
+   * @return the Color.
+   */
+  private static Color toColor(final String colorString) {
+    if ("w".equals(colorString)) {
       return Color.WHITE;
     }
     return Color.BLACK;
   }
 
-  private void processFENRow(String fenRow, int rank) {
+  /**
+   * Process a row of the board from the FEN String.
+   * 
+   * @param fenRow
+   *          the FEN row String
+   * @param rank
+   *          the row's rank (1-8)
+   */
+  private void processFENRow(final String fenRow, final int rank) {
     System.out.println(fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
@@ -87,21 +141,22 @@ public final class FENUtil {
   }
 
   /**
-   * Get a ChessPiece object from the FEN character.
+   * Get a ChessPiece object from the FEN character and add it to the board.
    * 
    * @param pieceChar
    *          a character representing the piece in FEN
-   * @param rank
    * @param file
-   * @return Chess Piece of the piece argument.
+   *          the Piece's file (1-8)
+   * @param rank
+   *          the Piece's rank (1-8)
    */
-  private void genPiece(char pieceChar, int file, int rank) {
+  private void genPiece(final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {
-      if (pt.blackChar == pieceChar) {
+      if (pt.getBlackChar() == pieceChar) {
         this.board.addPiece(pt, Color.BLACK, file, rank);
       }
 
-      if (pt.whiteChar == pieceChar) {
+      if (pt.getWhiteChar() == pieceChar) {
         this.board.addPiece(pt, Color.BLACK, file, rank);
       }
     }

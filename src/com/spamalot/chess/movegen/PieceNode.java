@@ -20,7 +20,7 @@ class PieceNode {
    * @param sq
    *          the Square
    */
-  PieceNode(ChessPiece p, int sq) {
+  PieceNode(final ChessPiece p, final int sq) {
     this.piece = p;
     this.square = sq;
   }

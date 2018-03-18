@@ -1,7 +1,7 @@
 package com.spamalot.chess.movegen;
 
-import com.spamalot.chess.Color;
-import com.spamalot.chess.PieceType;
+import com.spamalot.chess.base.Color;
+import com.spamalot.chess.base.PieceType;
 
 /**
  * Class for Chess piece.
@@ -13,14 +13,14 @@ public class ChessPiece {
   /**
    * Construct Object for Chess Pieces.
    * 
-   * @param color
+   * @param c
    *          Color of the piece
-   * @param type
+   * @param t
    *          Type of the piece
    */
-  ChessPiece(Color color, PieceType type) {
-    this.color = color;
-    this.type = type;
+  ChessPiece(final Color c, final PieceType t) {
+    this.color = c;
+    this.type = t;
   }
 
   /** Color of the piece. */
@@ -32,9 +32,9 @@ public class ChessPiece {
   public final String toString() {
     StringBuilder builder = new StringBuilder();
     if (this.color == Color.BLACK) {
-      builder.append(this.type.blackChar);
+      builder.append(this.type.getBlackChar());
     } else {
-      builder.append(this.type.whiteChar);
+      builder.append(this.type.getWhiteChar());
     }
     return builder.toString();
   }

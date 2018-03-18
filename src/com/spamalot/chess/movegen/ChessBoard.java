@@ -1,9 +1,7 @@
 package com.spamalot.chess.movegen;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import com.spamalot.chess.Color;
-import com.spamalot.chess.PieceType;
+import com.spamalot.chess.base.Color;
+import com.spamalot.chess.base.PieceType;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
@@ -44,7 +42,7 @@ final class ChessBoard implements FENboardable {
    * @param sq
    *          the Piece's square
    */
-  void addPiece(ChessPiece p, int sq) {
+  void addPiece(final ChessPiece p, final int sq) {
     this.pieceList.offer(new PieceNode(p, sq));
 
     this.board[sq] = p;
@@ -58,7 +56,7 @@ final class ChessBoard implements FENboardable {
    * @param d
    *          the direction array
    */
-  static void generateSliderMoves(int s, int[] d) {
+  static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
       for (int sd = s + dir; Board0x88Util.isOnBoard(sd); sd += dir) {
         generateMove(s, sd);
@@ -74,7 +72,7 @@ final class ChessBoard implements FENboardable {
    * @param d
    *          the direction array
    */
-  static void generateJumperMoves(int s, int[] d) {
+  static void generateJumperMoves(final int s, final int[] d) {
     int sd;
     for (int dir : d) {
 
@@ -95,7 +93,7 @@ final class ChessBoard implements FENboardable {
    * @param sd
    *          the destination square
    */
-  private static void generateMove(int s, int sd) {
+  private static void generateMove(final int s, final int sd) {
     System.out.println(SquareNames.toName(s) + "-" + SquareNames.toName(sd));
   }
 
@@ -109,7 +107,7 @@ final class ChessBoard implements FENboardable {
    * @param fen
    *          A Chess position in FEN
    */
-  ChessBoard(String fen) {
+  ChessBoard(final String fen) {
     FENUtil f = new FENUtil(this);
     f.processFENString(fen);
   }
@@ -138,19 +136,37 @@ final class ChessBoard implements FENboardable {
   }
 
   @Override
-  public void addPiece(PieceType p, Color c, int file, int rank) {
+  public void addPiece(final PieceType p, final Color c, final int file, final int rank) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setToMove(Color s) {
+  public void setToMove(final Color s) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setCastling(PieceType king, Color white, boolean b) {
+  public void setCastling(final PieceType king, final Color white, final boolean b) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setEnPassantSquare(int file, int rank) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setHalfMovesSinceCaptureOrPawnMove(int intValue) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void setMoveNumber(int intValue) {
     // TODO Auto-generated method stub
 
   }
