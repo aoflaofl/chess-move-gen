@@ -45,10 +45,30 @@ public interface FENboardable {
    */
   void setCastling(PieceType pt, Color c, boolean canCastle);
 
+  /**
+   * Set the en-passant square.
+   * 
+   * @param file
+   *          the file
+   * @param rank
+   *          the rank
+   */
   void setEnPassantSquare(int file, int rank);
 
+  /**
+   * Set half moves made since last capture or pawn move.
+   * 
+   * @param intValue
+   *          number of half-moves
+   */
   void setHalfMovesSinceCaptureOrPawnMove(int intValue);
 
+  /**
+   * Set move number.
+   * 
+   * @param intValue
+   *          move number
+   */
   void setMoveNumber(int intValue);
 
 }

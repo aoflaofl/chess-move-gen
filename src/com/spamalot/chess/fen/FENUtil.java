@@ -56,15 +56,33 @@ public final class FENUtil {
 
   }
 
+  /**
+   * Extract move number.
+   * 
+   * @param string
+   *          Move number part of FEN string
+   */
   private void moveNumber(final String string) {
     this.board.setMoveNumber(Integer.parseInt(string));
 
   }
 
+  /**
+   * Extract half moves since last Capture or Pawn move.
+   * 
+   * @param string
+   *          Half move part of FEN string
+   */
   private void halfMovesSinceCaptureOrPawnMove(final String string) {
     this.board.setHalfMovesSinceCaptureOrPawnMove(Integer.parseInt(string));
   }
 
+  /**
+   * Extract en-passant square from FEN string.
+   * 
+   * @param string
+   *          En-passant square part of FEN string
+   */
   private void enPassantSquare(final String string) {
     int file = string.charAt(0) - 'a' + 1;
     int rank = string.charAt(1) - '0';
@@ -85,20 +103,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-        case 'K':
-          this.board.setCastling(PieceType.KING, Color.WHITE, true);
-          break;
-        case 'Q':
-          this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-          break;
-        case 'k':
-          this.board.setCastling(PieceType.KING, Color.BLACK, true);
-          break;
-        case 'q':
-          this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-          break;
-        default:
-          throw new IllegalStateException();
+      case 'K':
+        this.board.setCastling(PieceType.KING, Color.WHITE, true);
+        break;
+      case 'Q':
+        this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+        break;
+      case 'k':
+        this.board.setCastling(PieceType.KING, Color.BLACK, true);
+        break;
+      case 'q':
+        this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+        break;
+      default:
+        throw new IllegalStateException();
       }
     }
 
