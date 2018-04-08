@@ -137,8 +137,7 @@ final class ChessBoard implements FENboardable {
 
   @Override
   public void addPiece(final PieceType p, final Color c, final int file, final int rank) {
-    // TODO Auto-generated method stub
-
+    addPiece(new ChessPiece(c, p), Board0x88Util.fileAndRankToSquare(file - 1, rank - 1));
   }
 
   @Override

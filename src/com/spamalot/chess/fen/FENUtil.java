@@ -178,7 +178,7 @@ public final class FENUtil {
       }
 
       if (pt.getWhiteChar() == pieceChar) {
-        this.board.addPiece(pt, Color.BLACK, file, rank);
+        this.board.addPiece(pt, Color.WHITE, file, rank);
       }
     }
 
