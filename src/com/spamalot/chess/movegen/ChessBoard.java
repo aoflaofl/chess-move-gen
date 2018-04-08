@@ -80,7 +80,7 @@ final class ChessBoard implements FENboardable {
    *          the destination square
    */
   private static void generateMove(final int s, final int sd) {
-    System.out.println(SquareNames.toName(s) + '-' + SquareNames.toName(sd));
+    System.out.println(SquareName.toName(s) + '-' + SquareName.toName(sd));
   }
 
   /** Nothing to see here. */

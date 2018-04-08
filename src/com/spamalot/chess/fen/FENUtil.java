@@ -84,10 +84,12 @@ public final class FENUtil {
    *          En-passant square part of FEN string
    */
   private void enPassantSquare(final String string) {
-    int file = string.charAt(0) - 'a' + 1;
-    int rank = string.charAt(1) - '0';
+    if (!"-".equals(string) && string.length() == 2) {
+      int file = string.charAt(0) - 'a' + 1;
+      int rank = string.charAt(1) - '0';
 
-    this.board.setEnPassantSquare(file, rank);
+      this.board.setEnPassantSquare(file, rank);
+    }
   }
 
   /**
@@ -103,20 +105,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-      case 'K':
-        this.board.setCastling(PieceType.KING, Color.WHITE, true);
-        break;
-      case 'Q':
-        this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-        break;
-      case 'k':
-        this.board.setCastling(PieceType.KING, Color.BLACK, true);
-        break;
-      case 'q':
-        this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-        break;
-      default:
-        throw new IllegalStateException();
+        case 'K':
+          this.board.setCastling(PieceType.KING, Color.WHITE, true);
+          break;
+        case 'Q':
+          this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+          break;
+        case 'k':
+          this.board.setCastling(PieceType.KING, Color.BLACK, true);
+          break;
+        case 'q':
+          this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+          break;
+        default:
+          throw new IllegalStateException();
       }
     }
 

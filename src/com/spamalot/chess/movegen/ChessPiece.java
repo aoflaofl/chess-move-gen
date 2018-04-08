@@ -9,7 +9,7 @@ import com.spamalot.chess.base.PieceType;
  * @author gej
  *
  */
-public class ChessPiece {
+class ChessPiece {
   /**
    * Construct Object for Chess Pieces.
    * 

@@ -33,7 +33,7 @@ class PieceNode {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(this.piece).append(SquareNames.toName(this.square));
+    builder.append(this.piece).append(SquareName.toName(this.square));
     return builder.toString();
   }
 }
