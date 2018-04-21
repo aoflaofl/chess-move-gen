@@ -25,8 +25,10 @@ final class ChessBoard implements FENboardable {
   /** Hold the 0x88 representation of the board. */
   private ChessPiece[] board = new ChessPiece[128];
 
-  /** Linked List of Chess pieces currently on the board. */
-  private LinkedList<PieceNode> pieceList = new LinkedList<>();
+  /** Linked List of White Chess pieces currently on the board. */
+  private LinkedList<PieceNode> whitePieceList = new LinkedList<>();
+  /** Linked List of Black Chess pieces currently on the board. */
+  private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
   /** Orthogonal (up and down, right and left) diffs. */
   static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };
@@ -105,7 +107,8 @@ final class ChessBoard implements FENboardable {
   public String toString() {
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [pieceList=").append(this.pieceList).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append("], [blackPieceList=")
+        .append(this.blackPieceList).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
@@ -142,7 +145,11 @@ final class ChessBoard implements FENboardable {
    *          the Piece's square
    */
   private void addPiece(final ChessPiece p, final int sq) {
-    this.pieceList.offer(new PieceNode(p, sq));
+    if (p.getColor() == Color.WHITE) {
+      this.whitePieceList.offer(new PieceNode(p, sq));
+    } else {
+      this.blackPieceList.offer(new PieceNode(p, sq));
+    }
 
     this.board[sq] = p;
   }

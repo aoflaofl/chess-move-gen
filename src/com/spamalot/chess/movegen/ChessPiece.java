@@ -28,6 +28,25 @@ class ChessPiece {
 
   /** Color of the piece. */
   private Color color;
+
+  /**
+   * Get Color of the Piece.
+   * 
+   * @return Color of the Piece.
+   */
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
+   * Get type of the Piece.
+   * 
+   * @return Type of the Piece.
+   */
+  public PieceType getType() {
+    return this.type;
+  }
+
   /** Type of the piece. */
   private PieceType type;
 
