@@ -10,6 +10,9 @@ import com.spamalot.chess.base.PieceType;
  *
  */
 class ChessPiece {
+
+
+
   /**
    * Construct Object for Chess Pieces.
    * 

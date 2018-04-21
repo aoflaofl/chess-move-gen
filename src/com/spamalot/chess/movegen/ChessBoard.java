@@ -6,6 +6,7 @@ import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -94,8 +95,10 @@ final class ChessBoard implements FENboardable {
    *          A Chess position in FEN
    */
   ChessBoard(final String fen) {
-    FENUtil f = new FENUtil(this);
-    f.processFENString(fen);
+    if (fen.length() != 0) {
+      FENUtil f = new FENUtil(this);
+      f.processFENString(fen);
+    }
   }
 
   @Override
@@ -118,7 +121,16 @@ final class ChessBoard implements FENboardable {
       builder.append('\n');
     }
 
+    builder.append(buildMoveList());
+
     return builder.toString();
+  }
+
+  private List<ChessMove> buildMoveList() {
+    for (PieceNode s : pieceList) {
+      System.out.println(s);
+    }
+    return null;
   }
 
   /**
@@ -129,7 +141,7 @@ final class ChessBoard implements FENboardable {
    * @param sq
    *          the Piece's square
    */
-  void addPiece(final ChessPiece p, final int sq) {
+  private void addPiece(final ChessPiece p, final int sq) {
     this.pieceList.offer(new PieceNode(p, sq));
 
     this.board[sq] = p;
