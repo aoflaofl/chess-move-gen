@@ -30,6 +30,8 @@ final class ChessBoard implements FENboardable {
   /** Linked List of Black Chess pieces currently on the board. */
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
+  private Color toMove;
+
   /** Orthogonal (up and down, right and left) diffs. */
   static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };
   /** Diagonal diffs. */
@@ -107,8 +109,7 @@ final class ChessBoard implements FENboardable {
   public String toString() {
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append("], [blackPieceList=")
-        .append(this.blackPieceList).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append("], [blackPieceList=").append(this.blackPieceList).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
@@ -130,8 +131,10 @@ final class ChessBoard implements FENboardable {
   }
 
   private List<ChessMove> buildMoveList() {
-    for (PieceNode s : pieceList) {
-      System.out.println(s);
+    if (toMove == Color.WHITE) {
+      for (PieceNode s : whitePieceList) {
+        System.out.println(s);
+      }
     }
     return null;
   }

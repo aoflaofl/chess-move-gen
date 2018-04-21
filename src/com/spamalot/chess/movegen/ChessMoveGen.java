@@ -1,10 +1,12 @@
 package com.spamalot.chess.movegen;
 
+import com.google.common.io.Files;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 /**
  * Entry class for Chess Move Generator program.
@@ -27,7 +29,7 @@ public final class ChessMoveGen {
 
     File file = new File("./fen.txt");
 
-    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    try (BufferedReader br = Files.newReader(file, Charset.defaultCharset())) {
       String st;
       while ((st = br.readLine()) != null) {
         System.out.println(st);
@@ -43,8 +45,11 @@ public final class ChessMoveGen {
     }
   }
 
+  /**
+   * Print the usage.
+   */
   private static void usage() {
     System.out.println("Blah Blah");
-    
+
   }
 }

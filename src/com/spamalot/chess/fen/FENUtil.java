@@ -33,6 +33,10 @@ public final class FENUtil {
    *          the FEN String
    */
   public void processFENString(final String fen) {
+    if (fen.length() == 0) {
+      return;
+    }
+
     String[] x = fen.split(" ");
 
     String[] ranks = x[0].split("/");
