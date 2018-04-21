@@ -27,24 +27,24 @@ public final class ChessMoveGen {
 
     File file = new File("./fen.txt");
 
-    BufferedReader br;
-    try {
-      br = new BufferedReader(new FileReader(file));
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
       String st;
-      try {
-        while ((st = br.readLine()) != null) {
-          System.out.println(st);
-          ChessBoard b = new ChessBoard(st);
-          System.out.println(b);
-        }
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      while ((st = br.readLine()) != null) {
+        System.out.println(st);
+        ChessBoard b = new ChessBoard(st);
+        System.out.println(b);
       }
     } catch (FileNotFoundException e) {
+      usage();
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
   }
 
+  private static void usage() {
+    System.out.println("Blah Blah");
+    
+  }
 }
