@@ -75,7 +75,6 @@ final class ChessBoard implements FENboardable {
       sd = s + dir;
 
       if (Board0x88Util.isOnBoard(sd)) {
-        System.out.println(dir);
         generateMove(s, sd);
       }
     }
@@ -112,6 +111,7 @@ final class ChessBoard implements FENboardable {
 
   @Override
   public String toString() {
+    logger.info("toString()");
     StringBuilder builder = new StringBuilder();
 
     builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=")
@@ -145,7 +145,8 @@ final class ChessBoard implements FENboardable {
     }
 
     for (PieceNode s : pieceList) {
-      System.out.println(s);
+      // System.out.println(s);
+      logger.error("Piece" + s);
     }
 
     return null;

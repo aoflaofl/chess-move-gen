@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Entry class for Chess Move Generator program.
  * 
@@ -15,6 +18,8 @@ import java.nio.charset.Charset;
  *
  */
 public final class ChessMoveGen {
+  private static final Logger logger = LoggerFactory.getLogger(ChessMoveGen.class);
+
   /** Private constructor. */
   private ChessMoveGen() {
   }
@@ -32,9 +37,15 @@ public final class ChessMoveGen {
     try (BufferedReader br = Files.newReader(file, Charset.defaultCharset())) {
       String st;
       while ((st = br.readLine()) != null) {
-        System.out.println(st);
+        // Ignore empty lines.
+        // TODO: Add comment ignoring.
+        if (st.trim().length() == 0) {
+          continue;
+        }
+        
+        logger.info("{}", st);
         ChessBoard b = new ChessBoard(st);
-        System.out.println(b);
+        logger.info("{}", b);
       }
     } catch (FileNotFoundException e) {
       usage();
@@ -50,6 +61,5 @@ public final class ChessMoveGen {
    */
   private static void usage() {
     System.out.println("Blah Blah");
-
   }
 }
