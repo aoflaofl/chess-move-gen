@@ -3,6 +3,9 @@ package com.spamalot.chess.fen;
 import com.spamalot.chess.base.Color;
 import com.spamalot.chess.base.PieceType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  * 
@@ -13,6 +16,8 @@ import com.spamalot.chess.base.PieceType;
  *
  */
 public final class FENUtil {
+  private static final Logger logger = LoggerFactory.getLogger(FENUtil.class);
+
   /** Board that can be updated with information from FEN String. */
   private FENboardable board;
 
@@ -151,14 +156,13 @@ public final class FENUtil {
    *          the row's rank (1-8)
    */
   private void processFENRow(final String fenRow, final int rank) {
-    System.out.println(fenRow);
+    logger.debug(fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
       if (Character.isDigit(s)) {
         file = file + s - '0';
       } else {
         genPiece(s, file, rank);
-        System.out.println(rank + ":" + file);
 
         file++;
       }

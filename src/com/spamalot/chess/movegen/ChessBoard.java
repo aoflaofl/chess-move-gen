@@ -8,6 +8,9 @@ import com.spamalot.chess.fen.FENboardable;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
  * 
@@ -22,6 +25,8 @@ import java.util.List;
  *
  */
 final class ChessBoard implements FENboardable {
+  private static final Logger logger = LoggerFactory.getLogger(ChessBoard.class);
+
   /** Hold the 0x88 representation of the board. */
   private ChessPiece[] board = new ChessPiece[128];
 
@@ -85,7 +90,7 @@ final class ChessBoard implements FENboardable {
    *          the destination square
    */
   private static void generateMove(final int s, final int sd) {
-    System.out.println(SquareName.toName(s) + '-' + SquareName.toName(sd));
+    logger.debug(SquareName.toName(s) + '-' + SquareName.toName(sd));
   }
 
   /** Nothing to see here. */
@@ -109,7 +114,8 @@ final class ChessBoard implements FENboardable {
   public String toString() {
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append("], [blackPieceList=").append(this.blackPieceList).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=")
+        .append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
@@ -131,11 +137,17 @@ final class ChessBoard implements FENboardable {
   }
 
   private List<ChessMove> buildMoveList() {
-    if (toMove == Color.WHITE) {
-      for (PieceNode s : whitePieceList) {
-        System.out.println(s);
-      }
+    List<PieceNode> pieceList;
+    if (this.toMove == Color.WHITE) {
+      pieceList = this.whitePieceList;
+    } else {
+      pieceList = this.blackPieceList;
     }
+
+    for (PieceNode s : pieceList) {
+      System.out.println(s);
+    }
+
     return null;
   }
 
@@ -164,8 +176,7 @@ final class ChessBoard implements FENboardable {
 
   @Override
   public void setToMove(final Color s) {
-    // TODO Auto-generated method stub
-
+    this.toMove = s;
   }
 
   @Override
