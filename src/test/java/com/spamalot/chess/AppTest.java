@@ -1,11 +1,21 @@
 package com.spamalot.chess;
-import java.util.*;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+/**
+ * Just a demo/stub.
+ * 
+ * @author gej
+ *
+ */
 public class AppTest {
-@Test
-public void emptyTest() {
- Stack stack = new Stack<String>();
- assertTrue(stack.isEmpty());
-}}
+  /**
+   * Stringent testing!
+   */
+  @Test
+  public void emptyTest() {
+    assertTrue(true);
+  }
+}

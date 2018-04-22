@@ -5,11 +5,11 @@ import com.spamalot.chess.base.PieceType;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
  * @author gej
  *
  */
-class ChessBoard implements FENboardable {
-  static final Logger logger = LoggerFactory.getLogger(ChessBoard.class);
+final class ChessBoard implements FENboardable {
+  private static final Logger logger = LoggerFactory.getLogger(ChessBoard.class);
 
   /** Hold the 0x88 representation of the board. */
   private ChessPiece[] board = new ChessPiece[128];
@@ -90,7 +90,7 @@ class ChessBoard implements FENboardable {
    *          the destination square
    */
   private static void generateMove(final int s, final int sd) {
-    logger.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
+    // logger.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
   }
 
   /** Nothing to see here. */
@@ -112,7 +112,7 @@ class ChessBoard implements FENboardable {
 
   @Override
   public String toString() {
-    logger.info("toString()");
+    // logger.info("toString()");
     StringBuilder builder = new StringBuilder();
 
     builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=").append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
