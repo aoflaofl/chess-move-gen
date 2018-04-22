@@ -1,8 +1,18 @@
 package com.spamalot.chess.movegen;
 
+import com.spamalot.chess.base.PieceType;
+
 /**
  * Represent a chess piece that exists on the board.
  * 
+ * @author gej
+ *
+ */
+/**
+ * @author gej
+ *
+ */
+/**
  * @author gej
  *
  */
@@ -35,5 +45,23 @@ class PieceNode {
     StringBuilder builder = new StringBuilder();
     builder.append(this.piece).append(SquareName.toName(this.square));
     return builder.toString();
+  }
+
+  /**
+   * Get the Piece Type.
+   * 
+   * @return the Type of this Piece.
+   */
+  public PieceType getPieceType() {
+    return this.piece.getType();
+  }
+
+  /**
+   * Get the 0x88 square number.
+   * 
+   * @return the 0x88 square this Piece is in.
+   */
+  public int get0x88Square() {
+    return this.square;
   }
 }

@@ -38,7 +38,45 @@ public final class ChessMoveGen {
    *          command line
    */
   public static void main(final String[] args) {
-    // Handle command line options.
+    List<String> fenFiles = parseCommandLineArguments(args);
+
+    for (String fenFile : fenFiles) {
+      logger.info("Processing FEN strings in file : {}", fenFile);
+
+      File file = new File(fenFile);
+
+      try (BufferedReader br = Files.newReader(file, Charset.defaultCharset())) {
+        String fenString;
+        while ((fenString = br.readLine()) != null) {
+          // Ignore empty lines. TODO: Add comment ignoring.
+          if (fenString.trim().length() == 0) {
+            continue;
+          }
+
+          logger.info("FEN string from {} : {}", fenFile, fenString);
+          ChessBoard b = new ChessBoard(fenString);
+          String boardString = b.toString();
+          logger.info("The generated board:\n{}", boardString);
+        }
+      } catch (FileNotFoundException e) {
+        usageAndExit();
+        e.printStackTrace();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Parse command line arguments.
+   * 
+   * @param args
+   *          Arguments to parse.
+   * @return a List of file names to read in.
+   */
+  private static List<String> parseCommandLineArguments(final String[] args) {
+
     Options options = new Options();
     CommandLineParser parser = new DefaultParser();
 
@@ -56,33 +94,7 @@ public final class ChessMoveGen {
     if (fenFiles.size() == 0) {
       usageAndExit();
     }
-
-    for (String fenFile : fenFiles) {
-      logger.info("Processing FEN strings in file : {}", fenFile);
-    }
-
-    File file = new File("./fen.txt");
-
-    try (BufferedReader br = Files.newReader(file, Charset.defaultCharset())) {
-      String st;
-      while ((st = br.readLine()) != null) {
-        // Ignore empty lines. TODO: Add comment ignoring.
-        if (st.trim().length() == 0) {
-          continue;
-        }
-
-        logger.info("Read FEN string from file: {}", st);
-        ChessBoard b = new ChessBoard(st);
-        String boardString = b.toString();
-        logger.info("The generated board:\n{}", boardString);
-      }
-    } catch (FileNotFoundException e) {
-      usageAndExit();
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    return fenFiles;
   }
 
   /**
