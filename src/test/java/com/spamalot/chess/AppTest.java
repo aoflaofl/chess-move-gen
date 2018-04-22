@@ -5,17 +5,21 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Just a demo/stub.
+ * Just a demo/stub JUnit class.
  * 
  * @author gej
  *
  */
-public class AppTest {
+public final class AppTest {
+  /** Construct Nothing. */
+  private AppTest() {
+  }
+
   /**
    * Stringent testing!
    */
   @Test
-  public void emptyTest() {
+  public static void emptyTest() {
     assertTrue(true);
   }
 }
