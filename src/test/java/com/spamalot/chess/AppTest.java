@@ -11,15 +11,12 @@ import org.junit.Test;
  *
  */
 public final class AppTest {
-  /** Construct Nothing. */
-  private AppTest() {
-  }
 
   /**
-   * Stringent testing!
+   * Stringent testing.
    */
   @Test
-  public static void emptyTest() {
+  public void emptyTest() {
     assertTrue(true);
   }
 }

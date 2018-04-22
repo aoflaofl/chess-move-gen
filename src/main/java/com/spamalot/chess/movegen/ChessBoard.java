@@ -5,11 +5,11 @@ import com.spamalot.chess.base.PieceType;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -104,6 +104,7 @@ final class ChessBoard implements FENboardable {
    *          A Chess position in FEN
    */
   ChessBoard(final String fen) {
+    logger.info("Constructing a Chess Board!");
     if (fen.length() != 0) {
       FENUtil f = new FENUtil(this);
       f.processFENString(fen);
@@ -112,10 +113,11 @@ final class ChessBoard implements FENboardable {
 
   @Override
   public String toString() {
-    // logger.info("toString()");
+    logger.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=").append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=")
+        .append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
