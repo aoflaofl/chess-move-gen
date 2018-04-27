@@ -8,14 +8,6 @@ import com.spamalot.chess.base.PieceType;
  * @author gej
  *
  */
-/**
- * @author gej
- *
- */
-/**
- * @author gej
- *
- */
 class PieceNode {
   /** The piece. */
   private ChessPiece piece;
