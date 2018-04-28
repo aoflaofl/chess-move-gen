@@ -1,12 +1,14 @@
 package com.spamalot.chess.base;
 
 /**
- * Enum for Chess colors.
+ * The colors in a standard game of Chess.
  * 
  * @author gej
  *
  */
 public enum Color {
-  /** Piece colors in a Chess game. */
-  BLACK, WHITE
+  /** Black color. */
+  BLACK,
+  /** White color. */
+  WHITE
 }

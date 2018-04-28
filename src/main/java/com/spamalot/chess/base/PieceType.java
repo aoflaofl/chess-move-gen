@@ -7,8 +7,18 @@ package com.spamalot.chess.base;
  *
  */
 public enum PieceType {
-  /** Pieces. */
-  PAWN('p', 'P'), KNIGHT('n', 'N'), BISHOP('b', 'B'), ROOK('r', 'R'), QUEEN('q', 'Q'), KING('k', 'K');
+  /** Pawn type. */
+  PAWN('p', 'P'),
+  /** Knight type. */
+  KNIGHT('n', 'N'),
+  /** Bishop type. */
+  BISHOP('b', 'B'),
+  /** Rook type. */
+  ROOK('r', 'R'),
+  /** Queen type. */
+  QUEEN('q', 'Q'),
+  /** King type. */
+  KING('k', 'K');
 
   /** White character for this piece. */
   private char whiteChar;
@@ -29,7 +39,7 @@ public enum PieceType {
   }
 
   /**
-   * Get the White Character representation for the piece.
+   * Get the White Character that represents the piece on an ASCII board.
    * 
    * @return the whiteChar
    */
@@ -38,7 +48,7 @@ public enum PieceType {
   }
 
   /**
-   * Get the Black Character representation for the piece.
+   * Get the Black Character that represents the piece on an ASCII board.
    * 
    * @return the blackChar
    */
