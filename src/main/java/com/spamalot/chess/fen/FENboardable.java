@@ -70,7 +70,4 @@ public interface FENboardable {
    *          move number
    */
   void setMoveNumber(int intValue);
-
-  void setEnPassantSquare(Object enPassantSquare);
-
 }

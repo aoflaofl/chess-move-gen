@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public final class FENUtil {
-  private static final Logger logger = LoggerFactory.getLogger(FENUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(FENUtil.class);
 
   /** Board that can be updated with information from FEN String. */
   // private FENboardable board;
@@ -37,7 +37,7 @@ public final class FENUtil {
    * @param fen
    *          the FEN String
    */
-  public static void processFENString(FENboardable board, final String fen) {
+  public static void processFENString(final FENboardable board, final String fen) {
     if (fen.length() == 0) {
       return;
     }
@@ -48,15 +48,15 @@ public final class FENUtil {
 
     int rank = 8;
     for (String t : ranks) {
-      processFENRow(t, rank);
+      processFENRow(board, t, rank);
       rank--;
     }
 
     Color s = toColor(x[1]);
     board.setToMove(s);
 
-    toCastle(x[2]);
-    board.setEnPassantSquare(enPassantSquare(x[3]));
+    toCastle(board, x[2]);
+    enPassantSquare(board, x[3]);
     board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(x[4]));
     board.setMoveNumber(moveNumber(x[5]));
 
@@ -91,12 +91,11 @@ public final class FENUtil {
    * @param string
    *          En-passant square part of FEN string
    */
-  private static void enPassantSquare(final String string) {
+  private static void enPassantSquare(final FENboardable board, final String string) {
     if (!"-".equals(string) && string.length() == 2) {
       int file = string.charAt(0) - 'a' + 1;
       int rank = string.charAt(1) - '0';
-
-      file, rank);
+      board.setEnPassantSquare(file, rank);
     }
   }
 
@@ -106,27 +105,27 @@ public final class FENUtil {
    * @param castlingString
    *          the String describing castling
    */
-  private static void toCastle(final String castlingString) {
+  private static void toCastle(final FENboardable board, final String castlingString) {
     if ("-".equals(castlingString)) {
       return;
     }
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-        case 'K':
-          this.board.setCastling(PieceType.KING, Color.WHITE, true);
-          break;
-        case 'Q':
-          this.board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-          break;
-        case 'k':
-          this.board.setCastling(PieceType.KING, Color.BLACK, true);
-          break;
-        case 'q':
-          this.board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-          break;
-        default:
-          throw new IllegalStateException();
+      case 'K':
+        board.setCastling(PieceType.KING, Color.WHITE, true);
+        break;
+      case 'Q':
+        board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+        break;
+      case 'k':
+        board.setCastling(PieceType.KING, Color.BLACK, true);
+        break;
+      case 'q':
+        board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+        break;
+      default:
+        throw new IllegalStateException();
       }
     }
 
@@ -154,14 +153,14 @@ public final class FENUtil {
    * @param rank
    *          the row's rank (1-8)
    */
-  private static void processFENRow(final String fenRow, final int rank) {
-    logger.debug(fenRow);
+  private static void processFENRow(final FENboardable board, final String fenRow, final int rank) {
+    LOGGER.debug(fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
       if (Character.isDigit(s)) {
         file = file + s - '0';
       } else {
-        genPiece(s, file, rank);
+        genPiece(board, s, file, rank);
 
         file++;
       }
@@ -178,14 +177,14 @@ public final class FENUtil {
    * @param rank
    *          the Piece's rank (1-8)
    */
-  private static void genPiece(final char pieceChar, final int file, final int rank) {
+  private static void genPiece(final FENboardable board, final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
-        this.board.addPiece(pt, Color.BLACK, file, rank);
+        board.addPiece(pt, Color.BLACK, file, rank);
       }
 
       if (pt.getWhiteChar() == pieceChar) {
-        this.board.addPiece(pt, Color.WHITE, file, rank);
+        board.addPiece(pt, Color.WHITE, file, rank);
       }
     }
 

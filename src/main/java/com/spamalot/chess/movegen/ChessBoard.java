@@ -31,7 +31,8 @@ public final class ChessBoard implements FENboardable {
   /** Knight diffs. */
   static final int[] KNIGHT_DIFF = new int[] { 14, 18, 31, 33, -18, -14, -31, -33 };
 
-  private static final Logger logger = LoggerFactory.getLogger(ChessBoard.class);
+  /** Logger. */
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessBoard.class);
   /** Orthogonal (up and down, right and left) diffs. */
   static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };
 
@@ -59,12 +60,11 @@ public final class ChessBoard implements FENboardable {
    */
   public ChessBoard(final String fen) {
     if (fen.length() != 0) {
-      logger.info("Constructing a ChessBoard using FEN String.");
+      LOGGER.info("Constructing a ChessBoard using FEN String.");
 
-      FENUtil f = new FENUtil(this);
-      f.processFENString(fen);
+      FENUtil.processFENString(this, fen);
     } else {
-      logger.info("No FEN String received.");
+      LOGGER.info("No FEN String received.");
     }
   }
 
@@ -126,7 +126,7 @@ public final class ChessBoard implements FENboardable {
    *          the destination square
    */
   private static void generateMove(final int s, final int sd) {
-    logger.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
+    LOGGER.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
   }
 
   /**
@@ -185,19 +185,19 @@ public final class ChessBoard implements FENboardable {
       // System.out.println(s);
       PieceType pt = s.getPieceType();
 
-      logger.info("Piece {}", s.toString());
+      LOGGER.info("Piece {}", s.toString());
       switch (pt) {
-        case KING:
-          generateJumperMoves(s.get0x88Square(), ORTHO_DIFF);
-          generateJumperMoves(s.get0x88Square(), DIAG_DIFF);
+      case KING:
+        generateJumperMoves(s.get0x88Square(), ORTHO_DIFF);
+        generateJumperMoves(s.get0x88Square(), DIAG_DIFF);
 
-          break;
-        case BISHOP:
-        case KNIGHT:
-        case PAWN:
-        case QUEEN:
-        case ROOK:
-        default:
+        break;
+      case BISHOP:
+      case KNIGHT:
+      case PAWN:
+      case QUEEN:
+      case ROOK:
+      default:
       }
 
     }
@@ -236,10 +236,11 @@ public final class ChessBoard implements FENboardable {
 
   @Override
   public String toString() {
-    logger.debug("toString()");
+    LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=").append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=")
+        .append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
