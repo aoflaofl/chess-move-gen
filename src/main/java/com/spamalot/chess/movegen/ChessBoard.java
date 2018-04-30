@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * @author gej
  *
  */
-final class ChessBoard implements FENboardable {
+public final class ChessBoard implements FENboardable {
   /** Diagonal diffs. */
   static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
 
@@ -57,11 +57,14 @@ final class ChessBoard implements FENboardable {
    * @param fen
    *          A Chess position in FEN
    */
-  ChessBoard(final String fen) {
-    logger.info("Constructing a Chess Board!");
+  public ChessBoard(final String fen) {
     if (fen.length() != 0) {
+      logger.info("Constructing a ChessBoard using FEN String.");
+
       FENUtil f = new FENUtil(this);
       f.processFENString(fen);
+    } else {
+      logger.info("No FEN String received.");
     }
   }
 

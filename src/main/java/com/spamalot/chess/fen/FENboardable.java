@@ -71,4 +71,6 @@ public interface FENboardable {
    */
   void setMoveNumber(int intValue);
 
+  void setEnPassantSquare(Object enPassantSquare);
+
 }

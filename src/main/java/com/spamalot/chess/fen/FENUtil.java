@@ -19,7 +19,7 @@ public final class FENUtil {
   private static final Logger logger = LoggerFactory.getLogger(FENUtil.class);
 
   /** Board that can be updated with information from FEN String. */
-  private FENboardable board;
+  // private FENboardable board;
 
   /**
    * Construct the FEN parser.
@@ -27,8 +27,8 @@ public final class FENUtil {
    * @param b
    *          an object that can be updated with FEN information
    */
-  public FENUtil(final FENboardable b) {
-    this.board = b;
+  private FENUtil(final FENboardable b) {
+    // this.board = b;
   }
 
   /**
@@ -37,7 +37,7 @@ public final class FENUtil {
    * @param fen
    *          the FEN String
    */
-  public void processFENString(final String fen) {
+  public static void processFENString(FENboardable board, final String fen) {
     if (fen.length() == 0) {
       return;
     }
@@ -53,15 +53,12 @@ public final class FENUtil {
     }
 
     Color s = toColor(x[1]);
-    this.board.setToMove(s);
+    board.setToMove(s);
 
     toCastle(x[2]);
-
-    enPassantSquare(x[3]);
-
-    halfMovesSinceCaptureOrPawnMove(x[4]);
-
-    moveNumber(x[5]);
+    board.setEnPassantSquare(enPassantSquare(x[3]));
+    board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(x[4]));
+    board.setMoveNumber(moveNumber(x[5]));
 
   }
 
@@ -70,9 +67,10 @@ public final class FENUtil {
    * 
    * @param string
    *          Move number part of FEN string
+   * @return
    */
-  private void moveNumber(final String string) {
-    this.board.setMoveNumber(Integer.parseInt(string));
+  private static int moveNumber(final String string) {
+    return Integer.parseInt(string);
 
   }
 
@@ -81,9 +79,10 @@ public final class FENUtil {
    * 
    * @param string
    *          Half move part of FEN string
+   * @return
    */
-  private void halfMovesSinceCaptureOrPawnMove(final String string) {
-    this.board.setHalfMovesSinceCaptureOrPawnMove(Integer.parseInt(string));
+  private static int halfMovesSinceCaptureOrPawnMove(final String string) {
+    return Integer.parseInt(string);
   }
 
   /**
@@ -92,12 +91,12 @@ public final class FENUtil {
    * @param string
    *          En-passant square part of FEN string
    */
-  private void enPassantSquare(final String string) {
+  private static void enPassantSquare(final String string) {
     if (!"-".equals(string) && string.length() == 2) {
       int file = string.charAt(0) - 'a' + 1;
       int rank = string.charAt(1) - '0';
 
-      this.board.setEnPassantSquare(file, rank);
+      file, rank);
     }
   }
 
@@ -107,7 +106,7 @@ public final class FENUtil {
    * @param castlingString
    *          the String describing castling
    */
-  private void toCastle(final String castlingString) {
+  private static void toCastle(final String castlingString) {
     if ("-".equals(castlingString)) {
       return;
     }
@@ -155,7 +154,7 @@ public final class FENUtil {
    * @param rank
    *          the row's rank (1-8)
    */
-  private void processFENRow(final String fenRow, final int rank) {
+  private static void processFENRow(final String fenRow, final int rank) {
     logger.debug(fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
@@ -179,7 +178,7 @@ public final class FENUtil {
    * @param rank
    *          the Piece's rank (1-8)
    */
-  private void genPiece(final char pieceChar, final int file, final int rank) {
+  private static void genPiece(final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
         this.board.addPiece(pt, Color.BLACK, file, rank);

@@ -1,4 +1,6 @@
 /**
+ * Base Chess classes.
+ * 
  * @author gej
  *
  */

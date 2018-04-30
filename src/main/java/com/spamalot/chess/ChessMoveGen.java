@@ -1,14 +1,6 @@
-package com.spamalot.chess.movegen;
+package com.spamalot.chess;
 
-import com.google.common.io.Files;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
+import com.spamalot.chess.movegen.ChessBoard;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -17,6 +9,16 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entry class for Chess Move Generator program.
@@ -43,9 +45,9 @@ public final class ChessMoveGen {
     for (String fenFile : fenFiles) {
       logger.info("Processing FEN strings in file : {}", fenFile);
 
-      File file = new File(fenFile);
+      Path file = Paths.get(fenFile);
 
-      try (BufferedReader br = Files.newReader(file, Charset.defaultCharset())) {
+      try (BufferedReader br = Files.newBufferedReader(file, Charset.defaultCharset())) {
         String fenString;
         while ((fenString = br.readLine()) != null) {
           // Ignore empty lines. TODO: Add comment ignoring.

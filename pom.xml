@@ -22,7 +22,7 @@
     <configuration>
      <archive>
       <manifest>
-       <mainClass>com.spamalot.chess.movegen.ChessMoveGen</mainClass>
+       <mainClass>com.spamalot.chess.ChessMoveGen</mainClass>
       </manifest>
      </archive>
      <descriptorRefs>
