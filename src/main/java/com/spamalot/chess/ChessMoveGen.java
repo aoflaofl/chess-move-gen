@@ -27,7 +27,8 @@ import java.util.List;
  *
  */
 public final class ChessMoveGen {
-  private static final Logger logger = LoggerFactory.getLogger(ChessMoveGen.class);
+  /** Logger. */
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessMoveGen.class);
 
   /** Private constructor. */
   private ChessMoveGen() {
@@ -43,22 +44,23 @@ public final class ChessMoveGen {
     List<String> fenFiles = parseCommandLineArguments(args);
 
     for (String fenFile : fenFiles) {
-      logger.info("Processing FEN strings in file : {}", fenFile);
+      LOGGER.info("Processing FEN strings in file : {}", fenFile);
 
       Path file = Paths.get(fenFile);
 
       try (BufferedReader br = Files.newBufferedReader(file, Charset.defaultCharset())) {
         String fenString;
         while ((fenString = br.readLine()) != null) {
-          // Ignore empty lines. TODO: Add comment ignoring.
-          if (fenString.trim().length() == 0) {
+          // Ignore empty lines and comments.
+          fenString = fenString.replaceAll("#.*", "").trim();
+          if (fenString.length() == 0) {
             continue;
           }
 
-          logger.info("FEN string from {} : {}", fenFile, fenString);
+          LOGGER.info("FEN string from {} : {}", fenFile, fenString);
           ChessBoard b = new ChessBoard(fenString);
           String boardString = b.toString();
-          logger.info("The generated board:\n{}", boardString);
+          LOGGER.info("The generated board:\n{}", boardString);
         }
       } catch (FileNotFoundException e) {
         usageAndExit();

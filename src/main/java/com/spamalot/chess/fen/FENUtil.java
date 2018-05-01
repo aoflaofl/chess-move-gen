@@ -16,10 +16,8 @@ import org.slf4j.LoggerFactory;
  *
  */
 public final class FENUtil {
+  /** Logger. */
   private static final Logger LOGGER = LoggerFactory.getLogger(FENUtil.class);
-
-  /** Board that can be updated with information from FEN String. */
-  // private FENboardable board;
 
   /**
    * Construct the FEN parser.
@@ -42,9 +40,14 @@ public final class FENUtil {
       return;
     }
 
-    String[] x = fen.split(" ");
+    String[] fenParts = fen.split(" ");
 
-    String[] ranks = x[0].split("/");
+    if (fenParts.length != 6) {
+      LOGGER.error("Size of FEN is {}", fenParts.length);
+      throw new IllegalArgumentException("FEN String does not have enough parts.");
+    }
+
+    String[] ranks = fenParts[0].split("/");
 
     int rank = 8;
     for (String t : ranks) {
@@ -52,13 +55,13 @@ public final class FENUtil {
       rank--;
     }
 
-    Color s = toColor(x[1]);
+    Color s = toColor(fenParts[1]);
     board.setToMove(s);
 
-    toCastle(board, x[2]);
-    enPassantSquare(board, x[3]);
-    board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(x[4]));
-    board.setMoveNumber(moveNumber(x[5]));
+    toCastle(board, fenParts[2]);
+    enPassantSquare(board, fenParts[3]);
+    board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(fenParts[4]));
+    board.setMoveNumber(moveNumber(fenParts[5]));
 
   }
 
