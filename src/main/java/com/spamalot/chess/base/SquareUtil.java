@@ -26,8 +26,8 @@ public final class SquareUtil {
    *          Rank number
    */
   private SquareUtil(final int file2, final int rank2) {
-    file = file2;
-    rank = rank2;
+    this.file = file2;
+    this.rank = rank2;
   }
 
   /**
@@ -36,7 +36,7 @@ public final class SquareUtil {
    * @return the File.
    */
   public int getFile() {
-    return file;
+    return this.file;
   }
 
   /**
@@ -45,7 +45,7 @@ public final class SquareUtil {
    * @return the Rank.
    */
   public int getRank() {
-    return rank;
+    return this.rank;
   }
 
   /**
@@ -57,7 +57,7 @@ public final class SquareUtil {
    *          the Rank
    * @return Square Object for this file and rank.
    */
-  SquareUtil valueOf(final int file, final int rank) {
+  static SquareUtil valueOf(final int file, final int rank) {
     SquareUtil ret = vals[file][rank];
     if (ret == null) {
       ret = new SquareUtil(file, rank);

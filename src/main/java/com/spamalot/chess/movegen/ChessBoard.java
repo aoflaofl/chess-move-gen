@@ -5,6 +5,7 @@ import com.spamalot.chess.base.PieceType;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.fen.FENboardable;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,15 +27,16 @@ import org.slf4j.LoggerFactory;
  */
 public final class ChessBoard implements FENboardable {
   /** Diagonal diffs. */
-  static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
+  private static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
 
   /** Knight diffs. */
   static final int[] KNIGHT_DIFF = new int[] { 14, 18, 31, 33, -18, -14, -31, -33 };
 
   /** Logger. */
   private static final Logger LOGGER = LoggerFactory.getLogger(ChessBoard.class);
+
   /** Orthogonal (up and down, right and left) diffs. */
-  static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };
+  private static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };
 
   /** Linked List of Black Chess pieces currently on the board. */
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
@@ -75,17 +77,20 @@ public final class ChessBoard implements FENboardable {
    *          the Square
    * @param d
    *          the direction array
+   * @return
    */
-  void generateJumperMoves(final int s, final int[] d) {
+  private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
+    List<ChessMove> m = new ArrayList<>();
     int sd;
     for (int dir : d) {
 
       sd = s + dir;
 
       if (canMoveToSquare(sd)) {
-        generateMove(s, sd);
+        m.add(generateMove(s, sd));
       }
     }
+    return m;
   }
 
   /**
@@ -124,9 +129,11 @@ public final class ChessBoard implements FENboardable {
    *          the source square
    * @param sd
    *          the destination square
+   * @return
    */
-  private static void generateMove(final int s, final int sd) {
+  private static ChessMove generateMove(final int s, final int sd) {
     LOGGER.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
+    return new ChessMove(s, sd);
   }
 
   /**
@@ -174,6 +181,7 @@ public final class ChessBoard implements FENboardable {
    * @return a List of Chess Moves.
    */
   private List<ChessMove> buildMoveList() {
+    List<ChessMove> m = new ArrayList<>();
     List<PieceNode> pieceList;
     if (this.toMove == Color.WHITE) {
       pieceList = this.whitePieceList;
@@ -187,22 +195,22 @@ public final class ChessBoard implements FENboardable {
 
       LOGGER.info("Piece {}", s.toString());
       switch (pt) {
-      case KING:
-        generateJumperMoves(s.get0x88Square(), ORTHO_DIFF);
-        generateJumperMoves(s.get0x88Square(), DIAG_DIFF);
+        case KING:
+          m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
+          m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
 
-        break;
-      case BISHOP:
-      case KNIGHT:
-      case PAWN:
-      case QUEEN:
-      case ROOK:
-      default:
+          break;
+        case BISHOP:
+        case KNIGHT:
+        case PAWN:
+        case QUEEN:
+        case ROOK:
+        default:
       }
 
     }
 
-    return null;
+    return m;
   }
 
   @Override
@@ -239,8 +247,8 @@ public final class ChessBoard implements FENboardable {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(", blackPieceList=")
-        .append(this.blackPieceList).append(", toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
+        .append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {

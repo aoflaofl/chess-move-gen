@@ -20,18 +20,16 @@ public final class FENUtil {
   private static final Logger LOGGER = LoggerFactory.getLogger(FENUtil.class);
 
   /**
-   * Construct the FEN parser.
-   * 
-   * @param b
-   *          an object that can be updated with FEN information
+   * Don't construct the FEN parser.
    */
-  private FENUtil(final FENboardable b) {
-    // this.board = b;
+  private FENUtil() {
   }
 
   /**
    * Parse a FEN String.
    * 
+   * @param board
+   *          the board object
    * @param fen
    *          the FEN String
    */
@@ -48,6 +46,11 @@ public final class FENUtil {
     }
 
     String[] ranks = fenParts[0].split("/");
+
+    if (ranks.length != 8) {
+      LOGGER.error("Number of ranks is {}", ranks.length);
+      throw new IllegalArgumentException("FEN Board String does not have enough ranks.");
+    }
 
     int rank = 8;
     for (String t : ranks) {
@@ -66,7 +69,7 @@ public final class FENUtil {
   }
 
   /**
-   * Extract move number.
+   * Parse move number.
    * 
    * @param string
    *          Move number part of FEN string
@@ -74,7 +77,6 @@ public final class FENUtil {
    */
   private static int moveNumber(final String string) {
     return Integer.parseInt(string);
-
   }
 
   /**
@@ -115,20 +117,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-      case 'K':
-        board.setCastling(PieceType.KING, Color.WHITE, true);
-        break;
-      case 'Q':
-        board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-        break;
-      case 'k':
-        board.setCastling(PieceType.KING, Color.BLACK, true);
-        break;
-      case 'q':
-        board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-        break;
-      default:
-        throw new IllegalStateException();
+        case 'K':
+          board.setCastling(PieceType.KING, Color.WHITE, true);
+          break;
+        case 'Q':
+          board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+          break;
+        case 'k':
+          board.setCastling(PieceType.KING, Color.BLACK, true);
+          break;
+        case 'q':
+          board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+          break;
+        default:
+          throw new IllegalStateException();
       }
     }
 
