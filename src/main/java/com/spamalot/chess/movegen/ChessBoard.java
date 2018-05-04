@@ -132,7 +132,7 @@ public final class ChessBoard implements FENboardable {
    * @return
    */
   private static ChessMove generateMove(final int s, final int sd) {
-    LOGGER.info(SquareName.toName(s) + '-' + SquareName.toName(sd));
+    LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
     return new ChessMove(s, sd);
   }
 
@@ -195,17 +195,17 @@ public final class ChessBoard implements FENboardable {
 
       LOGGER.info("Piece {}", s.toString());
       switch (pt) {
-        case KING:
-          m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
-          m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
+      case KING:
+        m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
+        m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
 
-          break;
-        case BISHOP:
-        case KNIGHT:
-        case PAWN:
-        case QUEEN:
-        case ROOK:
-        default:
+        break;
+      case BISHOP:
+      case KNIGHT:
+      case PAWN:
+      case QUEEN:
+      case ROOK:
+      default:
       }
 
     }
@@ -247,8 +247,8 @@ public final class ChessBoard implements FENboardable {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
-        .append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
+        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {

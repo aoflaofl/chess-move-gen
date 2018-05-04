@@ -159,7 +159,7 @@ public final class FENUtil {
    *          the row's rank (1-8)
    */
   private static void processFENRow(final FENboardable board, final String fenRow, final int rank) {
-    LOGGER.debug(fenRow);
+    LOGGER.debug("Parsing FEN string : {}", fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
       if (Character.isDigit(s)) {
