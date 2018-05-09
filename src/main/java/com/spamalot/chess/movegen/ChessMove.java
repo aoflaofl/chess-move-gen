@@ -23,7 +23,7 @@ class ChessMove {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append("]");
+    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append(']');
     return builder.toString();
   }
 

@@ -64,10 +64,10 @@ public final class ChessMoveGen {
         }
       } catch (FileNotFoundException e) {
         usageAndExit();
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
       } catch (IOException e) {
         // TODO Auto-generated catch block
-        e.printStackTrace();
+        LOGGER.error("Exception: ", e);
       }
     }
   }
@@ -92,10 +92,10 @@ public final class ChessMoveGen {
 
     } catch (ParseException e1) {
       usageAndExit();
-      e1.printStackTrace();
+      LOGGER.error("Exception: ", e1);
     }
 
-    if (fenFiles.size() == 0) {
+    if (fenFiles.isEmpty()) {
       usageAndExit();
     }
     return fenFiles;

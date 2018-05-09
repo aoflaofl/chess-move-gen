@@ -193,7 +193,7 @@ public final class ChessBoard implements FENboardable {
       // System.out.println(s);
       PieceType pt = s.getPieceType();
 
-      LOGGER.info("Piece {}", s.toString());
+      LOGGER.info("Piece {}", s);
       switch (pt) {
       case KING:
         m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
