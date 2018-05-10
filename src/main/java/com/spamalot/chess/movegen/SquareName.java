@@ -1,5 +1,7 @@
 package com.spamalot.chess.movegen;
 
+import javax.annotation.Nullable;
+
 /**
  * Utility functions for handling square names.
  * 
@@ -57,6 +59,7 @@ final class SquareName {
    *          the Board0x88 square number
    * @return the square's name in algebraic notation.
    */
+  @Nullable
   private static String fromBoard0x88number(final int s) {
 
     StringBuilder n = new StringBuilder(2);
