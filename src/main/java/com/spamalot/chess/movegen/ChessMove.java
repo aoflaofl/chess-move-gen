@@ -7,10 +7,20 @@ package com.spamalot.chess.movegen;
  *
  */
 class ChessMove {
+  /** Source Square. */
   private int source;
+  /** Destination Square. */
   private int destination;
 
-   ChessMove(final int s, final int sd) {
+  /**
+   * Construct a Chess Move.
+   * 
+   * @param s
+   *          source Square
+   * @param sd
+   *          Destination Square
+   */
+  ChessMove(final int s, final int sd) {
     this.source = s;
     this.destination = sd;
   }
@@ -23,7 +33,8 @@ class ChessMove {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append(']');
+    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination)
+        .append(']');
     return builder.toString();
   }
 

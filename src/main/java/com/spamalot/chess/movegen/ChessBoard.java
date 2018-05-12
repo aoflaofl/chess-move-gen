@@ -77,7 +77,7 @@ public final class ChessBoard implements FENboardable {
    *          the Square
    * @param d
    *          the direction array
-   * @return
+   * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
     List<ChessMove> m = new ArrayList<>();
@@ -129,7 +129,7 @@ public final class ChessBoard implements FENboardable {
    *          the source square
    * @param sd
    *          the destination square
-   * @return
+   * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
     LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
@@ -195,17 +195,17 @@ public final class ChessBoard implements FENboardable {
 
       LOGGER.info("Piece {}", s);
       switch (pt) {
-      case KING:
-        m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
-        m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
+        case KING:
+          m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
+          m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
 
-        break;
-      case BISHOP:
-      case KNIGHT:
-      case PAWN:
-      case QUEEN:
-      case ROOK:
-      default:
+          break;
+        case BISHOP:
+        case KNIGHT:
+        case PAWN:
+        case QUEEN:
+        case ROOK:
+        default:
       }
 
     }

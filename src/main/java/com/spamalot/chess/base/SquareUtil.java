@@ -69,7 +69,7 @@ public final class SquareUtil {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("SquareUtil [file=").append(file).append(", rank=").append(rank).append(']');
+    builder.append("SquareUtil [file=").append(this.file).append(", rank=").append(this.rank).append(']');
     return builder.toString();
   }
 
@@ -77,8 +77,8 @@ public final class SquareUtil {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + file;
-    result = prime * result + rank;
+    result = prime * result + this.file;
+    result = prime * result + this.rank;
     return result;
   }
 
@@ -94,10 +94,10 @@ public final class SquareUtil {
       return false;
     }
     SquareUtil other = (SquareUtil) obj;
-    if (file != other.file) {
+    if (this.file != other.file) {
       return false;
     }
-    if (rank != other.rank) {
+    if (this.rank != other.rank) {
       return false;
     }
     return true;

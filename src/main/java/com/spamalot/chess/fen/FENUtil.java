@@ -49,7 +49,7 @@ public final class FENUtil {
 
     if (ranks.length != 8) {
       LOGGER.error("Number of ranks is {}", ranks.length);
-      throw new IllegalArgumentException("FEN Board String does not have enough ranks.");
+      throw new IllegalArgumentException("FEN Board String does not have enough ranks: " + ranks.length);
     }
 
     int rank = 8;
@@ -73,7 +73,7 @@ public final class FENUtil {
    * 
    * @param string
    *          Move number part of FEN string
-   * @return
+   * @return move number.
    */
   private static int moveNumber(final String string) {
     return Integer.parseInt(string);
@@ -84,7 +84,7 @@ public final class FENUtil {
    * 
    * @param string
    *          Half move part of FEN string
-   * @return
+   * @return half moves.
    */
   private static int halfMovesSinceCaptureOrPawnMove(final String string) {
     return Integer.parseInt(string);
@@ -93,6 +93,8 @@ public final class FENUtil {
   /**
    * Extract en-passant square from FEN string.
    * 
+   * @param board
+   *          board to work on
    * @param string
    *          En-passant square part of FEN string
    */
@@ -107,6 +109,8 @@ public final class FENUtil {
   /**
    * Parse the castling part of the FEN String.
    * 
+   * @param board
+   *          board to work on
    * @param castlingString
    *          the String describing castling
    */
@@ -153,6 +157,8 @@ public final class FENUtil {
   /**
    * Process a row of the board from the FEN String.
    * 
+   * @param board
+   *          board to work on
    * @param fenRow
    *          the FEN row String
    * @param rank
@@ -175,6 +181,8 @@ public final class FENUtil {
   /**
    * Get a ChessPiece object from the FEN character and add it to the board.
    * 
+   * @param board
+   *          board to work on
    * @param pieceChar
    *          a character representing the piece in FEN
    * @param file
