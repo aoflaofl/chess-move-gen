@@ -38,6 +38,10 @@ public final class FENUtil {
     if (StringUtils.isEmpty(fen)) {
       throw new IllegalArgumentException("Empty FEN String.");
     }
+    
+    if(board == null) {
+      
+    }
 
     String[] fenParts = fen.split(" ");
 
