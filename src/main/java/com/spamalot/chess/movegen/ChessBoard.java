@@ -63,8 +63,11 @@ public final class ChessBoard implements FENboardable {
   public ChessBoard(final String fen) {
     if (fen.length() != 0) {
       LOGGER.info("Constructing a ChessBoard using FEN String.");
-
-      FENUtil.processFENString(this, fen);
+      try {
+        FENUtil.processFENString(this, fen);
+      } catch (Exception e) {
+        LOGGER.error("Problem with FEN string : ", e);
+      }
     } else {
       LOGGER.info("No FEN String received.");
     }
@@ -201,11 +204,17 @@ public final class ChessBoard implements FENboardable {
 
           break;
         case BISHOP:
+          break;
         case KNIGHT:
+          break;
         case PAWN:
+          break;
         case QUEEN:
+          break;
         case ROOK:
+          break;
         default:
+          break;
       }
 
     }
@@ -247,8 +256,8 @@ public final class ChessBoard implements FENboardable {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
-        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
+        .append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {

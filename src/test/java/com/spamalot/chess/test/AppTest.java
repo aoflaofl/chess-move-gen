@@ -1,6 +1,8 @@
-package com.spamalot.chess;
+package com.spamalot.chess.test;
 
 import static org.junit.Assert.assertTrue;
+
+import com.spamalot.chess.fen.FENUtil;
 
 import org.junit.Test;
 
@@ -17,6 +19,8 @@ public final class AppTest {
    */
   @Test
   public void emptyTest() {
+    FENUtil.processFENString(null, null);
+
     assertTrue(true);
   }
 }

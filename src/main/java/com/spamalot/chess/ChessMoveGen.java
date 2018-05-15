@@ -79,7 +79,7 @@ public final class ChessMoveGen {
    *          Arguments to parse.
    * @return a List of file names to read in.
    */
-  private static List<String> parseCommandLineArguments(final String[] args) {
+  private static List<String> parseCommandLineArguments(final String... args) {
 
     Options options = new Options();
     CommandLineParser parser = new DefaultParser();

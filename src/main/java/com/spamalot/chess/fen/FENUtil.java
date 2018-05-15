@@ -3,6 +3,7 @@ package com.spamalot.chess.fen;
 import com.spamalot.chess.base.Color;
 import com.spamalot.chess.base.PieceType;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public final class FENUtil {
    *          the FEN String
    */
   public static void processFENString(final FENboardable board, final String fen) {
-    if (fen.length() == 0) {
+    if (StringUtils.isEmpty(fen)) {
       return;
     }
 
@@ -42,14 +43,14 @@ public final class FENUtil {
 
     if (fenParts.length != 6) {
       LOGGER.error("Size of FEN is {}", fenParts.length);
-      throw new IllegalArgumentException("FEN String does not have enough parts.");
+      throw new IllegalArgumentException("FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
     }
 
     String[] ranks = fenParts[0].split("/");
 
     if (ranks.length != 8) {
       LOGGER.error("Number of ranks is {}", ranks.length);
-      throw new IllegalArgumentException("FEN Board String does not have enough ranks: " + ranks.length);
+      throw new IllegalArgumentException("FEN Board String does not have enough ranks : " + ranks.length);
     }
 
     int rank = 8;

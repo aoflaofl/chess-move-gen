@@ -33,9 +33,47 @@ class ChessMove {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination)
-        .append(']');
+    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append(']');
     return builder.toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#hashCode()
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + this.destination;
+    return prime * result + this.source;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    ChessMove other = (ChessMove) obj;
+    if (this.destination != other.destination) {
+      return false;
+    }
+    if (this.source != other.source) {
+      return false;
+    }
+    return true;
   }
 
 }
