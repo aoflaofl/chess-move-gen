@@ -36,14 +36,15 @@ public final class FENUtil {
    */
   public static void processFENString(final FENboardable board, final String fen) {
     if (StringUtils.isEmpty(fen)) {
-      return;
+      throw new IllegalArgumentException("Empty FEN String.");
     }
 
     String[] fenParts = fen.split(" ");
 
     if (fenParts.length != 6) {
       LOGGER.error("Size of FEN is {}", fenParts.length);
-      throw new IllegalArgumentException("FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
+      throw new IllegalArgumentException(
+          "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
     }
 
     String[] ranks = fenParts[0].split("/");
@@ -122,20 +123,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-        case 'K':
-          board.setCastling(PieceType.KING, Color.WHITE, true);
-          break;
-        case 'Q':
-          board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-          break;
-        case 'k':
-          board.setCastling(PieceType.KING, Color.BLACK, true);
-          break;
-        case 'q':
-          board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-          break;
-        default:
-          throw new IllegalStateException();
+      case 'K':
+        board.setCastling(PieceType.KING, Color.WHITE, true);
+        break;
+      case 'Q':
+        board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+        break;
+      case 'k':
+        board.setCastling(PieceType.KING, Color.BLACK, true);
+        break;
+      case 'q':
+        board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+        break;
+      default:
+        throw new IllegalStateException();
       }
     }
 
