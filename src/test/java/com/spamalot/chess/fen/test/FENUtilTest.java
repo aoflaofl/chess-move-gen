@@ -1,4 +1,4 @@
-package com.spamalot.chess.test;
+package com.spamalot.chess.fen.test;
 
 import com.spamalot.chess.fen.FENUtil;
 
@@ -11,8 +11,10 @@ import org.junit.rules.ExpectedException;
  * @author gej
  *
  */
-public final class AppTest {
-  private static String GOODFEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+public final class FENUtilTest {
+  /** Good FEN for testing. */
+  private static final String GOODFEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
+
   /** For testing exceptions. */
   @Rule
   public final ExpectedException exception = ExpectedException.none();
@@ -27,14 +29,14 @@ public final class AppTest {
 
     FENUtil.processFENString(null, null);
   }
-  
+
   /**
-   * Test what happens when a FEN String is missing.
+   * Test what happens when a Board Object is null.
    */
   @Test
   public void nullBoardElement() {
-//    exception.expect(IllegalArgumentException.class);
-//    exception.expectMessage("Empty FEN String.");
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("Null Board object.");
 
     FENUtil.processFENString(null, GOODFEN);
   }
