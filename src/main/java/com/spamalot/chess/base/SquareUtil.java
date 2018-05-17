@@ -1,6 +1,6 @@
 package com.spamalot.chess.base;
 
-import com.google.common.collect.Range;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * A Square Object. Meant only to communicate square information during
@@ -61,13 +61,8 @@ public final class SquareUtil {
    * @return Square Object for this file and rank.
    */
   public static SquareUtil valueOf(final int file, final int rank) {
-    if (file < 0 || file > 7) {
-      throw new IllegalArgumentException("File must be between 0 and 7 inclusive.");
-    }
-    
-    if (rank < 0 || rank > 7) {
-      throw new IllegalArgumentException("Rank must be between 0 and 7 inclusive.");
-    }
+    checkArgument(file >= 0 && file <= 7, "File is %s.  Must be between 0 and 7 inclusive.", file);
+    checkArgument(rank >= 0 && rank <= 7, "Rank is %s.  Must be between 0 and 7 inclusive.", rank);
     
     SquareUtil ret = vals[file][rank];
     if (ret == null) {

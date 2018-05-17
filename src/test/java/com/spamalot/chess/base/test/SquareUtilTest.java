@@ -1,47 +1,30 @@
 package com.spamalot.chess.base.test;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.spamalot.chess.base.SquareUtil;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class SquareUtilTest {
+  private SquareUtil squ = SquareUtil.valueOf(1, 4);
 
   /** For testing exceptions. */
   @Rule
   public final ExpectedException exception = ExpectedException.none();
 
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
-
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
-
-  @Before
-  public void setUp() throws Exception {
-  }
-
-  @After
-  public void tearDown() throws Exception {
-  }
-
   @Test
   public void testGetFile() {
-    fail("Not yet implemented");
+    assertEquals(squ.getFile(), 1);
   }
 
   @Test
   public void testGetRank() {
-    fail("Not yet implemented");
+    assertEquals(squ.getRank(), 4);
   }
 
   @Test
@@ -53,14 +36,16 @@ public class SquareUtilTest {
   @Test
   public void testValueOfRange() {
     exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("File must be between 0 and 7 inclusive.");
+    exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
 
     SquareUtil.valueOf(-1, 2);
   }
 
   @Test
   public void testEqualsObject() {
-    fail("Not yet implemented");
+    assertTrue(squ == SquareUtil.valueOf(1, 4));
+
+    assertFalse(squ == SquareUtil.valueOf(4, 1));
   }
 
 }

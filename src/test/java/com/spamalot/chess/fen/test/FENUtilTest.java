@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
+ * Test the FENUtil class.
  * 
  * @author gej
  *
