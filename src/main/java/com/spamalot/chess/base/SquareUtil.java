@@ -1,5 +1,7 @@
 package com.spamalot.chess.base;
 
+import com.google.common.collect.Range;
+
 /**
  * A Square Object. Meant only to communicate square information during
  * non-performance intensive operations.
@@ -26,6 +28,7 @@ public final class SquareUtil {
    *          Rank number
    */
   private SquareUtil(final int file2, final int rank2) {
+
     this.file = file2;
     this.rank = rank2;
   }
@@ -57,7 +60,15 @@ public final class SquareUtil {
    *          the Rank
    * @return Square Object for this file and rank.
    */
-  static SquareUtil valueOf(final int file, final int rank) {
+  public static SquareUtil valueOf(final int file, final int rank) {
+    if (file < 0 || file > 7) {
+      throw new IllegalArgumentException("File must be between 0 and 7 inclusive.");
+    }
+    
+    if (rank < 0 || rank > 7) {
+      throw new IllegalArgumentException("Rank must be between 0 and 7 inclusive.");
+    }
+    
     SquareUtil ret = vals[file][rank];
     if (ret == null) {
       ret = new SquareUtil(file, rank);
