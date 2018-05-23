@@ -44,7 +44,7 @@ public final class ChessMoveGen {
     List<String> fenFiles = parseCommandLineArguments(args);
 
     for (String fenFile : fenFiles) {
-      LOGGER.info("Processing FEN strings in file : {}", fenFile);
+      LOGGER.debug("Processing FEN strings in file : {}", fenFile);
 
       Path file = Paths.get(fenFile);
 
@@ -57,16 +57,15 @@ public final class ChessMoveGen {
             continue;
           }
 
-          LOGGER.info("FEN string from {} : {}", fenFile, fenString);
+          LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
           ChessBoard b = new ChessBoard(fenString);
           String boardString = b.toString();
-          LOGGER.info("The generated board:\n{}", boardString);
+          LOGGER.debug("The generated board:\n{}", boardString);
         }
       } catch (FileNotFoundException e) {
         usageAndExit();
         LOGGER.error("Exception: ", e);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         LOGGER.error("Exception: ", e);
       }
     }
@@ -105,7 +104,7 @@ public final class ChessMoveGen {
    * Print the usage.
    */
   private static void usageAndExit() {
-    System.out.println("Blah Blah");
+    System.out.println("Usage: TBD");
     System.exit(0);
   }
 }

@@ -25,8 +25,8 @@ public final class FENUtilTest {
    */
   @Test
   public void emptyFENString() {
-    exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("Empty FEN String.");
+    this.exception.expect(IllegalArgumentException.class);
+    this.exception.expectMessage("Empty FEN String.");
 
     FENUtil.processFENString(null, null);
   }
@@ -36,8 +36,8 @@ public final class FENUtilTest {
    */
   @Test
   public void nullBoardElement() {
-    exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("Null Board object.");
+    this.exception.expect(IllegalArgumentException.class);
+    this.exception.expectMessage("Null Board object.");
 
     FENUtil.processFENString(null, GOODFEN);
   }

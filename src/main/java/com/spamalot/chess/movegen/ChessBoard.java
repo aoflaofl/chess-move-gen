@@ -26,14 +26,14 @@ import org.slf4j.LoggerFactory;
  *
  */
 public final class ChessBoard implements FENboardable {
+  /** Logger. */
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessBoard.class);
+
   /** Diagonal diffs. */
   private static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
 
   /** Knight diffs. */
   static final int[] KNIGHT_DIFF = new int[] { 14, 18, 31, 33, -18, -14, -31, -33 };
-
-  /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(ChessBoard.class);
 
   /** Orthogonal (up and down, right and left) diffs. */
   private static final int[] ORTHO_DIFF = new int[] { -1, -16, 16, 1 };

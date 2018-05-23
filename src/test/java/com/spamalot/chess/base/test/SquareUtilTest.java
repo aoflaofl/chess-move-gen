@@ -19,12 +19,12 @@ public class SquareUtilTest {
 
   @Test
   public void testGetFile() {
-    assertEquals(squ.getFile(), 1);
+    assertEquals(this.squ.getFile(), 1);
   }
 
   @Test
   public void testGetRank() {
-    assertEquals(squ.getRank(), 4);
+    assertEquals(this.squ.getRank(), 4);
   }
 
   @Test
@@ -35,17 +35,17 @@ public class SquareUtilTest {
 
   @Test
   public void testValueOfRange() {
-    exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
+    this.exception.expect(IllegalArgumentException.class);
+    this.exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
 
     SquareUtil.valueOf(-1, 2);
   }
 
   @Test
   public void testEqualsObject() {
-    assertTrue(squ == SquareUtil.valueOf(1, 4));
+    assertTrue(this.squ == SquareUtil.valueOf(1, 4));
 
-    assertFalse(squ == SquareUtil.valueOf(4, 1));
+    assertFalse(this.squ == SquareUtil.valueOf(4, 1));
   }
 
 }
