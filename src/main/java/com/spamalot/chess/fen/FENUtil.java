@@ -47,7 +47,8 @@ public final class FENUtil {
 
     if (fenParts.length != 6) {
       LOGGER.error("Size of FEN is {}", fenParts.length);
-      throw new IllegalArgumentException("FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
+      throw new IllegalArgumentException(
+          "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
     }
 
     String[] ranks = fenParts[0].split("/");
@@ -58,8 +59,8 @@ public final class FENUtil {
     }
 
     int rank = 8;
-    for (String t : ranks) {
-      processFENRow(board, t, rank);
+    for (String r : ranks) {
+      processFENRow(board, r, rank);
       rank--;
     }
 
@@ -126,20 +127,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-        case 'K':
-          board.setCastling(PieceType.KING, Color.WHITE, true);
-          break;
-        case 'Q':
-          board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-          break;
-        case 'k':
-          board.setCastling(PieceType.KING, Color.BLACK, true);
-          break;
-        case 'q':
-          board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-          break;
-        default:
-          throw new IllegalStateException();
+      case 'K':
+        board.setCastling(PieceType.KING, Color.WHITE, true);
+        break;
+      case 'Q':
+        board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+        break;
+      case 'k':
+        board.setCastling(PieceType.KING, Color.BLACK, true);
+        break;
+      case 'q':
+        board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+        break;
+      default:
+        throw new IllegalStateException();
       }
     }
 
@@ -199,13 +200,14 @@ public final class FENUtil {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
         board.addPiece(pt, Color.BLACK, file, rank);
+        return;
       }
 
       if (pt.getWhiteChar() == pieceChar) {
         board.addPiece(pt, Color.WHITE, file, rank);
+        return;
       }
+      throw new IllegalArgumentException("Bad arguments : " + pieceChar + " " + file + " " + rank);
     }
-
   }
-
 }
