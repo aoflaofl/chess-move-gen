@@ -51,7 +51,7 @@ public final class ChessBoard implements FENboardable {
   private LinkedList<PieceNode> whitePieceList = new LinkedList<>();
 
   /** Nothing to see here. */
-  ChessBoard() {
+  public ChessBoard() {
   }
 
   /**
