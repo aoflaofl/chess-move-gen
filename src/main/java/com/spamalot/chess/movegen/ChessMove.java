@@ -33,7 +33,7 @@ class ChessMove {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append(']');
+    builder.append(Messages.getString("ChessMove.0")).append(this.source).append(Messages.getString("ChessMove.1")).append(this.destination).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
   }
 

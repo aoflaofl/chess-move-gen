@@ -127,20 +127,20 @@ public final class FENUtil {
 
     for (char ch : castlingString.toCharArray()) {
       switch (ch) {
-      case 'K':
-        board.setCastling(PieceType.KING, Color.WHITE, true);
-        break;
-      case 'Q':
-        board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-        break;
-      case 'k':
-        board.setCastling(PieceType.KING, Color.BLACK, true);
-        break;
-      case 'q':
-        board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-        break;
-      default:
-        throw new IllegalStateException();
+        case 'K':
+          board.setCastling(PieceType.KING, Color.WHITE, true);
+          break;
+        case 'Q':
+          board.setCastling(PieceType.QUEEN, Color.WHITE, true);
+          break;
+        case 'k':
+          board.setCastling(PieceType.KING, Color.BLACK, true);
+          break;
+        case 'q':
+          board.setCastling(PieceType.QUEEN, Color.BLACK, true);
+          break;
+        default:
+          throw new IllegalStateException();
       }
     }
 
@@ -207,7 +207,7 @@ public final class FENUtil {
         board.addPiece(pt, Color.WHITE, file, rank);
         return;
       }
-      throw new IllegalArgumentException("Bad arguments : " + pieceChar + " " + file + " " + rank);
     }
+    throw new IllegalArgumentException("Bad arguments : " + pieceChar + " " + file + " " + rank);
   }
 }
