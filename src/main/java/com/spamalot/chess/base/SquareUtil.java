@@ -63,7 +63,7 @@ public final class SquareUtil {
   public static SquareUtil valueOf(final int file, final int rank) {
     checkArgument(file >= 0 && file <= 7, "File is %s.  Must be between 0 and 7 inclusive.", file);
     checkArgument(rank >= 0 && rank <= 7, "Rank is %s.  Must be between 0 and 7 inclusive.", rank);
-    
+
     SquareUtil ret = vals[file][rank];
     if (ret == null) {
       ret = new SquareUtil(file, rank);

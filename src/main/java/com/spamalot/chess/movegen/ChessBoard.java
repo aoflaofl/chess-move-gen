@@ -256,8 +256,8 @@ public final class ChessBoard implements FENboardable {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
-        .append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
+        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
