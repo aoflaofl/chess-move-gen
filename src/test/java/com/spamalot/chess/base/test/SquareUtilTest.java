@@ -19,12 +19,12 @@ public class SquareUtilTest {
 
   @Test
   public void testGetFile() {
-    assertEquals(this.squ.getFile(), 1);
+    assertEquals(1, this.squ.getFile());
   }
 
   @Test
   public void testGetRank() {
-    assertEquals(this.squ.getRank(), 4);
+    assertEquals(4, this.squ.getRank());
   }
 
   @Test
@@ -47,5 +47,4 @@ public class SquareUtilTest {
 
     assertFalse(this.squ == SquareUtil.valueOf(4, 1));
   }
-
 }

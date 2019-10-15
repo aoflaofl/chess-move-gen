@@ -1,7 +1,7 @@
 package com.spamalot.chess.fen.test;
 
 import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.movegen.ChessBoard;
+import com.spamalot.chess.game.ChessGameImpl;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +16,8 @@ import org.junit.rules.ExpectedException;
 public final class FENUtilTest {
   /** Good FEN for testing. */
   private static final String GOODFEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
-  private static final String tooFewPartsFEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R KQkq - 1 2";
+  /** FEN Missing parts. */
+  private static final String TOO_FEW_PARTS_FEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R KQkq - 1 2";
 
   /** For testing exceptions. */
   @Rule
@@ -52,6 +53,6 @@ public final class FENUtilTest {
     this.exception.expect(IllegalArgumentException.class);
     this.exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
 
-    FENUtil.processFENString(new ChessBoard(), tooFewPartsFEN);
+    FENUtil.processFENString(new ChessGameImpl(), TOO_FEW_PARTS_FEN);
   }
 }

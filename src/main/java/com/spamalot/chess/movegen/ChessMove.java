@@ -6,7 +6,7 @@ package com.spamalot.chess.movegen;
  * @author gej
  *
  */
-class ChessMove {
+public class ChessMove {
   /** Source Square. */
   private int source;
   /** Destination Square. */
@@ -20,7 +20,7 @@ class ChessMove {
    * @param sd
    *          Destination Square
    */
-  ChessMove(final int s, final int sd) {
+  public ChessMove(final int s, final int sd) {
     this.source = s;
     this.destination = sd;
   }

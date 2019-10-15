@@ -6,7 +6,7 @@ package com.spamalot.chess.movegen;
  * @author gej
  *
  */
-final class Board0x88Util {
+public final class Board0x88Util {
 
   /** Private Constructor. */
   private Board0x88Util() {
@@ -43,7 +43,7 @@ final class Board0x88Util {
    *          the rank
    * @return the index of the square in the 0x88 board.
    */
-  static int fileAndRankToSquare(final int file, final int rank) {
+  public static int fileAndRankToSquare(final int file, final int rank) {
     return 16 * rank + file;
   }
 
@@ -54,7 +54,7 @@ final class Board0x88Util {
    *          index of square in the 0x88 board array
    * @return true if the square is on the board.
    */
-  static boolean isOnBoard(final int s) {
+  public static boolean isOnBoard(final int s) {
     return ((s & 0x88) == 0);
   }
 }

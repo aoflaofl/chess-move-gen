@@ -1,4 +1,4 @@
-package com.spamalot.chess.base;
+package com.spamalot.chess.piece;
 
 /**
  * The colors in a standard game of Chess.

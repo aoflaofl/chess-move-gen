@@ -1,4 +1,4 @@
-package com.spamalot.chess.base;
+package com.spamalot.chess.piece;
 
 /**
  * Enum for type of Chess Piece.

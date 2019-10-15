@@ -1,7 +1,4 @@
-package com.spamalot.chess.movegen;
-
-import com.spamalot.chess.base.Color;
-import com.spamalot.chess.base.PieceType;
+package com.spamalot.chess.piece;
 
 /**
  * Class for Chess piece.
@@ -9,19 +6,17 @@ import com.spamalot.chess.base.PieceType;
  * @author gej
  *
  */
-class ChessPiece {
-
-
+public class ChessPiece {
 
   /**
    * Construct Object for Chess Pieces.
    * 
    * @param c
-   *          Color of the piece
+   *            Color of the piece
    * @param t
-   *          Type of the piece
+   *            Type of the piece
    */
-  ChessPiece(final Color c, final PieceType t) {
+  public ChessPiece(final Color c, final PieceType t) {
     this.color = c;
     this.type = t;
   }

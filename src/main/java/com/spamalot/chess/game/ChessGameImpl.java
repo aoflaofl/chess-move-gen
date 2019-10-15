@@ -1,9 +1,13 @@
-package com.spamalot.chess.movegen;
+package com.spamalot.chess.game;
 
-import com.spamalot.chess.base.Color;
-import com.spamalot.chess.base.PieceType;
 import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.fen.FENboardable;
+import com.spamalot.chess.movegen.Board0x88Util;
+import com.spamalot.chess.movegen.ChessMove;
+import com.spamalot.chess.movegen.PieceNode;
+import com.spamalot.chess.movegen.SquareName;
+import com.spamalot.chess.piece.ChessPiece;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,9 +29,9 @@ import org.slf4j.LoggerFactory;
  * @author gej
  *
  */
-public final class ChessBoard implements FENboardable {
+public final class ChessGameImpl implements ChessGame {
   /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(ChessBoard.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameImpl.class);
 
   /** Diagonal diffs. */
   private static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
@@ -51,7 +55,7 @@ public final class ChessBoard implements FENboardable {
   private LinkedList<PieceNode> whitePieceList = new LinkedList<>();
 
   /** Nothing to see here. */
-  public ChessBoard() {
+  public ChessGameImpl() {
   }
 
   /**
@@ -60,7 +64,7 @@ public final class ChessBoard implements FENboardable {
    * @param fen
    *          A Chess position in FEN
    */
-  public ChessBoard(final String fen) {
+  public ChessGameImpl(final String fen) {
     if (fen.length() != 0) {
       LOGGER.info("Constructing a ChessBoard using FEN String.");
       try {

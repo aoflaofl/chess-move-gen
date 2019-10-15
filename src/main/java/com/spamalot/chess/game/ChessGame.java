@@ -1,7 +1,7 @@
-package com.spamalot.chess.fen;
+package com.spamalot.chess.game;
 
-import com.spamalot.chess.base.Color;
-import com.spamalot.chess.base.PieceType;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
 
 /**
  * Interface to implement to be able to be updateable by the FEN String parser.
@@ -9,7 +9,7 @@ import com.spamalot.chess.base.PieceType;
  * @author gej
  *
  */
-public interface FENboardable {
+public interface ChessGame {
 
   /**
    * Add a Piece to the Chess Board.
@@ -34,7 +34,7 @@ public interface FENboardable {
   void setToMove(Color c);
 
   /**
-   * Set whether castling to one side is posible.
+   * Set whether castling to one side is possible.
    * 
    * @param pt
    *          Queen or King, depending on the side

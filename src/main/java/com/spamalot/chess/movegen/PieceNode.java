@@ -1,6 +1,7 @@
 package com.spamalot.chess.movegen;
 
-import com.spamalot.chess.base.PieceType;
+import com.spamalot.chess.piece.ChessPiece;
+import com.spamalot.chess.piece.PieceType;
 
 /**
  * Represent a chess piece that exists on the board.
@@ -8,7 +9,7 @@ import com.spamalot.chess.base.PieceType;
  * @author gej
  *
  */
-class PieceNode {
+public class PieceNode {
   /** The piece. */
   private ChessPiece piece;
   /** The square. */
@@ -22,7 +23,7 @@ class PieceNode {
    * @param sq
    *          the Square
    */
-  PieceNode(final ChessPiece p, final int sq) {
+  public PieceNode(final ChessPiece p, final int sq) {
     this.piece = p;
     this.square = sq;
   }

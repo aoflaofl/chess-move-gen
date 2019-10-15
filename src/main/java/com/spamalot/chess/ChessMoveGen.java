@@ -1,6 +1,7 @@
 package com.spamalot.chess;
 
-import com.spamalot.chess.movegen.ChessBoard;
+import com.spamalot.chess.game.ChessGame;
+import com.spamalot.chess.game.ChessGameImpl;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -38,7 +39,7 @@ public final class ChessMoveGen {
    * Start here.
    * 
    * @param args
-   *          command line
+   *               command line
    */
   public static void main(final String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
@@ -58,7 +59,7 @@ public final class ChessMoveGen {
           }
 
           LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
-          ChessBoard b = new ChessBoard(fenString);
+          ChessGame b = new ChessGameImpl(fenString);
           String boardString = b.toString();
           LOGGER.debug("The generated board:\n{}", boardString);
         }
@@ -75,7 +76,7 @@ public final class ChessMoveGen {
    * Parse command line arguments.
    * 
    * @param args
-   *          Arguments to parse.
+   *               Arguments to parse.
    * @return a List of file names to read in.
    */
   private static List<String> parseCommandLineArguments(final String... args) {

@@ -1,7 +1,8 @@
 package com.spamalot.chess.fen;
 
-import com.spamalot.chess.base.Color;
-import com.spamalot.chess.base.PieceType;
+import com.spamalot.chess.game.ChessGame;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,8 +11,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  * 
- * <p>TODO: call a method in board to clear board? Or make it a prereq to be
- * empty?
+ * <p>
+ * TODO: call a method in board to clear board? Or make it a prereq to be empty?
  * 
  * @author gej
  *
@@ -30,11 +31,11 @@ public final class FENUtil {
    * Parse a FEN String.
    * 
    * @param board
-   *          the board object
+   *                the board object
    * @param fen
-   *          the FEN String
+   *                the FEN String
    */
-  public static void processFENString(final FENboardable board, final String fen) {
+  public static void processFENString(final ChessGame board, final String fen) {
     if (StringUtils.isEmpty(fen)) {
       throw new IllegalArgumentException("Empty FEN String.");
     }
@@ -47,8 +48,7 @@ public final class FENUtil {
 
     if (fenParts.length != 6) {
       LOGGER.error("Size of FEN is {}", fenParts.length);
-      throw new IllegalArgumentException(
-          "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
+      throw new IllegalArgumentException("FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
     }
 
     String[] ranks = fenParts[0].split("/");
@@ -78,7 +78,7 @@ public final class FENUtil {
    * Parse move number.
    * 
    * @param string
-   *          Move number part of FEN string
+   *                 Move number part of FEN string
    * @return move number.
    */
   private static int moveNumber(final String string) {
@@ -89,7 +89,7 @@ public final class FENUtil {
    * Extract half moves since last Capture or Pawn move.
    * 
    * @param string
-   *          Half move part of FEN string
+   *                 Half move part of FEN string
    * @return half moves.
    */
   private static int halfMovesSinceCaptureOrPawnMove(final String string) {
@@ -100,11 +100,11 @@ public final class FENUtil {
    * Extract en-passant square from FEN string.
    * 
    * @param board
-   *          board to work on
+   *                 board to work on
    * @param string
-   *          En-passant square part of FEN string
+   *                 En-passant square part of FEN string
    */
-  private static void enPassantSquare(final FENboardable board, final String string) {
+  private static void enPassantSquare(final ChessGame board, final String string) {
     if (!"-".equals(string) && string.length() == 2) {
       int file = string.charAt(0) - 'a' + 1;
       int rank = string.charAt(1) - '0';
@@ -116,11 +116,11 @@ public final class FENUtil {
    * Parse the castling part of the FEN String.
    * 
    * @param board
-   *          board to work on
+   *                         board to work on
    * @param castlingString
-   *          the String describing castling
+   *                         the String describing castling
    */
-  private static void toCastle(final FENboardable board, final String castlingString) {
+  private static void toCastle(final ChessGame board, final String castlingString) {
     if ("-".equals(castlingString)) {
       return;
     }
@@ -150,27 +150,28 @@ public final class FENUtil {
    * Convert w or b to the Color.
    * 
    * @param colorString
-   *          "w" or "b"
+   *                      "w" or "b"
    * @return the Color.
    */
   private static Color toColor(final String colorString) {
+    Color ret = Color.BLACK;
     if ("w".equals(colorString)) {
-      return Color.WHITE;
+      ret = Color.WHITE;
     }
-    return Color.BLACK;
+    return ret;
   }
 
   /**
    * Process a row of the board from the FEN String.
    * 
    * @param board
-   *          board to work on
+   *                 board to work on
    * @param fenRow
-   *          the FEN row String
+   *                 the FEN row String
    * @param rank
-   *          the row's rank (1-8)
+   *                 the row's rank (1-8)
    */
-  private static void processFENRow(final FENboardable board, final String fenRow, final int rank) {
+  private static void processFENRow(final ChessGame board, final String fenRow, final int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
@@ -188,15 +189,15 @@ public final class FENUtil {
    * Get a ChessPiece object from the FEN character and add it to the board.
    * 
    * @param board
-   *          board to work on
+   *                    board to work on
    * @param pieceChar
-   *          a character representing the piece in FEN
+   *                    a character representing the piece in FEN
    * @param file
-   *          the Piece's file (1-8)
+   *                    the Piece's file (1-8)
    * @param rank
-   *          the Piece's rank (1-8)
+   *                    the Piece's rank (1-8)
    */
-  private static void genPiece(final FENboardable board, final char pieceChar, final int file, final int rank) {
+  private static void genPiece(final ChessGame board, final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
         board.addPiece(pt, Color.BLACK, file, rank);
