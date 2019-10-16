@@ -23,9 +23,9 @@ public final class SquareUtil {
    * No public instantiation.
    * 
    * @param file2
-   *          File number
+   *                File number
    * @param rank2
-   *          Rank number
+   *                Rank number
    */
   private SquareUtil(final int file2, final int rank2) {
 
@@ -55,9 +55,9 @@ public final class SquareUtil {
    * Retrieve Square object for this file and rank.
    * 
    * @param file
-   *          the File
+   *               the File
    * @param rank
-   *          the Rank
+   *               the Rank
    * @return Square Object for this file and rank.
    */
   public static SquareUtil valueOf(final int file, final int rank) {
@@ -102,9 +102,6 @@ public final class SquareUtil {
     if (this.file != other.file) {
       return false;
     }
-    if (this.rank != other.rank) {
-      return false;
-    }
-    return true;
+    return this.rank != other.rank;
   }
 }

@@ -16,9 +16,9 @@ public class ChessMove {
    * Construct a Chess Move.
    * 
    * @param s
-   *          source Square
+   *             source Square
    * @param sd
-   *          Destination Square
+   *             Destination Square
    */
   public ChessMove(final int s, final int sd) {
     this.source = s;
@@ -33,8 +33,7 @@ public class ChessMove {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination)
-        .append(']');
+    builder.append("ChessMove [source=").append(this.source).append(", destination=").append(this.destination).append(']');
     return builder.toString();
   }
 
@@ -71,10 +70,7 @@ public class ChessMove {
     if (this.destination != other.destination) {
       return false;
     }
-    if (this.source != other.source) {
-      return false;
-    }
-    return true;
+    return this.source == other.source;
   }
 
 }

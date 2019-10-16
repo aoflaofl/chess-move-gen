@@ -19,12 +19,15 @@ import org.slf4j.LoggerFactory;
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
  * 
- * <p>I'll give it a catchy name: "Spacky"
+ * <p>
+ * I'll give it a catchy name: "Spacky"
  * 
- * <p>First goal: Make it solve mate in X problems. This will require move
+ * <p>
+ * First goal: Make it solve mate in X problems. This will require move
  * generation and tree traversing code.
  * 
- * <p>WCGW?
+ * <p>
+ * WCGW?
  * 
  * @author gej
  *
@@ -45,9 +48,7 @@ public final class ChessGameImpl implements ChessGame {
   /** Linked List of Black Chess pieces currently on the board. */
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
-  /** Hold the 0x88 representation of the board. */
-  private ChessPiece[] board = new ChessPiece[128];
-
+  private Board board = new Board();
   /** The Color whose move it is. */
   private Color toMove;
 
@@ -62,7 +63,7 @@ public final class ChessGameImpl implements ChessGame {
    * Create a chess board using a FEN diagram.
    * 
    * @param fen
-   *          A Chess position in FEN
+   *              A Chess position in FEN
    */
   public ChessGameImpl(final String fen) {
     if (fen.length() != 0) {
@@ -81,9 +82,9 @@ public final class ChessGameImpl implements ChessGame {
    * Generate moves for single move pieces (Knights, Kings).
    * 
    * @param s
-   *          the Square
+   *            the Square
    * @param d
-   *          the direction array
+   *            the direction array
    * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
@@ -105,7 +106,7 @@ public final class ChessGameImpl implements ChessGame {
    * check if King will be attacked if it moves here.
    * 
    * @param sd
-   *          Destination Square
+   *             Destination Square
    * @return true if the square can be moved to.
    */
   private boolean canMoveToSquare(final int sd) {
@@ -122,20 +123,20 @@ public final class ChessGameImpl implements ChessGame {
    * Get the piece in a square.
    * 
    * @param sd
-   *          the Square
+   *             the Square
    * @return the Piece.
    */
   private ChessPiece getPiece(final int sd) {
-    return this.board[sd];
+    return board.board[sd];
   }
 
   /**
    * Generate a move.
    * 
    * @param s
-   *          the source square
+   *             the source square
    * @param sd
-   *          the destination square
+   *             the destination square
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
@@ -147,9 +148,9 @@ public final class ChessGameImpl implements ChessGame {
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
    * 
    * @param s
-   *          the Square
+   *            the Square
    * @param d
-   *          the direction array
+   *            the direction array
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
@@ -163,9 +164,9 @@ public final class ChessGameImpl implements ChessGame {
    * Put a Chess piece on the board.
    * 
    * @param p
-   *          the Chess Piece
+   *             the Chess Piece
    * @param sq
-   *          the Piece's square
+   *             the Piece's square
    */
   private void addPiece(final ChessPiece p, final int sq) {
     if (p.getColor() == Color.WHITE) {
@@ -174,7 +175,7 @@ public final class ChessGameImpl implements ChessGame {
       this.blackPieceList.offer(new PieceNode(p, sq));
     }
 
-    this.board[sq] = p;
+    board.board[sq] = p;
   }
 
   @Override
@@ -260,22 +261,10 @@ public final class ChessGameImpl implements ChessGame {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
-        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
+        .append("]\n");
 
-    for (int rank = 7; rank >= 0; rank--) {
-      for (int file = 0; file < 8; file++) {
-
-        int sq0x88 = Board0x88Util.fileAndRankToSquare(file, rank);
-
-        if (this.board[sq0x88] == null) {
-          builder.append('.');
-        } else {
-          builder.append(this.board[sq0x88]);
-        }
-      }
-      builder.append('\n');
-    }
+    builder.append(board);
 
     builder.append(buildMoveList());
 
