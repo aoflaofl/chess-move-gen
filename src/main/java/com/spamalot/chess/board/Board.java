@@ -1,11 +1,27 @@
-package com.spamalot.chess.game;
+package com.spamalot.chess.board;
 
-import com.spamalot.chess.movegen.Board0x88Util;
 import com.spamalot.chess.piece.ChessPiece;
 
+/**
+ * The Board.
+ * 
+ * @author gej
+ *
+ */
 public class Board {
   /** Hold the 0x88 representation of the board. */
-  ChessPiece[] board = new ChessPiece[128];
+  private ChessPiece[] board = new ChessPiece[128];
+
+  /**
+   * Get the piece in a square.
+   * 
+   * @param sd
+   *             the Square
+   * @return the Piece.
+   */
+  public ChessPiece getPiece(final int sd) {
+    return board[sd];
+  }
 
   @Override
   public final String toString() {
@@ -24,5 +40,17 @@ public class Board {
       builder.append('\n');
     }
     return builder.toString();
+  }
+
+  /**
+   * Add a Piece to the Board.
+   * 
+   * @param p
+   *             Piece
+   * @param sq
+   *             Square
+   */
+  public void addToBoard(final ChessPiece p, final int sq) {
+    board[sq] = p;
   }
 }

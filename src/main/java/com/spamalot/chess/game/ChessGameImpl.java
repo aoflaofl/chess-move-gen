@@ -1,7 +1,8 @@
 package com.spamalot.chess.game;
 
+import com.spamalot.chess.board.Board;
+import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.movegen.Board0x88Util;
 import com.spamalot.chess.movegen.ChessMove;
 import com.spamalot.chess.movegen.PieceNode;
 import com.spamalot.chess.movegen.SquareName;
@@ -9,12 +10,12 @@ import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -48,7 +49,9 @@ public final class ChessGameImpl implements ChessGame {
   /** Linked List of Black Chess pieces currently on the board. */
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
+  /** The Board being used for this game. */
   private Board board = new Board();
+
   /** The Color whose move it is. */
   private Color toMove;
 
@@ -111,23 +114,12 @@ public final class ChessGameImpl implements ChessGame {
    */
   private boolean canMoveToSquare(final int sd) {
     boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd) && (getPiece(sd) == null || getPiece(sd).getColor() != this.toMove))) {
+    if (!(Board0x88Util.isOnBoard(sd) && (board.getPiece(sd) == null || board.getPiece(sd).getColor() != this.toMove))) {
 
       result = false;
 
     }
     return result;
-  }
-
-  /**
-   * Get the piece in a square.
-   * 
-   * @param sd
-   *             the Square
-   * @return the Piece.
-   */
-  private ChessPiece getPiece(final int sd) {
-    return board.board[sd];
   }
 
   /**
@@ -175,7 +167,7 @@ public final class ChessGameImpl implements ChessGame {
       this.blackPieceList.offer(new PieceNode(p, sq));
     }
 
-    board.board[sq] = p;
+    board.addToBoard(p, sq);
   }
 
   @Override

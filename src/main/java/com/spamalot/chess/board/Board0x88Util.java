@@ -1,4 +1,4 @@
-package com.spamalot.chess.movegen;
+package com.spamalot.chess.board;
 
 /**
  * Utility functions to handle 0x88 Board representations.
@@ -16,10 +16,10 @@ public final class Board0x88Util {
    * Get the file from the square's number.
    * 
    * @param s
-   *          The Square's number
+   *            The Square's number
    * @return The file the square is in.
    */
-  static int fileFromSquare(final int s) {
+  public static int fileFromSquare(final int s) {
     return s & 7;
   }
 
@@ -27,10 +27,10 @@ public final class Board0x88Util {
    * Given a square's number in an 0x88 board, give the rank.
    * 
    * @param s
-   *          The Square's number
+   *            The Square's number
    * @return The rank the square is in.
    */
-  static int rankFromSquare(final int s) {
+  public static int rankFromSquare(final int s) {
     return s >> 4;
   }
 
@@ -38,9 +38,9 @@ public final class Board0x88Util {
    * Convert file and rank to the index of the square in the 0x88 board.
    * 
    * @param file
-   *          the file
+   *               the file
    * @param rank
-   *          the rank
+   *               the rank
    * @return the index of the square in the 0x88 board.
    */
   public static int fileAndRankToSquare(final int file, final int rank) {
@@ -51,7 +51,7 @@ public final class Board0x88Util {
    * Check if the square is on the board.
    * 
    * @param s
-   *          index of square in the 0x88 board array
+   *            index of square in the 0x88 board array
    * @return true if the square is on the board.
    */
   public static boolean isOnBoard(final int s) {
