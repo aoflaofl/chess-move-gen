@@ -1,7 +1,6 @@
 package com.spamalot.chess.game;
 
 import com.spamalot.chess.board.Board;
-import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.movegen.ChessMove;
 import com.spamalot.chess.movegen.PieceNode;
@@ -97,30 +96,14 @@ public final class ChessGameImpl implements ChessGame {
 
       sd = s + dir;
 
-      if (canMoveToSquare(sd)) {
+      if (board.canMoveToSquare(sd)) {
         m.add(generateMove(s, sd));
       }
     }
     return m;
   }
 
-  /**
-   * Check if a piece of the current color can legally move to a square. Does not
-   * check if King will be attacked if it moves here.
-   * 
-   * @param sd
-   *             Destination Square
-   * @return true if the square can be moved to.
-   */
-  private boolean canMoveToSquare(final int sd) {
-    boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd) && (board.getPiece(sd) == null || board.getPiece(sd).getColor() != this.toMove))) {
 
-      result = false;
-
-    }
-    return result;
-  }
 
   /**
    * Generate a move.
