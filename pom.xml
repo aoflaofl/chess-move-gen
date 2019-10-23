@@ -75,7 +75,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>25.0-jre</version>
+      <version>28.1-jre</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -97,7 +97,12 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.7</version>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.commons</groupId>
+    	<artifactId>commons-text</artifactId>
+    	<version>1.8</version>
     </dependency>
   </dependencies>
   <description>Generate all legal Chess moves from a legal position.</description>
