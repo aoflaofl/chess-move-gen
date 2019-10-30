@@ -1,21 +1,21 @@
 package com.spamalot.chess.game;
 
-import com.spamalot.chess.board.Board;
-import com.spamalot.chess.board.Board0x88Util;
-import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.movegen.ChessMove;
-import com.spamalot.chess.movegen.PieceNode;
-import com.spamalot.chess.movegen.SquareName;
-import com.spamalot.chess.piece.ChessPiece;
-import com.spamalot.chess.piece.Color;
-import com.spamalot.chess.piece.PieceType;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import com.spamalot.chess.board.Board;
+import com.spamalot.chess.board.Board0x88Util;
+import com.spamalot.chess.board.SquareName;
+import com.spamalot.chess.fen.FENUtil;
+import com.spamalot.chess.movegen.ChessMove;
+import com.spamalot.chess.movegen.PieceNode;
+import com.spamalot.chess.piece.ChessPiece;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -66,7 +66,7 @@ public final class ChessGameImpl implements ChessGame {
    * Create a chess board using a FEN diagram.
    * 
    * @param fen
-   *              A Chess position in FEN
+   *            A Chess position in FEN
    */
   public ChessGameImpl(final String fen) {
     if (fen.length() != 0) {
@@ -85,9 +85,9 @@ public final class ChessGameImpl implements ChessGame {
    * Generate moves for single move pieces (Knights, Kings).
    * 
    * @param s
-   *            the Square
+   *          the Square
    * @param d
-   *            the direction array
+   *          the direction array
    * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
@@ -109,12 +109,13 @@ public final class ChessGameImpl implements ChessGame {
    * check if King will be attacked if it moves here.
    * 
    * @param sd
-   *             Destination Square
+   *           Destination Square
    * @return true if the square can be moved to.
    */
   private boolean canMoveToSquare(final int sd) {
     boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd) && (board.getPiece(sd) == null || board.getPiece(sd).getColor() != this.toMove))) {
+    if (!(Board0x88Util.isOnBoard(sd)
+        && (board.getPiece(sd) == null || board.getPiece(sd).getColor() != this.toMove))) {
 
       result = false;
 
@@ -126,13 +127,15 @@ public final class ChessGameImpl implements ChessGame {
    * Generate a move.
    * 
    * @param s
-   *             the source square
+   *           the source square
    * @param sd
-   *             the destination square
+   *           the destination square
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
-    LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
+    }
     return new ChessMove(s, sd);
   }
 
@@ -140,9 +143,9 @@ public final class ChessGameImpl implements ChessGame {
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
    * 
    * @param s
-   *            the Square
+   *          the Square
    * @param d
-   *            the direction array
+   *          the direction array
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
@@ -156,9 +159,9 @@ public final class ChessGameImpl implements ChessGame {
    * Put a Chess piece on the board.
    * 
    * @param p
-   *             the Chess Piece
+   *           the Chess Piece
    * @param sq
-   *             the Piece's square
+   *           the Piece's square
    */
   private void addPiece(final ChessPiece p, final int sq) {
     if (p.getColor() == Color.WHITE) {
@@ -190,7 +193,6 @@ public final class ChessGameImpl implements ChessGame {
     }
 
     for (PieceNode s : pieceList) {
-      // System.out.println(s);
       PieceType pt = s.getPieceType();
 
       LOGGER.info("Piece {}", s);
@@ -253,8 +255,8 @@ public final class ChessGameImpl implements ChessGame {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
-        .append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
+        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
     builder.append(board);
 

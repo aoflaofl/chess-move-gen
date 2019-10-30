@@ -1,4 +1,4 @@
-package com.spamalot.chess.base;
+package com.spamalot.chess.board;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.spamalot.chess.base.SquareUtil;
+import com.spamalot.chess.board.SquareUtil;
 
 public class SquareUtilTest {
 	private SquareUtil squ = SquareUtil.valueOf(1, 4);

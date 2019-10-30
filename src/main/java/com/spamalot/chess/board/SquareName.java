@@ -1,6 +1,4 @@
-package com.spamalot.chess.movegen;
-
-import com.spamalot.chess.board.Board0x88Util;
+package com.spamalot.chess.board;
 
 import javax.annotation.Nullable;
 

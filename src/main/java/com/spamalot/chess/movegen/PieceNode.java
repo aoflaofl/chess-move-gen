@@ -1,5 +1,6 @@
 package com.spamalot.chess.movegen;
 
+import com.spamalot.chess.board.SquareName;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.PieceType;
 
