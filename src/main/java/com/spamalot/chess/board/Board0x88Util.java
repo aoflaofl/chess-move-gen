@@ -6,7 +6,7 @@ package com.spamalot.chess.board;
  * @author gej
  *
  */
-final class Board0x88Util {
+public final class Board0x88Util {
 
   /** Private Constructor. */
   private Board0x88Util() {

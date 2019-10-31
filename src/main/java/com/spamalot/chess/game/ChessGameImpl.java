@@ -1,6 +1,7 @@
 package com.spamalot.chess.game;
 
 import com.spamalot.chess.board.Board;
+import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.movegen.ChessMove;
 import com.spamalot.chess.movegen.PieceNode;

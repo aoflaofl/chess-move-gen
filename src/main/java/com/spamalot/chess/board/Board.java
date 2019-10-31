@@ -53,7 +53,7 @@ public class Board {
   public void addToBoard(final ChessPiece p, final int sq) {
     board[sq] = p;
   }
-  
+
   /**
    * Check if a piece of the current color can legally move to a square. Does not
    * check if King will be attacked if it moves here.
@@ -64,11 +64,11 @@ public class Board {
    */
   public boolean canMoveToSquare(final int sd) {
     boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd) && (this.getPiece(sd) == null || this.getPiece(sd).getColor() != this.toMove))) {
+    /*if (!(Board0x88Util.isOnBoard(sd) && (this.getPiece(sd) == null || this.getPiece(sd).getColor() != this.toMove))) {
 
       result = false;
 
-    }
+    }*/
     return result;
   }
 }
