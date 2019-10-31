@@ -1,7 +1,7 @@
 package com.spamalot.chess.fen.test;
 
 import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.game.ChessGameImpl;
+import com.spamalot.chess.game.ChessGameStateImpl;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,6 +54,6 @@ public final class FENUtilTest {
     this.exception.expect(IllegalArgumentException.class);
     this.exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
 
-    FENUtil.processFENString(new ChessGameImpl(), TOO_FEW_PARTS_FEN);
+    FENUtil.processFENString(new ChessGameStateImpl(), TOO_FEW_PARTS_FEN);
   }
 }

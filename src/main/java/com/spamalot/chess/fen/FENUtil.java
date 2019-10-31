@@ -1,6 +1,6 @@
 package com.spamalot.chess.fen;
 
-import com.spamalot.chess.game.ChessGame;
+import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
@@ -35,7 +35,7 @@ public final class FENUtil {
    * @param fen
    *                the FEN String
    */
-  public static void processFENString(final ChessGame board, final String fen) {
+  public static void processFENString(final ChessGameState board, final String fen) {
     if (StringUtils.isEmpty(fen)) {
       throw new IllegalArgumentException("Empty FEN String.");
     }
@@ -104,7 +104,7 @@ public final class FENUtil {
    * @param string
    *                 En-passant square part of FEN string
    */
-  private static void enPassantSquare(final ChessGame board, final String string) {
+  private static void enPassantSquare(final ChessGameState board, final String string) {
     if (!"-".equals(string) && string.length() == 2) {
       int file = string.charAt(0) - 'a' + 1;
       int rank = string.charAt(1) - '0';
@@ -120,7 +120,7 @@ public final class FENUtil {
    * @param castlingString
    *                         the String describing castling
    */
-  private static void toCastle(final ChessGame board, final String castlingString) {
+  private static void toCastle(final ChessGameState board, final String castlingString) {
     if ("-".equals(castlingString)) {
       return;
     }
@@ -171,7 +171,7 @@ public final class FENUtil {
    * @param rank
    *                 the row's rank (1-8)
    */
-  private static void processFENRow(final ChessGame board, final String fenRow, final int rank) {
+  private static void processFENRow(final ChessGameState board, final String fenRow, final int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
@@ -197,7 +197,7 @@ public final class FENUtil {
    * @param rank
    *                    the Piece's rank (1-8)
    */
-  private static void genPiece(final ChessGame board, final char pieceChar, final int file, final int rank) {
+  private static void genPiece(final ChessGameState board, final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
         board.addPiece(pt, Color.BLACK, file, rank);

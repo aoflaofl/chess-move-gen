@@ -1,4 +1,4 @@
-package com.spamalot.chess.base;
+package com.spamalot.chess.board;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -81,7 +81,7 @@ public final class SquareUtil {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
+    final int prime = 11;
     int result = 1;
     result = prime * result + this.file;
     return prime * result + this.rank;
@@ -102,6 +102,6 @@ public final class SquareUtil {
     if (this.file != other.file) {
       return false;
     }
-    return this.rank != other.rank;
+    return this.rank == other.rank;
   }
 }

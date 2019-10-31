@@ -1,7 +1,7 @@
 package com.spamalot.chess;
 
-import com.spamalot.chess.game.ChessGame;
-import com.spamalot.chess.game.ChessGameImpl;
+import com.spamalot.chess.game.ChessGameState;
+import com.spamalot.chess.game.ChessGameStateImpl;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -59,9 +59,9 @@ public final class ChessMoveGen {
           }
 
           LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
-          ChessGame b = new ChessGameImpl(fenString);
-          String boardString = b.toString();
-          LOGGER.debug("The generated board:\n{}", boardString);
+          ChessGameState game = new ChessGameStateImpl(fenString);
+
+          LOGGER.debug("The game:\n{}", game);
         }
       } catch (FileNotFoundException e) {
         usageAndExit();

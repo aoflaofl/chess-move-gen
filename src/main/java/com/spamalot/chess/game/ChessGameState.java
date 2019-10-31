@@ -9,7 +9,7 @@ import com.spamalot.chess.piece.PieceType;
  * @author gej
  *
  */
-public interface ChessGame {
+public interface ChessGameState {
 
   /**
    * Add a Piece to the Chess Board.

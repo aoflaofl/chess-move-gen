@@ -8,7 +8,7 @@ import com.spamalot.chess.piece.ChessPiece;
  * @author gej
  *
  */
-public class Board {
+public class Board implements IBoard {
   /** Hold the 0x88 representation of the board. */
   private ChessPiece[] board = new ChessPiece[128];
 
@@ -19,6 +19,7 @@ public class Board {
    *             the Square
    * @return the Piece.
    */
+  @Override
   public ChessPiece getPiece(final int sd) {
     return board[sd];
   }
@@ -50,6 +51,7 @@ public class Board {
    * @param sq
    *             Square
    */
+  @Override
   public void addToBoard(final ChessPiece p, final int sq) {
     board[sq] = p;
   }

@@ -1,21 +1,23 @@
 package com.spamalot.chess.game;
 
-import com.spamalot.chess.board.Board;
-import com.spamalot.chess.board.Board0x88Util;
-import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.movegen.ChessMove;
-import com.spamalot.chess.movegen.PieceNode;
-import com.spamalot.chess.movegen.SquareName;
-import com.spamalot.chess.piece.ChessPiece;
-import com.spamalot.chess.piece.Color;
-import com.spamalot.chess.piece.PieceType;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import com.spamalot.chess.board.Board;
+import com.spamalot.chess.board.Board0x88Util;
+import com.spamalot.chess.board.SquareName;
+import com.spamalot.chess.fen.FENUtil;
+import com.spamalot.chess.movegen.ChessMove;
+import com.spamalot.chess.movegen.PieceNode;
+import com.spamalot.chess.piece.ChessPiece;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
+
+// TODO: Add builder for FEN.
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
@@ -33,9 +35,9 @@ import java.util.List;
  * @author gej
  *
  */
-public final class ChessGameImpl implements ChessGame {
+public final class ChessGameStateImpl implements ChessGameState {
   /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameStateImpl.class);
 
   /** Diagonal diffs. */
   private static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
@@ -59,7 +61,7 @@ public final class ChessGameImpl implements ChessGame {
   private LinkedList<PieceNode> whitePieceList = new LinkedList<>();
 
   /** Nothing to see here. */
-  public ChessGameImpl() {
+  public ChessGameStateImpl() {
   }
 
   /**
@@ -68,7 +70,7 @@ public final class ChessGameImpl implements ChessGame {
    * @param fen
    *              A Chess position in FEN
    */
-  public ChessGameImpl(final String fen) {
+  public ChessGameStateImpl(final String fen) {
     if (fen.length() != 0) {
       LOGGER.info("Constructing a ChessBoard using FEN String.");
       try {
@@ -104,8 +106,6 @@ public final class ChessGameImpl implements ChessGame {
     return m;
   }
 
-
-
   /**
    * Generate a move.
    * 
@@ -116,7 +116,9 @@ public final class ChessGameImpl implements ChessGame {
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
-    LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
+    }
     return new ChessMove(s, sd);
   }
 
@@ -174,7 +176,6 @@ public final class ChessGameImpl implements ChessGame {
     }
 
     for (PieceNode s : pieceList) {
-      // System.out.println(s);
       PieceType pt = s.getPieceType();
 
       LOGGER.info("Piece {}", s);
