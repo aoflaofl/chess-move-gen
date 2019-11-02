@@ -1,14 +1,8 @@
 package com.spamalot.chess.game;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.spamalot.chess.board.Board;
 import com.spamalot.chess.board.Board0x88Util;
+import com.spamalot.chess.board.ChessBoard;
+import com.spamalot.chess.board.ChessBoard0x88;
 import com.spamalot.chess.board.SquareName;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.movegen.ChessMove;
@@ -16,6 +10,13 @@ import com.spamalot.chess.movegen.PieceNode;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO: Add builder for FEN.
 
@@ -52,7 +53,7 @@ public final class ChessGameStateImpl implements ChessGameState {
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
   /** The Board being used for this game. */
-  private Board board = new Board();
+  private ChessBoard board = new ChessBoard0x88();
 
   /** The Color whose move it is. */
   private Color toMove;
@@ -68,7 +69,7 @@ public final class ChessGameStateImpl implements ChessGameState {
    * Create a chess board using a FEN diagram.
    * 
    * @param fen
-   *              A Chess position in FEN
+   *            A Chess position in FEN
    */
   public ChessGameStateImpl(final String fen) {
     if (fen.length() != 0) {
@@ -87,9 +88,9 @@ public final class ChessGameStateImpl implements ChessGameState {
    * Generate moves for single move pieces (Knights, Kings).
    * 
    * @param s
-   *            the Square
+   *          the Square
    * @param d
-   *            the direction array
+   *          the direction array
    * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
@@ -110,13 +111,14 @@ public final class ChessGameStateImpl implements ChessGameState {
    * Generate a move.
    * 
    * @param s
-   *             the source square
+   *           the source square
    * @param sd
-   *             the destination square
+   *           the destination square
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
     if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Generate move : ({}-{})", s, sd);
       LOGGER.info("Generate move : {}-{}", SquareName.toName(s), SquareName.toName(sd));
     }
     return new ChessMove(s, sd);
@@ -126,9 +128,9 @@ public final class ChessGameStateImpl implements ChessGameState {
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
    * 
    * @param s
-   *            the Square
+   *          the Square
    * @param d
-   *            the direction array
+   *          the direction array
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
@@ -142,9 +144,9 @@ public final class ChessGameStateImpl implements ChessGameState {
    * Put a Chess piece on the board.
    * 
    * @param p
-   *             the Chess Piece
+   *           the Chess Piece
    * @param sq
-   *             the Piece's square
+   *           the Piece's square
    */
   private void addPiece(final ChessPiece p, final int sq) {
     if (p.getColor() == Color.WHITE) {
@@ -238,8 +240,8 @@ public final class ChessGameStateImpl implements ChessGameState {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
-        .append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
+        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
     builder.append(board);
 
