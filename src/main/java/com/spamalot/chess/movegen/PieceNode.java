@@ -1,8 +1,8 @@
 package com.spamalot.chess.movegen;
 
+import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.board.SquareName;
 import com.spamalot.chess.piece.ChessPiece;
-import com.spamalot.chess.piece.PieceType;
 
 /**
  * Represent a chess piece that exists on the board.
@@ -11,43 +11,27 @@ import com.spamalot.chess.piece.PieceType;
  *
  */
 public class PieceNode {
+  /** The file. */
+  private int file;
   /** The piece. */
   private ChessPiece piece;
-  /** The square. */
-  private int square;
+  /** The rank. */
+  private int rank;
 
   /**
    * Constructor.
    * 
    * @param p
-   *          the Piece
-   * @param sq
-   *          the Square
+   *            the Piece
+   * @param f
+   *            file
+   * @param r
+   *            rank
    */
-  public PieceNode(final ChessPiece p, final int sq) {
+  public PieceNode(final ChessPiece p, final int f, final int r) {
     this.piece = p;
-    this.square = sq;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append(this.piece).append(SquareName.toName(this.square));
-    return builder.toString();
-  }
-
-  /**
-   * Get the Piece Type.
-   * 
-   * @return the Type of this Piece.
-   */
-  public PieceType getPieceType() {
-    return this.piece.getType();
+    this.file = f;
+    this.rank = r;
   }
 
   /**
@@ -56,6 +40,22 @@ public class PieceNode {
    * @return the 0x88 square this Piece is in.
    */
   public int get0x88Square() {
-    return this.square;
+    return Board0x88Util.fileAndRankToSquare(file, rank);
+  }
+
+  /**
+   * Get the Piece.
+   * 
+   * @return the Piece.
+   */
+  public ChessPiece getPiece() {
+    return this.piece;
+  }
+
+  @Override
+  public final String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(this.piece).append(SquareName.toName(this.file, this.rank));
+    return builder.toString();
   }
 }

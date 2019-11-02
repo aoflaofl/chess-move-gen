@@ -2,15 +2,21 @@ package com.spamalot.chess.board;
 
 import com.spamalot.chess.piece.ChessPiece;
 
+/**
+ * Some chess board thing.
+ * 
+ * @author gej
+ *
+ */
 public interface ChessBoard {
 
   /**
    * Get the piece in a square.
    * 
    * @param file
-   *             File
+   *               File
    * @param rank
-   *             Rank
+   *               Rank
    * @return the Piece.
    */
   ChessPiece getPiece(int file, int rank);
@@ -19,11 +25,11 @@ public interface ChessBoard {
    * Add a Piece to the Board.
    * 
    * @param p
-   *             Piece
+   *               Piece
    * @param file
-   *             File
+   *               File
    * @param rank
-   *             Rank
+   *               Rank
    */
   void addToBoard(ChessPiece p, int file, int rank);
 
@@ -32,10 +38,19 @@ public interface ChessBoard {
    * check if King will be attacked if it moves here.
    * 
    * @param file
-   *             File
+   *               File
    * @param rank
-   *             Rank
+   *               Rank
    * @return true if the square can be moved to.
    */
   boolean canMoveToSquare(int file, int rank);
+
+  /**
+   * Can move to square.
+   * 
+   * @param file
+   *               file
+   * @return square
+   */
+  boolean canMoveToSquare(int file);
 }

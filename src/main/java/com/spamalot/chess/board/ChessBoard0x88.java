@@ -17,18 +17,27 @@ public final class ChessBoard0x88 implements ChessBoard {
     addToBoard(p, Board0x88Util.fileAndRankToSquare(file, rank));
   }
 
+  /**
+   * Add a piece.
+   * 
+   * @param p
+   *             piece
+   * @param sq
+   *             square
+   */
   private void addToBoard(final ChessPiece p, final int sq) {
     board[sq] = p;
   }
 
+  @Override
   public boolean canMoveToSquare(final int file, final int rank) {
     return canMoveToSquare(Board0x88Util.fileAndRankToSquare(file, rank));
   }
 
-  private boolean canMoveToSquare(final int sd) {
+  @Override
+  public boolean canMoveToSquare(final int sd) {
     boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd)
-        && (this.getPiece(sd) == null /* || this.getPiece(sd).getColor() != this.toMove */))) {
+    if (!(Board0x88Util.isOnBoard(sd) && (this.getPiece(sd) == null /* || this.getPiece(sd).getColor() != this.toMove */))) {
       result = false;
     }
     return result;
@@ -39,6 +48,13 @@ public final class ChessBoard0x88 implements ChessBoard {
     return getPiece(Board0x88Util.fileAndRankToSquare(file, rank));
   }
 
+  /**
+   * get a piece.
+   * 
+   * @param sd
+   *             square
+   * @return piece.
+   */
   private ChessPiece getPiece(final int sd) {
     return board[sd];
   }

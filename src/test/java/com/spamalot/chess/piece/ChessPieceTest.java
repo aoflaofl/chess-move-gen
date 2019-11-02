@@ -1,12 +1,13 @@
 package com.spamalot.chess.piece;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 public class ChessPieceTest {
-  ChessPiece blackPiece = new ChessPiece(Color.BLACK, PieceType.BISHOP);
-  ChessPiece whitePiece = new ChessPiece(Color.WHITE, PieceType.PAWN);
+  private ChessPiece blackPiece = new ChessPiece(Color.BLACK, PieceType.BISHOP);
+  private ChessPiece whitePiece = new ChessPiece(Color.WHITE, PieceType.PAWN);
 
   @Test
   public void testChessPiece() {

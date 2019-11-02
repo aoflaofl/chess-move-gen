@@ -178,7 +178,7 @@ public final class FENUtil {
       if (Character.isDigit(s)) {
         file = file + s - '0';
       } else {
-        genPiece(board, s, file, rank);
+        genPiece(board, s, file - 1, rank - 1);
 
         file++;
       }
