@@ -39,11 +39,12 @@ public final class ChessMoveGen {
    * Start here.
    * 
    * @param args
-   *               command line
+   *             command line
    */
   public static void main(final String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
 
+    // TODO: Make loading a type of file a parameter since there are other formats.
     for (String fenFile : fenFiles) {
       LOGGER.debug("Processing FEN strings in file : {}", fenFile);
 
@@ -76,7 +77,7 @@ public final class ChessMoveGen {
    * Parse command line arguments.
    * 
    * @param args
-   *               Arguments to parse.
+   *             Arguments to parse.
    * @return a List of file names to read in.
    */
   private static List<String> parseCommandLineArguments(final String... args) {

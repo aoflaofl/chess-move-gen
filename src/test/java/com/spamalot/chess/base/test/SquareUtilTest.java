@@ -7,6 +7,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.spamalot.chess.board.SquareUtil;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +17,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.spamalot.chess.board.SquareUtil;
 
 @SuppressWarnings("static-method")
 public class SquareUtilTest {
