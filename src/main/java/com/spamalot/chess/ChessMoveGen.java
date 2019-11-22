@@ -38,8 +38,7 @@ public final class ChessMoveGen {
   /**
    * Start here.
    * 
-   * @param args
-   *             command line
+   * @param args command line
    */
   public static void main(final String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
@@ -76,8 +75,7 @@ public final class ChessMoveGen {
   /**
    * Parse command line arguments.
    * 
-   * @param args
-   *             Arguments to parse.
+   * @param args Arguments to parse.
    * @return a List of file names to read in.
    */
   private static List<String> parseCommandLineArguments(final String... args) {
