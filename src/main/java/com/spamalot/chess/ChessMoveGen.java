@@ -81,6 +81,7 @@ public final class ChessMoveGen {
   private static List<String> parseCommandLineArguments(final String... args) {
 
     Options options = new Options();
+    options.addOption(opt)
     CommandLineParser parser = new DefaultParser();
 
     List<String> fenFiles = new ArrayList<>();
