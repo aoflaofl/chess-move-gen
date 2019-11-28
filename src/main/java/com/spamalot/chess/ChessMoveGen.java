@@ -19,6 +19,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,12 +52,14 @@ public final class ChessMoveGen {
 
       Path file = Paths.get(fenFile);
 
+      // TODO: Move this to the FEN class since there could be other types.
       try (BufferedReader br = Files.newBufferedReader(file, Charset.defaultCharset())) {
         String fenString;
         while ((fenString = br.readLine()) != null) {
           // Ignore empty lines and comments.
           fenString = fenString.replaceAll("#.*", "").trim();
-          if (fenString.length() == 0) {
+          fenString = StringUtils.strip(fenString);
+          if (StringUtils.isBlank(fenString)) {
             continue;
           }
 

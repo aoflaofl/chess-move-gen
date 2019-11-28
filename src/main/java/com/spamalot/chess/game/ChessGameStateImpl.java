@@ -1,5 +1,6 @@
 package com.spamalot.chess.game;
 
+import com.google.common.base.Preconditions;
 import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.board.ChessBoard0x88;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,29 +66,24 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Create a chess board using a FEN diagram.
    * 
-   * @param fen
-   *            A Chess position in FEN
+   * @param fen A Chess position in FEN
    */
   public ChessGameStateImpl(final String fen) {
-    if (fen.length() != 0) {
-      LOGGER.info("Constructing a ChessBoard using FEN String.");
-      try {
-        FENUtil.processFENString(this, fen);
-      } catch (Exception e) {
-        LOGGER.error("Problem with FEN string : ", e);
-      }
-    } else {
-      LOGGER.info("No FEN String received.");
+    Preconditions.checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
+
+    LOGGER.info("Constructing a ChessBoard using FEN String.");
+    try {
+      FENUtil.processFENString(this, fen);
+    } catch (Exception e) {
+      LOGGER.error("Problem with FEN string : ", e);
     }
   }
 
   /**
    * Generate moves for single move pieces (Knights, Kings).
    * 
-   * @param s
-   *          the Square
-   * @param d
-   *          the direction array
+   * @param s the Square
+   * @param d the direction array
    * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
@@ -106,10 +103,8 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Generate a move.
    * 
-   * @param s
-   *           the source square
-   * @param sd
-   *           the destination square
+   * @param s  the source square
+   * @param sd the destination square
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
@@ -124,10 +119,8 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
    * 
-   * @param s
-   *          the Square
-   * @param d
-   *          the direction array
+   * @param s the Square
+   * @param d the direction array
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
@@ -140,12 +133,9 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Put a Chess piece on the board.
    * 
-   * @param p
-   *             the Chess Piece
-   * @param file
-   *             file
-   * @param rank
-   *             rank
+   * @param p    the Chess Piece
+   * @param file file
+   * @param rank rank
    */
   private void addPiece(final ChessPiece p, final int file, final int rank) {
     if (p.getColor() == Color.WHITE) {
