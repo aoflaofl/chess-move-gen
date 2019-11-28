@@ -1,7 +1,7 @@
 package com.spamalot.chess.movegen;
 
 import com.spamalot.chess.board.Board0x88Util;
-import com.spamalot.chess.board.SquareName;
+import com.spamalot.chess.board.SquareName0x88;
 import com.spamalot.chess.piece.ChessPiece;
 
 /**
@@ -55,7 +55,7 @@ public class PieceNode {
   @Override
   public final String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(this.piece).append(SquareName.toName(this.file, this.rank));
+    builder.append(this.piece).append(SquareName0x88.toName(this.file, this.rank));
     return builder.toString();
   }
 }

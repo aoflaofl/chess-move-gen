@@ -1,5 +1,8 @@
 package com.spamalot.chess.fen;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
@@ -11,8 +14,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  * 
- * <p>TODO: call a method in board to clear board? Or make it a prereq to be
- * empty?
+ * <p>
+ * TODO: call a method in board to clear board? Or make it a prereq to be empty?
  * 
  * @author gej
  *
@@ -31,39 +34,23 @@ public final class FENUtil {
    * Parse a FEN String.
    * 
    * @param board
-   *              the board object
+   *                the board object
    * @param fen
-   *              the FEN String
+   *                the FEN String
    */
   public static void processFENString(final ChessGameState board, final String fen) {
-    if (StringUtils.isEmpty(fen)) {
-      throw new IllegalArgumentException("Empty FEN String.");
-    }
+    checkArgument(StringUtils.isNotBlank(fen), "Empty FEN String.");
+    checkNotNull(board, "Null Board object.");
 
-    if (board == null) {
-      throw new IllegalArgumentException("Null Board object.");
-    }
+    processFENParts(board, fen.split(" "));
+  }
 
-    String[] fenParts = fen.split(" ");
-
-    if (fenParts.length != 6) {
-      LOGGER.error("Size of FEN is {}", fenParts.length);
-      throw new IllegalArgumentException(
-          "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
-    }
+  private static void processFENParts(final ChessGameState board, final String[] fenParts) {
+    checkArgument(fenParts.length == 6, "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
 
     String[] ranks = fenParts[0].split("/");
 
-    if (ranks.length != 8) {
-      LOGGER.error("Number of ranks is {}", ranks.length);
-      throw new IllegalArgumentException("FEN Board String does not have enough ranks : " + ranks.length);
-    }
-
-    int rank = 8;
-    for (String r : ranks) {
-      processFENRow(board, r, rank);
-      rank--;
-    }
+    pieceSetup(board, ranks);
 
     Color s = toColor(fenParts[1]);
     board.setToMove(s);
@@ -72,14 +59,23 @@ public final class FENUtil {
     enPassantSquare(board, fenParts[3]);
     board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(fenParts[4]));
     board.setMoveNumber(moveNumber(fenParts[5]));
+  }
 
+  private static void pieceSetup(final ChessGameState board, final String[] ranks) {
+    checkArgument(ranks.length == 8, "FEN Board String does not have enough ranks : " + ranks.length);
+
+    int rank = 8;
+    for (String r : ranks) {
+      processFENRow(board, r, rank);
+      rank--;
+    }
   }
 
   /**
    * Parse move number.
    * 
    * @param string
-   *               Move number part of FEN string
+   *                 Move number part of FEN string
    * @return move number.
    */
   private static int moveNumber(final String string) {
@@ -90,7 +86,7 @@ public final class FENUtil {
    * Extract half moves since last Capture or Pawn move.
    * 
    * @param string
-   *               Half move part of FEN string
+   *                 Half move part of FEN string
    * @return half moves.
    */
   private static int halfMovesSinceCaptureOrPawnMove(final String string) {
@@ -101,11 +97,13 @@ public final class FENUtil {
    * Extract en-passant square from FEN string.
    * 
    * @param board
-   *               board to work on
+   *                 board to work on
    * @param string
-   *               En-passant square part of FEN string
+   *                 En-passant square part of FEN string
    */
   private static void enPassantSquare(final ChessGameState board, final String string) {
+    checkNotNull(string);
+    checkArgument("-".equals(string));
     if (!"-".equals(string) && string.length() == 2) {
       int file = string.charAt(0) - 'a' + 1;
       int rank = string.charAt(1) - '0';
@@ -117,9 +115,9 @@ public final class FENUtil {
    * Parse the castling part of the FEN String.
    * 
    * @param board
-   *                       board to work on
+   *                         board to work on
    * @param castlingString
-   *                       the String describing castling
+   *                         the String describing castling
    */
   private static void toCastle(final ChessGameState board, final String castlingString) {
     if ("-".equals(castlingString)) {
@@ -151,7 +149,7 @@ public final class FENUtil {
    * Convert w or b to the Color.
    * 
    * @param colorString
-   *                    "w" or "b"
+   *                      "w" or "b"
    * @return the Color.
    */
   private static Color toColor(final String colorString) {
@@ -166,11 +164,11 @@ public final class FENUtil {
    * Process a row of the board from the FEN String.
    * 
    * @param board
-   *               board to work on
+   *                 board to work on
    * @param fenRow
-   *               the FEN row String
+   *                 the FEN row String
    * @param rank
-   *               the row's rank (1-8)
+   *                 the row's rank (1-8)
    */
   private static void processFENRow(final ChessGameState board, final String fenRow, final int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
@@ -190,13 +188,13 @@ public final class FENUtil {
    * Get a ChessPiece object from the FEN character and add it to the board.
    * 
    * @param board
-   *                  board to work on
+   *                    board to work on
    * @param pieceChar
-   *                  a character representing the piece in FEN
+   *                    a character representing the piece in FEN
    * @param file
-   *                  the Piece's file (1-8)
+   *                    the Piece's file (1-8)
    * @param rank
-   *                  the Piece's rank (1-8)
+   *                    the Piece's rank (1-8)
    */
   private static void genPiece(final ChessGameState board, final char pieceChar, final int file, final int rank) {
     for (PieceType pt : PieceType.values()) {

@@ -10,6 +10,6 @@ public class SquareNameTest {
 
   @Test
   public void testToName() {
-    assertEquals("b2", SquareName.toName(1, 1));
+    assertEquals("b2", SquareName0x88.toName(1, 1));
   }
 }

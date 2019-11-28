@@ -1,6 +1,7 @@
 package com.spamalot.chess.game;
 
-import com.google.common.base.Preconditions;
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.spamalot.chess.board.Board0x88Util;
 import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.board.ChessBoard0x88;
@@ -11,13 +12,13 @@ import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 // TODO: Add builder for FEN.
 
@@ -69,7 +70,7 @@ public final class ChessGameStateImpl implements ChessGameState {
    * @param fen A Chess position in FEN
    */
   public ChessGameStateImpl(final String fen) {
-    Preconditions.checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
+    checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
 
     LOGGER.info("Constructing a ChessBoard using FEN String.");
     try {

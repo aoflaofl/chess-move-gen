@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
  * @author gej
  *
  */
-public final class SquareName {
+public final class SquareName0x88 {
   /** Map file number to file letter. */
   private static final char[] FILE_LETTERS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 
@@ -17,7 +17,7 @@ public final class SquareName {
 
   static {
     for (int i = 0; i < 128; i++) {
-      sqNames[i] = SquareName.fromBoard0x88number(i);
+      sqNames[i] = SquareName0x88.fromBoard0x88number(i);
     }
   }
 
@@ -68,6 +68,6 @@ public final class SquareName {
   }
 
   /** Private Constructor. */
-  private SquareName() {
+  private SquareName0x88() {
   }
 }
