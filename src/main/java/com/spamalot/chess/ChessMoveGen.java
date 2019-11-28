@@ -16,6 +16,7 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
@@ -38,7 +39,8 @@ public final class ChessMoveGen {
   /**
    * Start here.
    * 
-   * @param args command line
+   * @param args
+   *               command line
    */
   public static void main(final String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
@@ -75,13 +77,13 @@ public final class ChessMoveGen {
   /**
    * Parse command line arguments.
    * 
-   * @param args Arguments to parse.
+   * @param args
+   *               Arguments to parse.
    * @return a List of file names to read in.
    */
   private static List<String> parseCommandLineArguments(final String... args) {
-
     Options options = new Options();
-    options.addOption(opt)
+    options.addOption("f", "filetype", true, "filetype. fen is the only choice now.");
     CommandLineParser parser = new DefaultParser();
 
     List<String> fenFiles = new ArrayList<>();
@@ -96,6 +98,12 @@ public final class ChessMoveGen {
     }
 
     if (fenFiles.isEmpty()) {
+      // automatically generate the help statement
+
+      HelpFormatter formatter = new HelpFormatter();
+
+      formatter.printHelp("ChessMoveGen", options);
+
       usageAndExit();
     }
     return fenFiles;
