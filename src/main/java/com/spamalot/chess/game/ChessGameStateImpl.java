@@ -2,7 +2,7 @@ package com.spamalot.chess.game;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import com.spamalot.chess.board.Board0x88Util;
+import com.spamalot.chess.board.ChessBoardUtil0x88;
 import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.board.ChessBoard0x88;
 import com.spamalot.chess.fen.FENUtil;
@@ -94,7 +94,7 @@ public final class ChessGameStateImpl implements ChessGameState {
 
       sd = s + dir;
 
-      if (board.canMoveToSquare(sd)) {
+      if (this.board.canMoveToSquare(sd)) {
         m.add(generateMove(s, sd));
       }
     }
@@ -125,7 +125,7 @@ public final class ChessGameStateImpl implements ChessGameState {
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
-      for (int sd = s + dir; Board0x88Util.isOnBoard(sd); sd += dir) {
+      for (int sd = s + dir; ChessBoardUtil0x88.isOnBoard(sd); sd += dir) {
         generateMove(s, sd);
       }
     }
@@ -145,7 +145,7 @@ public final class ChessGameStateImpl implements ChessGameState {
       this.blackPieceList.offer(new PieceNode(p, file, rank));
     }
 
-    board.addToBoard(p, file, rank);
+    this.board.addToBoard(p, file, rank);
   }
 
   @Override
@@ -233,7 +233,7 @@ public final class ChessGameStateImpl implements ChessGameState {
     builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
         .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
-    builder.append(board);
+    builder.append(this.board);
 
     builder.append(buildMoveList());
 

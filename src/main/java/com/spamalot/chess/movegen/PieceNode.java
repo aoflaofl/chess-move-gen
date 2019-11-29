@@ -1,6 +1,6 @@
 package com.spamalot.chess.movegen;
 
-import com.spamalot.chess.board.Board0x88Util;
+import com.spamalot.chess.board.ChessBoardUtil0x88;
 import com.spamalot.chess.board.SquareName0x88;
 import com.spamalot.chess.piece.ChessPiece;
 
@@ -40,7 +40,7 @@ public class PieceNode {
    * @return the 0x88 square this Piece is in.
    */
   public int get0x88Square() {
-    return Board0x88Util.fileAndRankToSquare(file, rank);
+    return ChessBoardUtil0x88.fileAndRankToSquare(this.file, this.rank);
   }
 
   /**

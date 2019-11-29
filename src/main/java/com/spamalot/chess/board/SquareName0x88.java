@@ -30,12 +30,12 @@ public final class SquareName0x88 {
    */
   @Nullable
   private static String fromBoard0x88number(final int s) {
-    if (!Board0x88Util.isOnBoard(s)) {
+    if (!ChessBoardUtil0x88.isOnBoard(s)) {
       return null;
     }
 
-    int file = Board0x88Util.fileFromSquare(s);
-    int rank = Board0x88Util.rankFromSquare(s) + 1;
+    int file = ChessBoardUtil0x88.fileFromSquare(s);
+    int rank = ChessBoardUtil0x88.rankFromSquare(s) + 1;
     return makeSquareName(file, rank);
   }
 
@@ -64,7 +64,7 @@ public final class SquareName0x88 {
    * @return the name of the square.
    */
   public static String toName(final int file, final int rank) {
-    return sqNames[Board0x88Util.fileAndRankToSquare(file, rank)];
+    return sqNames[ChessBoardUtil0x88.fileAndRankToSquare(file, rank)];
   }
 
   /** Private Constructor. */
