@@ -1,5 +1,6 @@
-package com.spamalot.chess.board;
+package com.spamalot.chess.lib0x88;
 
+import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.piece.ChessPiece;
 
 /**

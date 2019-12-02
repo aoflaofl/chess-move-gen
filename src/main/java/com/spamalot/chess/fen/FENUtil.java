@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  * 
- * <p>
- * TODO: call a method in board to clear board? Or make it a prereq to be empty?
+ * <p>TODO: call a method in board to clear board? Or make it a prereq to be
+ * empty?
  * 
  * @author gej
  *

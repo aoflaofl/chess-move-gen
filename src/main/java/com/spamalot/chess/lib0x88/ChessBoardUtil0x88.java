@@ -1,4 +1,4 @@
-package com.spamalot.chess.board;
+package com.spamalot.chess.lib0x88;
 
 /**
  * Utility functions to handle 0x88 Board representations.

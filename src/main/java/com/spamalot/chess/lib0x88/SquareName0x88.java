@@ -1,4 +1,4 @@
-package com.spamalot.chess.board;
+package com.spamalot.chess.lib0x88;
 
 import javax.annotation.Nullable;
 

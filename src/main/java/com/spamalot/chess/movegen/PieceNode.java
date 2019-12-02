@@ -1,7 +1,7 @@
 package com.spamalot.chess.movegen;
 
-import com.spamalot.chess.board.ChessBoardUtil0x88;
-import com.spamalot.chess.board.SquareName0x88;
+import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
+import com.spamalot.chess.lib0x88.SquareName0x88;
 import com.spamalot.chess.piece.ChessPiece;
 
 /**
