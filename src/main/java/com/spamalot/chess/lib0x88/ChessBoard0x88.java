@@ -1,5 +1,6 @@
-package com.spamalot.chess.board;
+package com.spamalot.chess.lib0x88;
 
+import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.piece.ChessPiece;
 
 /**
@@ -14,7 +15,7 @@ public final class ChessBoard0x88 implements ChessBoard {
 
   @Override
   public void addToBoard(final ChessPiece p, final int file, final int rank) {
-    addToBoard(p, Board0x88Util.fileAndRankToSquare(file, rank));
+    addToBoard(p, ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
 
   /**
@@ -26,18 +27,18 @@ public final class ChessBoard0x88 implements ChessBoard {
    *             square
    */
   private void addToBoard(final ChessPiece p, final int sq) {
-    board[sq] = p;
+    this.board[sq] = p;
   }
 
   @Override
   public boolean canMoveToSquare(final int file, final int rank) {
-    return canMoveToSquare(Board0x88Util.fileAndRankToSquare(file, rank));
+    return canMoveToSquare(ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
 
   @Override
   public boolean canMoveToSquare(final int sd) {
     boolean result = true;
-    if (!(Board0x88Util.isOnBoard(sd) && (this.getPiece(sd) == null /* || this.getPiece(sd).getColor() != this.toMove */))) {
+    if (!(ChessBoardUtil0x88.isOnBoard(sd) && (this.getPiece(sd) == null /* || this.getPiece(sd).getColor() != this.toMove */))) {
       result = false;
     }
     return result;
@@ -45,7 +46,7 @@ public final class ChessBoard0x88 implements ChessBoard {
 
   @Override
   public ChessPiece getPiece(final int file, final int rank) {
-    return getPiece(Board0x88Util.fileAndRankToSquare(file, rank));
+    return getPiece(ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
 
   /**
@@ -56,7 +57,7 @@ public final class ChessBoard0x88 implements ChessBoard {
    * @return piece.
    */
   private ChessPiece getPiece(final int sd) {
-    return board[sd];
+    return this.board[sd];
   }
 
   @Override
@@ -65,7 +66,7 @@ public final class ChessBoard0x88 implements ChessBoard {
     for (int rank = 7; rank >= 0; rank--) {
       for (int file = 0; file < 8; file++) {
 
-        int sq0x88 = Board0x88Util.fileAndRankToSquare(file, rank);
+        int sq0x88 = ChessBoardUtil0x88.fileAndRankToSquare(file, rank);
 
         if (this.board[sq0x88] == null) {
           builder.append('.');

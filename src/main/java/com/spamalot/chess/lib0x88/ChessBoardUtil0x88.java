@@ -1,4 +1,4 @@
-package com.spamalot.chess.board;
+package com.spamalot.chess.lib0x88;
 
 /**
  * Utility functions to handle 0x88 Board representations.
@@ -6,10 +6,10 @@ package com.spamalot.chess.board;
  * @author gej
  *
  */
-public final class Board0x88Util {
+public final class ChessBoardUtil0x88 {
 
   /** Private Constructor. */
-  private Board0x88Util() {
+  private ChessBoardUtil0x88() {
   }
 
   /**
