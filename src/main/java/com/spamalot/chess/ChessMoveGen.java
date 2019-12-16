@@ -55,7 +55,8 @@ public final class ChessMoveGen {
         String fenString;
         while ((fenString = br.readLine()) != null) {
           // Ignore empty lines and comments.
-          fenString = fenString.replaceAll("#.*", "").trim();
+          fenString = fenString.replaceAll("#.*", "");
+          fenString = fenString.trim();
           fenString = StringUtils.strip(fenString);
           if (StringUtils.isBlank(fenString)) {
             continue;
