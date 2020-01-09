@@ -67,8 +67,7 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Create a chess board using a FEN diagram.
    * 
-   * @param fen
-   *              A Chess position in FEN
+   * @param fen A Chess position in FEN
    */
   public ChessGameStateImpl(final String fen) {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
@@ -84,10 +83,8 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Generate moves for single move pieces (Knights, Kings).
    * 
-   * @param s
-   *            the Square
-   * @param d
-   *            the direction array
+   * @param s the Square
+   * @param d the direction array
    * @return the move list.
    */
   private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
@@ -107,10 +104,8 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Generate a move.
    * 
-   * @param s
-   *             the source square
-   * @param sd
-   *             the destination square
+   * @param s  the source square
+   * @param sd the destination square
    * @return a chess move.
    */
   private static ChessMove generateMove(final int s, final int sd) {
@@ -125,10 +120,8 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
    * 
-   * @param s
-   *            the Square
-   * @param d
-   *            the direction array
+   * @param s the Square
+   * @param d the direction array
    */
   static void generateSliderMoves(final int s, final int[] d) {
     for (int dir : d) {
@@ -141,12 +134,9 @@ public final class ChessGameStateImpl implements ChessGameState {
   /**
    * Put a Chess piece on the board.
    * 
-   * @param p
-   *               the Chess Piece
-   * @param file
-   *               file
-   * @param rank
-   *               rank
+   * @param p    the Chess Piece
+   * @param file file
+   * @param rank rank
    */
   private void addPiece(final ChessPiece p, final int file, final int rank) {
     if (p.getColor() == Color.WHITE) {
@@ -240,8 +230,8 @@ public final class ChessGameStateImpl implements ChessGameState {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=").append(this.blackPieceList).append(",\n            toMove=").append(this.toMove)
-        .append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
+        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
 
     builder.append(this.board);
 
