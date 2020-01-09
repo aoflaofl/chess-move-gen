@@ -86,6 +86,7 @@
         <version>3.1.12</version>
         <configuration>
           <effort>Max</effort>
+          <failOnError>false</failOnError>
           <plugins>
             <plugin>
               <groupId>jp.skypencil.findbugs.slf4j</groupId>
