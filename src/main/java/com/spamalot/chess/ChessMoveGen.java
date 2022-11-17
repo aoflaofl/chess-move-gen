@@ -45,28 +45,19 @@ public final class ChessMoveGen {
   public static void main(final String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
 
-    // TODO: Make loading a type of file a parameter since there are other formats.
+    processFEN(fenFiles);
+  }
+
+  private static void processFEN(List<String> fenFiles) {
     for (String fenFile : fenFiles) {
       LOGGER.debug("Processing FEN strings in file : {}", fenFile);
 
       Path file = Paths.get(fenFile);
 
-      // TODO: Move this to the FEN class since there could be other types.
       try (BufferedReader br = Files.newBufferedReader(file, Charset.defaultCharset())) {
         String fenString;
         while ((fenString = br.readLine()) != null) {
-          // Ignore empty lines and comments.
-          fenString = fenString.replaceAll("#.*", "");
-          fenString = fenString.trim();
-          fenString = StringUtils.strip(fenString);
-          if (StringUtils.isBlank(fenString)) {
-            continue;
-          }
-
-          LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
-          ChessGameState game = new ChessGameStateImpl(fenString);
-
-          LOGGER.debug("The game:\n{}", game);
+          readFEN(fenFile, fenString);
         }
       } catch (FileNotFoundException e) {
         usageAndExit();
@@ -75,6 +66,24 @@ public final class ChessMoveGen {
         LOGGER.error("Exception: ", e);
       }
     }
+  }
+
+  private static void readFEN(String fenFile, String fen) {
+    String fenString = cleanLine(fen);
+    if (!StringUtils.isBlank(fenString)) {
+
+      LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
+      ChessGameState game = new ChessGameStateImpl(fenString);
+
+      LOGGER.debug("The game:\n{}", game);
+    }
+  }
+
+  private static String cleanLine(String line) {
+    String fenString = line.replaceAll("#.*", "");
+    fenString = fenString.trim();
+    fenString = StringUtils.strip(fenString);
+    return fenString;
   }
 
   /**
