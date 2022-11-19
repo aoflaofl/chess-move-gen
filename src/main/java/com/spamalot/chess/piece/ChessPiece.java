@@ -8,6 +8,12 @@ package com.spamalot.chess.piece;
  */
 public class ChessPiece {
 
+  /** Color of the piece. */
+  private Color color;
+
+  /** Type of the piece. */
+  private PieceType type;
+
   /**
    * Construct Object for Chess Pieces.
    * 
@@ -20,9 +26,6 @@ public class ChessPiece {
     this.color = c;
     this.type = t;
   }
-
-  /** Color of the piece. */
-  private Color color;
 
   /**
    * Get Color of the Piece.
@@ -41,9 +44,6 @@ public class ChessPiece {
   public PieceType getType() {
     return this.type;
   }
-
-  /** Type of the piece. */
-  private PieceType type;
 
   @Override
   public final String toString() {
