@@ -1,7 +1,7 @@
 
 /**
  * Generate Chess Moves.
- * 
+ *
  * @author gej
  *
  */

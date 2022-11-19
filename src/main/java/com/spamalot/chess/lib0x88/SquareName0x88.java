@@ -4,16 +4,16 @@ import javax.annotation.Nullable;
 
 /**
  * Utility functions for handling square names.
- * 
+ *
  * @author gej
  *
  */
-public final class SquareName0x88 {
+public class SquareName0x88 {
   /** Map file number to file letter. */
   private static final char[] FILE_LETTERS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 
   /** Cache square number to name. */
-  private static String[] sqNames = new String[128];
+  private static final String[] sqNames = new String[128];
 
   static {
     for (int i = 0; i < 128; i++) {
@@ -23,13 +23,12 @@ public final class SquareName0x88 {
 
   /**
    * Build the name string from the Board0x88 number.
-   * 
-   * @param s
-   *            the Board0x88 square number
+   *
+   * @param s the Board0x88 square number
    * @return the square's name in algebraic notation.
    */
   @Nullable
-  private static String fromBoard0x88number(final int s) {
+  private static final String fromBoard0x88number(int s) {
     if (!ChessBoardUtil0x88.isOnBoard(s)) {
       return null;
     }
@@ -41,14 +40,12 @@ public final class SquareName0x88 {
 
   /**
    * Make Square name.
-   * 
-   * @param file
-   *               file
-   * @param rank
-   *               rank
+   *
+   * @param file file
+   * @param rank rank
    * @return string of square name.
    */
-  private static String makeSquareName(final int file, final int rank) {
+  private static final String makeSquareName(int file, int rank) {
     StringBuilder n = new StringBuilder(2);
 
     return n.append(FILE_LETTERS[file]).append(rank).toString();
@@ -56,14 +53,12 @@ public final class SquareName0x88 {
 
   /**
    * Get the square's name from the Board0x88 square number.
-   * 
-   * @param file
-   *               file
-   * @param rank
-   *               rank
+   *
+   * @param file file
+   * @param rank rank
    * @return the name of the square.
    */
-  public static String toName(final int file, final int rank) {
+  public static String toName(int file, int rank) {
     return sqNames[ChessBoardUtil0x88.fileAndRankToSquare(file, rank)];
   }
 

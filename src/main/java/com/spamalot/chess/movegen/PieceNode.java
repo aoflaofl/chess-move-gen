@@ -6,7 +6,7 @@ import com.spamalot.chess.piece.ChessPiece;
 
 /**
  * Represent a chess piece that exists on the board.
- * 
+ *
  * @author gej
  *
  */
@@ -20,42 +20,39 @@ public class PieceNode {
 
   /**
    * Constructor.
-   * 
-   * @param p
-   *            the Piece
-   * @param f
-   *            file
-   * @param r
-   *            rank
+   *
+   * @param p the Piece
+   * @param f file
+   * @param r rank
    */
-  public PieceNode(final ChessPiece p, final int f, final int r) {
-    this.piece = p;
-    this.file = f;
-    this.rank = r;
+  public PieceNode(ChessPiece p, int f, int r) {
+    piece = p;
+    file = f;
+    rank = r;
   }
 
   /**
    * Get the 0x88 square number.
-   * 
+   *
    * @return the 0x88 square this Piece is in.
    */
   public int get0x88Square() {
-    return ChessBoardUtil0x88.fileAndRankToSquare(this.file, this.rank);
+    return ChessBoardUtil0x88.fileAndRankToSquare(file, rank);
   }
 
   /**
    * Get the Piece.
-   * 
+   *
    * @return the Piece.
    */
   public ChessPiece getPiece() {
-    return this.piece;
+    return piece;
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(this.piece).append(SquareName0x88.toName(this.file, this.rank));
+    builder.append(piece).append(SquareName0x88.toName(file, rank));
     return builder.toString();
   }
 }

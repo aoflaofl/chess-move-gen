@@ -11,23 +11,23 @@ public class ChessPieceTest {
 
   @Test
   public void testChessPiece() {
-    assertNotNull(this.blackPiece);
+    assertNotNull("Should not be null", blackPiece);
   }
 
   @Test
   public void testGetColor() {
-    assertEquals(Color.BLACK, this.blackPiece.getColor());
+    assertEquals("Should be equal", Color.BLACK, blackPiece.getColor());
   }
 
   @Test
   public void testGetType() {
-    assertNotNull(this.blackPiece.getType());
+    assertNotNull("Should not be null", blackPiece.getType());
   }
 
   @Test
   public void testToString() {
-    assertNotNull(this.blackPiece.toString());
-    assertNotNull(this.whitePiece.toString());
+    assertNotNull("Should not be null", blackPiece.toString());
+    assertNotNull("Should not be null", whitePiece.toString());
   }
 
 }

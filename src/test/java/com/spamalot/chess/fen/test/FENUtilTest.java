@@ -1,19 +1,19 @@
 package com.spamalot.chess.fen.test;
 
-import com.spamalot.chess.fen.FENUtil;
-import com.spamalot.chess.game.ChessGameStateImpl;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.spamalot.chess.fen.FENUtil;
+import com.spamalot.chess.game.ChessGameStateImpl;
+
 /**
  * Test the FENUtil class.
- * 
+ *
  * @author gej
  *
  */
-public final class FENUtilTest {
+public class FENUtilTest {
   /** Good FEN for testing. */
   private static final String GOOD_FEN = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
 
@@ -34,15 +34,15 @@ public final class FENUtilTest {
 
   /** For testing exceptions. */
   @Rule
-  public final ExpectedException exception = ExpectedException.none();
+  public ExpectedException exception = ExpectedException.none();
 
   /**
    * Test what happens when a FEN String is missing.
    */
   @Test
   public void testEmptyFENString() {
-    this.exception.expect(IllegalArgumentException.class);
-    this.exception.expectMessage("Empty FEN String.");
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("Empty FEN String.");
 
     FENUtil.processFENString(null, null);
   }
@@ -52,10 +52,11 @@ public final class FENUtilTest {
    */
   @Test
   public void testNullBoardElement() {
-    this.exception.expect(NullPointerException.class);
-    this.exception.expectMessage("Null Board object.");
+    exception.expect(NullPointerException.class);
+    exception.expectMessage("Null Board object.");
 
-    FENUtil.processFENString(null, String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
+    FENUtil.processFENString(null, String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
+        GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
   /**
@@ -63,22 +64,24 @@ public final class FENUtilTest {
    */
   @Test
   public void testTooFewFENPartsBoardElement() {
-    this.exception.expect(IllegalArgumentException.class);
-    this.exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
 
     FENUtil.processFENString(new ChessGameStateImpl(), TOO_FEW_PARTS_FEN);
   }
 
   @Test
   public void testGoodFEN() {
-    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
+    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+        GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
   @Test
   public void testBadBoardFEN() {
-    this.exception.expect(IllegalArgumentException.class);
-    this.exception.expectMessage("FEN Board String does not have enough ranks : 7");
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("FEN Board String does not have enough ranks : 7");
 
-    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
+    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+        GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 }

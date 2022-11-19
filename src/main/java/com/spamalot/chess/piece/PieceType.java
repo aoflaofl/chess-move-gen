@@ -2,7 +2,7 @@ package com.spamalot.chess.piece;
 
 /**
  * Enum for type of Chess Piece.
- * 
+ *
  * @author gej
  *
  */
@@ -29,37 +29,37 @@ public enum PieceType {
 
   /**
    * Construct the piece Type.
-   * 
+   *
    * @param blackCh Black character representing this piece
    * @param whiteCh White character representing this piece
    */
-  PieceType(final char blackCh, final char whiteCh) {
-    this.whiteChar = whiteCh;
-    this.blackChar = blackCh;
-    this.stringRepresentation = new String[Color.values().length];
-    this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
-    this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
+  PieceType(char blackCh, char whiteCh) {
+    whiteChar = whiteCh;
+    blackChar = blackCh;
+    stringRepresentation = new String[Color.values().length];
+    stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
+    stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
   }
 
   /**
    * Get the White Character that represents the piece on an ASCII board.
-   * 
+   *
    * @return the whiteChar
    */
   public char getWhiteChar() {
-    return this.whiteChar;
+    return whiteChar;
   }
 
   /**
    * Get the Black Character that represents the piece on an ASCII board.
-   * 
+   *
    * @return the blackChar
    */
   public char getBlackChar() {
-    return this.blackChar;
+    return blackChar;
   }
 
-  public String getStringForColor(Color c) {
-    return this.stringRepresentation[c.ordinal()];
+  String getStringForColor(Color c) {
+    return stringRepresentation[c.ordinal()];
   }
 }

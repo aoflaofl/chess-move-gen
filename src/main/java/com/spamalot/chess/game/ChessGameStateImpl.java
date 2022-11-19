@@ -2,6 +2,14 @@ package com.spamalot.chess.game;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
@@ -12,30 +20,25 @@ import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 // TODO: Add builder for FEN.
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
- * 
- * <p>I'll give it a catchy name: "Spacky"
- * 
- * <p>First goal: Make it solve mate in X problems. This will require move
+ *
+ * <p>
+ * I'll give it a catchy name: "Spacky"
+ *
+ * <p>
+ * First goal: Make it solve mate in X problems. This will require move
  * generation and tree traversing code.
- * 
- * <p>WCGW?
- * 
+ *
+ * <p>
+ * WCGW?
+ *
  * @author gej
  *
  */
-public final class ChessGameStateImpl implements ChessGameState {
+public class ChessGameStateImpl implements ChessGameState {
   /** Logger. */
   private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameStateImpl.class);
 
@@ -66,35 +69,31 @@ public final class ChessGameStateImpl implements ChessGameState {
 
   /**
    * Create a chess board using a FEN diagram.
-   * 
+   *
    * @param fen A Chess position in FEN
    */
-  public ChessGameStateImpl(final String fen) {
+  public ChessGameStateImpl(String fen) {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
 
     LOGGER.info("Constructing a ChessBoard using FEN String.");
-    try {
-      FENUtil.processFENString(this, fen);
-    } catch (Exception e) {
-      LOGGER.error("Problem with FEN string : ", e);
-    }
+    FENUtil.processFENString(this, fen);
   }
 
   /**
    * Generate moves for single move pieces (Knights, Kings).
-   * 
+   *
    * @param s the Square
    * @param d the direction array
    * @return the move list.
    */
-  private List<ChessMove> generateJumperMoves(final int s, final int[] d) {
+  private List<ChessMove> generateJumperMoves(int s, int[] d) {
     List<ChessMove> m = new ArrayList<>();
     int sd;
     for (int dir : d) {
 
       sd = s + dir;
 
-      if (this.board.canMoveToSquare(sd)) {
+      if (board.canMoveToSquare(sd)) {
         m.add(generateMove(s, sd));
       }
     }
@@ -103,12 +102,12 @@ public final class ChessGameStateImpl implements ChessGameState {
 
   /**
    * Generate a move.
-   * 
+   *
    * @param s  the source square
    * @param sd the destination square
    * @return a chess move.
    */
-  private static ChessMove generateMove(final int s, final int sd) {
+  private static final ChessMove generateMove(int s, int sd) {
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Generate move : ({}-{})", s, sd);
       // LOGGER.info("Generate move : {}-{}", SquareName.toName(s),
@@ -119,11 +118,11 @@ public final class ChessGameStateImpl implements ChessGameState {
 
   /**
    * Generate moves for sliding pieces (Queens, Bishops, Rooks).
-   * 
+   *
    * @param s the Square
    * @param d the direction array
    */
-  static void generateSliderMoves(final int s, final int[] d) {
+  static void generateSliderMoves(int s, int[] d) {
     for (int dir : d) {
       for (int sd = s + dir; ChessBoardUtil0x88.isOnBoard(sd); sd += dir) {
         generateMove(s, sd);
@@ -133,38 +132,38 @@ public final class ChessGameStateImpl implements ChessGameState {
 
   /**
    * Put a Chess piece on the board.
-   * 
+   *
    * @param p    the Chess Piece
    * @param file file
    * @param rank rank
    */
-  private void addPiece(final ChessPiece p, final int file, final int rank) {
+  private void addPiece(ChessPiece p, int file, int rank) {
     if (p.getColor() == Color.WHITE) {
-      this.whitePieceList.offer(new PieceNode(p, file, rank));
+      whitePieceList.offer(new PieceNode(p, file, rank));
     } else {
-      this.blackPieceList.offer(new PieceNode(p, file, rank));
+      blackPieceList.offer(new PieceNode(p, file, rank));
     }
 
-    this.board.addToBoard(p, file, rank);
+    board.addToBoard(p, file, rank);
   }
 
   @Override
-  public void addPiece(final PieceType p, final Color c, final int file, final int rank) {
+  public void addPiece(PieceType p, Color c, int file, int rank) {
     addPiece(new ChessPiece(c, p), file, rank);
   }
 
   /**
    * Get the list of chess moves available on the board.
-   * 
+   *
    * @return a List of Chess Moves.
    */
   private List<ChessMove> buildMoveList() {
     List<ChessMove> m = new ArrayList<>();
     List<PieceNode> pieceList;
-    if (this.toMove == Color.WHITE) {
-      pieceList = this.whitePieceList;
+    if (toMove == Color.WHITE) {
+      pieceList = whitePieceList;
     } else {
-      pieceList = this.blackPieceList;
+      pieceList = blackPieceList;
     }
 
     for (PieceNode s : pieceList) {
@@ -197,32 +196,32 @@ public final class ChessGameStateImpl implements ChessGameState {
   }
 
   @Override
-  public void setCastling(final PieceType king, final Color white, final boolean b) {
+  public void setCastling(PieceType king, Color white, boolean b) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setEnPassantSquare(final int file, final int rank) {
+  public void setEnPassantSquare(int file, int rank) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setHalfMovesSinceCaptureOrPawnMove(final int intValue) {
+  public void setHalfMovesSinceCaptureOrPawnMove(int intValue) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setMoveNumber(final int intValue) {
+  public void setMoveNumber(int intValue) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void setToMove(final Color s) {
-    this.toMove = s;
+  public void setToMove(Color s) {
+    toMove = s;
   }
 
   @Override
@@ -230,10 +229,10 @@ public final class ChessGameStateImpl implements ChessGameState {
     LOGGER.debug("toString()");
     StringBuilder builder = new StringBuilder();
 
-    builder.append("ChessBoard [whitePieceList=").append(this.whitePieceList).append(",\n            blackPieceList=")
-        .append(this.blackPieceList).append(",\n            toMove=").append(this.toMove).append("]\n");
+    builder.append("ChessBoard [whitePieceList=").append(whitePieceList).append(",\n            blackPieceList=")
+        .append(blackPieceList).append(",\n            toMove=").append(toMove).append("]\n");
 
-    builder.append(this.board);
+    builder.append(board);
 
     builder.append(buildMoveList());
 

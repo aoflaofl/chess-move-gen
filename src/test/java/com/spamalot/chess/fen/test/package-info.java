@@ -1,6 +1,6 @@
 /**
  * Test FENUtil class.
- * 
+ *
  * @author gej
  *
  */

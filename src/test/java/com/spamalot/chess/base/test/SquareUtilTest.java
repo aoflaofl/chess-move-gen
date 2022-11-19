@@ -7,8 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.spamalot.chess.board.SquareUtil;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +16,8 @@ import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.spamalot.chess.board.SquareUtil;
+
 @SuppressWarnings("static-method")
 public class SquareUtilTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(SquareUtilTest.class);
@@ -26,16 +26,16 @@ public class SquareUtilTest {
 
   /** For testing exceptions. */
   @Rule
-  public final ExpectedException exception = ExpectedException.none();
+  public ExpectedException exception = ExpectedException.none();
 
   @Test
   public void testGetFile() {
-    assertEquals(1, this.squ.getFile());
+    assertEquals(1, squ.getFile());
   }
 
   @Test
   public void testGetRank() {
-    assertEquals(4, this.squ.getRank());
+    assertEquals(4, squ.getRank());
   }
 
   @Test
@@ -46,8 +46,8 @@ public class SquareUtilTest {
 
   @Test
   public void testValueOfRange() {
-    this.exception.expect(IllegalArgumentException.class);
-    this.exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
 
     SquareUtil.valueOf(-1, 2);
   }
@@ -117,8 +117,8 @@ public class SquareUtilTest {
 
   @Test
   public void testEqualsObject() {
-    assertTrue(this.squ == SquareUtil.valueOf(1, 4));
+    assertTrue(squ == SquareUtil.valueOf(1, 4));
 
-    assertFalse(this.squ == SquareUtil.valueOf(4, 1));
+    assertFalse(squ == SquareUtil.valueOf(4, 1));
   }
 }
