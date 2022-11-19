@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -79,11 +80,10 @@ public final class ChessMoveGen {
     }
   }
 
+  private static final Pattern COMMENT_REGEX = Pattern.compile("#.*");
+
   private static String cleanLine(String line) {
-    String fenString = line.replaceAll("#.*", "");
-    fenString = fenString.trim();
-    fenString = StringUtils.strip(fenString);
-    return fenString;
+    return COMMENT_REGEX.matcher(line).replaceAll("").trim();
   }
 
   /**
