@@ -17,10 +17,8 @@ public class ChessPiece {
   /**
    * Construct Object for Chess Pieces.
    * 
-   * @param c
-   *            Color of the piece
-   * @param t
-   *            Type of the piece
+   * @param c Color of the piece
+   * @param t Type of the piece
    */
   public ChessPiece(final Color c, final PieceType t) {
     this.color = c;
@@ -47,12 +45,6 @@ public class ChessPiece {
 
   @Override
   public final String toString() {
-    StringBuilder builder = new StringBuilder();
-    if (this.color == Color.BLACK) {
-      builder.append(this.type.getBlackChar());
-    } else {
-      builder.append(this.type.getWhiteChar());
-    }
-    return builder.toString();
+    return this.type.getStringForColor(this.color);
   }
 }

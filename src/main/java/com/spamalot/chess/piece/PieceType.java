@@ -24,18 +24,21 @@ public enum PieceType {
   private char whiteChar;
   /** Black character for this piece. */
   private char blackChar;
+  /** String array with String representation of the PieceType */
+  private String[] stringRepresentation;
 
   /**
    * Construct the piece Type.
    * 
-   * @param blackCh
-   *          Black character representing this piece
-   * @param whiteCh
-   *          White character representing this piece
+   * @param blackCh Black character representing this piece
+   * @param whiteCh White character representing this piece
    */
   PieceType(final char blackCh, final char whiteCh) {
     this.whiteChar = whiteCh;
     this.blackChar = blackCh;
+    this.stringRepresentation = new String[Color.values().length];
+    this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
+    this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
   }
 
   /**
@@ -54,5 +57,9 @@ public enum PieceType {
    */
   public char getBlackChar() {
     return this.blackChar;
+  }
+
+  public String getStringForColor(Color c) {
+    return this.stringRepresentation[c.ordinal()];
   }
 }
