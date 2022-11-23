@@ -37,12 +37,4 @@ public interface ChessBoard {
    * @return true if the square can be moved to.
    */
   boolean canMoveToSquare(int file, int rank);
-
-  /**
-   * Can move to square.
-   *
-   * @param file file
-   * @return square
-   */
-  boolean canMoveToSquare(int file);
 }

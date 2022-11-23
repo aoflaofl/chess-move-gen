@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.spamalot.chess.board.ChessBoard;
-import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.movegen.ChessMove;
@@ -19,6 +18,7 @@ import com.spamalot.chess.movegen.PieceNode;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
+import com.spamalot.chess.util.FENUtil;
 
 // TODO: Add builder for FEN.
 
@@ -93,9 +93,9 @@ public class ChessGameStateImpl implements ChessGameState {
 
       sd = s + dir;
 
-      if (board.canMoveToSquare(sd)) {
-        m.add(generateMove(s, sd));
-      }
+//      if (board.canMoveToSquare(sd)) {
+//        m.add(generateMove(s, sd));
+//      }
     }
     return m;
   }

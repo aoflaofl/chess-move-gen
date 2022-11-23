@@ -33,8 +33,7 @@ public class ChessBoard0x88 implements ChessBoard {
     return canMoveToSquare(ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
 
-  @Override
-  public boolean canMoveToSquare(int sd) {
+  private boolean canMoveToSquare(int sd) {
     boolean result = true;
     if (!(ChessBoardUtil0x88.isOnBoard(sd) && this.getPiece(sd) == null)) {
       result = false;

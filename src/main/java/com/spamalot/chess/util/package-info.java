@@ -4,4 +4,4 @@
  * @author gej
  *
  */
-package com.spamalot.chess.fen;
+package com.spamalot.chess.util;

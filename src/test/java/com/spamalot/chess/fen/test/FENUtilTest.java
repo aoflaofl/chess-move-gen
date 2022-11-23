@@ -4,8 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.spamalot.chess.fen.FENUtil;
 import com.spamalot.chess.game.ChessGameStateImpl;
+import com.spamalot.chess.util.FENUtil;
 
 /**
  * Test the FENUtil class.
