@@ -37,9 +37,9 @@ import com.spamalot.chess.util.FENUtil;
  * @author gej
  *
  */
-public class ChessGameStateImpl {
+public class ChessGameState {
   /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameStateImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameState.class);
 
   /** Diagonal diffs. */
   private static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
@@ -63,7 +63,7 @@ public class ChessGameStateImpl {
   private LinkedList<PieceNode> whitePieceList = new LinkedList<>();
 
   /** Nothing to see here. */
-  public ChessGameStateImpl() {
+  public ChessGameState() {
   }
 
   /**
@@ -71,7 +71,7 @@ public class ChessGameStateImpl {
    *
    * @param fen A Chess position in FEN
    */
-  public ChessGameStateImpl(String fen) {
+  public ChessGameState(String fen) {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
 
     LOGGER.info("Constructing a ChessBoard using FEN String.");

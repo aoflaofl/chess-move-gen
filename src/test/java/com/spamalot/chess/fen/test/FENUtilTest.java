@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.spamalot.chess.game.ChessGameStateImpl;
+import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.util.FENUtil;
 
 /**
@@ -67,12 +67,12 @@ public class FENUtilTest {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
 
-    FENUtil.processFENString(new ChessGameStateImpl(), TOO_FEW_PARTS_FEN);
+    FENUtil.processFENString(new ChessGameState(), TOO_FEW_PARTS_FEN);
   }
 
   @Test
   public void testGoodFEN() {
-    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+    FENUtil.processFENString(new ChessGameState(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
         GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
@@ -81,7 +81,7 @@ public class FENUtilTest {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("FEN Board String does not have enough ranks : 7");
 
-    FENUtil.processFENString(new ChessGameStateImpl(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+    FENUtil.processFENString(new ChessGameState(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
         GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 }
