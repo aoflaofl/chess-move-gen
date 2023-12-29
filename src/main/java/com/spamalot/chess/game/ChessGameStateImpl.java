@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.movegen.ChessMove;
@@ -38,7 +37,7 @@ import com.spamalot.chess.util.FENUtil;
  * @author gej
  *
  */
-public class ChessGameStateImpl implements ChessGameState {
+public class ChessGameStateImpl {
   /** Logger. */
   private static final Logger LOGGER = LoggerFactory.getLogger(ChessGameStateImpl.class);
 
@@ -55,7 +54,7 @@ public class ChessGameStateImpl implements ChessGameState {
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
   /** The Board being used for this game. */
-  private ChessBoard board = new ChessBoard0x88();
+  private ChessBoard0x88 board = new ChessBoard0x88();
 
   /** The Color whose move it is. */
   private Color toMove;
@@ -147,7 +146,6 @@ public class ChessGameStateImpl implements ChessGameState {
     board.addToBoard(p, file, rank);
   }
 
-  @Override
   public void addPiece(PieceType p, Color c, int file, int rank) {
     addPiece(new ChessPiece(c, p), file, rank);
   }
@@ -195,31 +193,26 @@ public class ChessGameStateImpl implements ChessGameState {
     return m;
   }
 
-  @Override
   public void setCastling(PieceType king, Color white, boolean b) {
     // TODO Auto-generated method stub
 
   }
 
-  @Override
   public void setEnPassantSquare(int file, int rank) {
     // TODO Auto-generated method stub
 
   }
 
-  @Override
   public void setHalfMovesSinceCaptureOrPawnMove(int intValue) {
     // TODO Auto-generated method stub
 
   }
 
-  @Override
   public void setMoveNumber(int intValue) {
     // TODO Auto-generated method stub
 
   }
 
-  @Override
   public void setToMove(Color s) {
     toMove = s;
   }

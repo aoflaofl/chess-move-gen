@@ -1,6 +1,5 @@
 package com.spamalot.chess.lib0x88;
 
-import com.spamalot.chess.board.ChessBoard;
 import com.spamalot.chess.piece.ChessPiece;
 
 /**
@@ -9,11 +8,10 @@ import com.spamalot.chess.piece.ChessPiece;
  * @author gej
  *
  */
-public class ChessBoard0x88 implements ChessBoard {
+public class ChessBoard0x88 {
   /** Hold the 0x88 representation of the board. */
   private ChessPiece[] board = new ChessPiece[128];
 
-  @Override
   public void addToBoard(ChessPiece p, int file, int rank) {
     addToBoard(p, ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
@@ -28,7 +26,6 @@ public class ChessBoard0x88 implements ChessBoard {
     board[sq] = p;
   }
 
-  @Override
   public boolean canMoveToSquare(int file, int rank) {
     return canMoveToSquare(ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }
@@ -41,7 +38,6 @@ public class ChessBoard0x88 implements ChessBoard {
     return result;
   }
 
-  @Override
   public ChessPiece getPiece(int file, int rank) {
     return getPiece(ChessBoardUtil0x88.fileAndRankToSquare(file, rank));
   }

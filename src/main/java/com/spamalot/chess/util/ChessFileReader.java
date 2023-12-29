@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.game.ChessGameStateImpl;
 
 public final class ChessFileReader {
@@ -50,7 +49,7 @@ public final class ChessFileReader {
     if (!StringUtils.isBlank(fenString)) {
 
       LOGGER.debug("FEN string from {} : {}", fenFile, fenString);
-      ChessGameState game = new ChessGameStateImpl(fenString);
+      ChessGameStateImpl game = new ChessGameStateImpl(fenString);
 
       LOGGER.debug("The game:\n{}", game);
     }

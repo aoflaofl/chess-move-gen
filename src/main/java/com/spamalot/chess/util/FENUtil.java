@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spamalot.chess.game.ChessGameState;
+import com.spamalot.chess.game.ChessGameStateImpl;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
@@ -36,14 +36,14 @@ public class FENUtil {
    * @param board the board object
    * @param fen   the FEN String
    */
-  public static void processFENString(ChessGameState board, String fen) {
+  public static void processFENString(ChessGameStateImpl board, String fen) {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN String.");
     checkNotNull(board, "Null Board object.");
 
     processFENParts(board, fen.split(" "));
   }
 
-  private static final void processFENParts(ChessGameState board, String[] fenParts) {
+  private static final void processFENParts(ChessGameStateImpl board, String[] fenParts) {
     checkArgument(fenParts.length == 6,
         "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
 
@@ -60,7 +60,7 @@ public class FENUtil {
     board.setMoveNumber(moveNumber(fenParts[5]));
   }
 
-  private static final void pieceSetup(ChessGameState board, String[] ranks) {
+  private static final void pieceSetup(ChessGameStateImpl board, String[] ranks) {
     checkArgument(ranks.length == 8, "FEN Board String does not have enough ranks : " + ranks.length);
 
     int rank = 8;
@@ -96,7 +96,7 @@ public class FENUtil {
    * @param board  board to work on
    * @param string En-passant square part of FEN string
    */
-  private static final void enPassantSquare(ChessGameState board, String string) {
+  private static final void enPassantSquare(ChessGameStateImpl board, String string) {
     checkNotNull(string);
     checkArgument("-".equals(string));
     if (!"-".equals(string) && string.length() == 2) {
@@ -112,7 +112,7 @@ public class FENUtil {
    * @param board          board to work on
    * @param castlingString the String describing castling
    */
-  private static final void toCastle(ChessGameState board, String castlingString) {
+  private static final void toCastle(ChessGameStateImpl board, String castlingString) {
     if ("-".equals(castlingString)) {
       return;
     }
@@ -159,7 +159,7 @@ public class FENUtil {
    * @param fenRow the FEN row String
    * @param rank   the row's rank (1-8)
    */
-  private static final void processFENRow(ChessGameState board, String fenRow, int rank) {
+  private static final void processFENRow(ChessGameStateImpl board, String fenRow, int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
     int file = 1;
     for (char s : fenRow.toCharArray()) {
@@ -181,7 +181,7 @@ public class FENUtil {
    * @param file      the Piece's file (1-8)
    * @param rank      the Piece's rank (1-8)
    */
-  private static final void genPiece(ChessGameState board, char pieceChar, int file, int rank) {
+  private static final void genPiece(ChessGameStateImpl board, char pieceChar, int file, int rank) {
     for (PieceType pt : PieceType.values()) {
       if (pt.getBlackChar() == pieceChar) {
         board.addPiece(pt, Color.BLACK, file, rank);
