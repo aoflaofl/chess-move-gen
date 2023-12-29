@@ -9,7 +9,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * @author gej
  *
  */
-public class SquareUtil {
+public final class SquareUtil {
   /** Hold generated Squares. */
   private static final SquareUtil[][] vals = new SquareUtil[8][8];
 
