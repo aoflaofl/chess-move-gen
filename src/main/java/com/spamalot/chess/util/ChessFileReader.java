@@ -21,17 +21,17 @@ import com.spamalot.chess.game.ChessGameState;
  * Utility class for reading and processing FEN files.
  */
 public final class ChessFileReader {
-  /** Logger. */
+
   private static final Logger LOGGER = LoggerFactory.getLogger(ChessFileReader.class);
   private static final Pattern COMMENT_REGEX = Pattern.compile("#.*");
 
-  /** Private constructor to prevent instantiation. */
   private ChessFileReader() {
+    // Private constructor to prevent instantiation.
   }
 
   /**
    * Clean a line by removing comments and trimming whitespace.
-   * 
+   *
    * @param line the line to clean
    * @return the cleaned line
    */
@@ -41,7 +41,7 @@ public final class ChessFileReader {
 
   /**
    * Process a list of FEN files to extract chess game states.
-   * 
+   *
    * @param fenFiles an iterable of file names containing FEN strings
    * @return a list of ChessGameState objects
    */
@@ -65,7 +65,7 @@ public final class ChessFileReader {
 
   /**
    * Read a FEN string and convert it to a ChessGameState object.
-   * 
+   *
    * @param fenFile the name of the file containing the FEN string
    * @param fen     the FEN string
    * @return an Optional containing the ChessGameState if the FEN string is valid,
@@ -73,7 +73,7 @@ public final class ChessFileReader {
    */
   static Optional<ChessGameState> readFEN(String fenFile, String fen) {
     String fenString = cleanLine(fen);
-    if (!StringUtils.isBlank(fenString)) {
+    if (StringUtils.isNotBlank(fenString)) {
       LOGGER.debug("FEN string from {}: {}", fenFile, fenString);
       ChessGameState game = new ChessGameState(fenString);
       LOGGER.debug("The game:\n{}", game);

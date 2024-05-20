@@ -47,7 +47,7 @@ public class SquareUtilTest {
   @Test
   public void testValueOfRange() {
     exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("File is -1.  Must be between 0 and 7 inclusive.");
+    exception.expectMessage("File is -1. Must be between 0 and 7 inclusive.");
 
     SquareUtil.valueOf(-1, 2);
   }

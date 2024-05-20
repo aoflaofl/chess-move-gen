@@ -4,37 +4,34 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * A Square Object. Meant only to communicate square information during
- * non-performance intensive operations.
- *
- * @author gej
- *
+ * non-performance intensive operations. This class utilizes a flyweight pattern
+ * to reduce the memory footprint.
  */
 public final class SquareUtil {
   /** Hold generated Squares. */
   private static final SquareUtil[][] vals = new SquareUtil[8][8];
 
-  /** The square's File number. */
-  private int file;
+  /** The square's file number. */
+  private final int file;
 
   /** The square's rank number. */
-  private int rank;
+  private final int rank;
 
   /**
-   * No public instantiation.
+   * Private constructor to prevent instantiation.
    *
-   * @param file2 File number
-   * @param rank2 Rank number
+   * @param file the file number
+   * @param rank the rank number
    */
-  private SquareUtil(int file2, int rank2) {
-
-    file = file2;
-    rank = rank2;
+  private SquareUtil(int file, int rank) {
+    this.file = file;
+    this.rank = rank;
   }
 
   /**
    * Get the file.
    *
-   * @return the File.
+   * @return the file number
    */
   public int getFile() {
     return file;
@@ -43,7 +40,7 @@ public final class SquareUtil {
   /**
    * Get the rank.
    *
-   * @return the Rank.
+   * @return the rank number
    */
   public int getRank() {
     return rank;
@@ -52,35 +49,34 @@ public final class SquareUtil {
   /**
    * Retrieve Square object for this file and rank.
    *
-   * @param file the File
-   * @param rank the Rank
+   * @param file the file number
+   * @param rank the rank number
    * @return Square Object for this file and rank.
    */
   public static SquareUtil valueOf(int file, int rank) {
-    checkArgument(file >= 0 && file <= 7, "File is %s.  Must be between 0 and 7 inclusive.", file);
-    checkArgument(rank >= 0 && rank <= 7, "Rank is %s.  Must be between 0 and 7 inclusive.", rank);
+    checkArgument(file >= 0 && file <= 7, "File is %s. Must be between 0 and 7 inclusive.", file);
+    checkArgument(rank >= 0 && rank <= 7, "Rank is %s. Must be between 0 and 7 inclusive.", rank);
 
-    SquareUtil ret = vals[file][rank];
-    if (ret == null) {
-      ret = new SquareUtil(file, rank);
-      vals[file][rank] = ret;
+    SquareUtil square = vals[file][rank];
+    if (square == null) {
+      square = new SquareUtil(file, rank);
+      vals[file][rank] = square;
     }
-    return ret;
+    return square;
   }
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("SquareUtil [file=").append(file).append(", rank=").append(rank).append(']');
-    return builder.toString();
+    return String.format("SquareUtil [file=%d, rank=%d]", file, rank);
   }
 
   @Override
   public int hashCode() {
-    int prime = 11;
+    final int prime = 31;
     int result = 1;
     result = prime * result + file;
-    return prime * result + rank;
+    result = prime * result + rank;
+    return result;
   }
 
   @Override
@@ -92,9 +88,6 @@ public final class SquareUtil {
       return false;
     }
     SquareUtil other = (SquareUtil) obj;
-    if (file != other.file) {
-      return false;
-    }
-    return rank == other.rank;
+    return file == other.file && rank == other.rank;
   }
 }
