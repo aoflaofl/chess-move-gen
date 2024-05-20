@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,8 @@ public final class ChessFileReader {
     return COMMENT_REGEX.matcher(line).replaceAll("").trim();
   }
 
-  public static void processFEN(List<String> fenFiles) {
+  public static List<ChessGameState> processFEN(Iterable<String> fenFiles) {
+    List<ChessGameState> chessGameStates = new ArrayList<>();
     for (String fenFile : fenFiles) {
       LOGGER.debug("Processing FEN strings in file : {}", fenFile);
 
@@ -36,15 +38,16 @@ public final class ChessFileReader {
       try (BufferedReader br = Files.newBufferedReader(file, Charset.defaultCharset())) {
         String fenString;
         while ((fenString = br.readLine()) != null) {
-          readFEN(fenFile, fenString);
+          chessGameStates.add(readFEN(fenFile, fenString));
         }
       } catch (IOException e) {
         LOGGER.error("Exception: ", e);
       }
     }
+    return chessGameStates;
   }
 
-  static void readFEN(String fenFile, String fen) {
+  static ChessGameState readFEN(String fenFile, String fen) {
     String fenString = cleanLine(fen);
     if (!StringUtils.isBlank(fenString)) {
 
@@ -52,7 +55,9 @@ public final class ChessFileReader {
       ChessGameState game = new ChessGameState(fenString);
 
       LOGGER.debug("The game:\n{}", game);
+      return game;
     }
+    return null;
   }
 
 }

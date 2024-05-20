@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.util.ChessFileReader;
 
 /**
@@ -35,8 +36,10 @@ public final class ChessMoveGen {
    */
   public static void main(String[] args) {
     List<String> fenFiles = parseCommandLineArguments(args);
-
-    ChessFileReader.processFEN(fenFiles);
+    List<ChessGameState> f = ChessFileReader.processFEN(fenFiles);
+    for (ChessGameState r : f) {
+      LOGGER.info("{}", r);
+    }
   }
 
   /**

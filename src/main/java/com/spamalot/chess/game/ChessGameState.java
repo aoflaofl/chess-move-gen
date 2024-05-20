@@ -85,7 +85,7 @@ public class ChessGameState {
    * @param d the direction array
    * @return the move list.
    */
-  private List<ChessMove> generateJumperMoves(int s, int[] d) {
+  private static List<ChessMove> generateJumperMoves(int s, int[] d) {
     List<ChessMove> m = new ArrayList<>();
     int sd;
     for (int dir : d) {
@@ -157,12 +157,7 @@ public class ChessGameState {
    */
   private List<ChessMove> buildMoveList() {
     List<ChessMove> m = new ArrayList<>();
-    List<PieceNode> pieceList;
-    if (toMove == Color.WHITE) {
-      pieceList = whitePieceList;
-    } else {
-      pieceList = blackPieceList;
-    }
+    List<PieceNode> pieceList = getSideToMovePieceList();
 
     for (PieceNode s : pieceList) {
       PieceType pt = s.getPiece().getType();
@@ -191,6 +186,16 @@ public class ChessGameState {
     }
 
     return m;
+  }
+
+  private List<PieceNode> getSideToMovePieceList() {
+    List<PieceNode> pieceList;
+    if (toMove == Color.WHITE) {
+      pieceList = whitePieceList;
+    } else {
+      pieceList = blackPieceList;
+    }
+    return pieceList;
   }
 
   public void setCastling(PieceType king, Color white, boolean b) {
