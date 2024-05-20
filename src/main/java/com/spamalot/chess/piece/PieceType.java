@@ -2,9 +2,6 @@ package com.spamalot.chess.piece;
 
 /**
  * Enum for type of Chess Piece.
- *
- * @author gej
- *
  */
 public enum PieceType {
   /** Pawn type. */
@@ -21,28 +18,28 @@ public enum PieceType {
   KING('k', 'K');
 
   /** White character for this piece. */
-  private char whiteChar;
+  private final char whiteChar;
   /** Black character for this piece. */
-  private char blackChar;
+  private final char blackChar;
   /** String array with String representation of the PieceType */
-  private String[] stringRepresentation;
+  private final String[] stringRepresentation;
 
   /**
-   * Construct the piece Type.
+   * Construct the piece type.
    *
-   * @param blackCh Black character representing this piece
-   * @param whiteCh White character representing this piece
+   * @param blackChar Black character representing this piece
+   * @param whiteChar White character representing this piece
    */
-  PieceType(char blackCh, char whiteCh) {
-    whiteChar = whiteCh;
-    blackChar = blackCh;
-    stringRepresentation = new String[Color.values().length];
-    stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
-    stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
+  PieceType(char blackChar, char whiteChar) {
+    this.whiteChar = whiteChar;
+    this.blackChar = blackChar;
+    this.stringRepresentation = new String[Color.values().length];
+    this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteChar);
+    this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackChar);
   }
 
   /**
-   * Get the White Character that represents the piece on an ASCII board.
+   * Get the white character that represents the piece on an ASCII board.
    *
    * @return the whiteChar
    */
@@ -51,7 +48,7 @@ public enum PieceType {
   }
 
   /**
-   * Get the Black Character that represents the piece on an ASCII board.
+   * Get the black character that represents the piece on an ASCII board.
    *
    * @return the blackChar
    */
@@ -59,7 +56,13 @@ public enum PieceType {
     return blackChar;
   }
 
-  String getStringForColor(Color c) {
-    return stringRepresentation[c.ordinal()];
+  /**
+   * Get the string representation of the piece for the given color.
+   *
+   * @param color the color of the piece
+   * @return the string representation of the piece
+   */
+  public String getStringForColor(Color color) {
+    return stringRepresentation[color.ordinal()];
   }
 }

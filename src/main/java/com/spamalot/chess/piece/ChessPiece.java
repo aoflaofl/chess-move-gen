@@ -2,42 +2,39 @@ package com.spamalot.chess.piece;
 
 /**
  * Class for Chess piece.
- *
- * @author gej
- *
  */
 public class ChessPiece {
 
   /** Color of the piece. */
-  private Color color;
+  private final Color color;
 
   /** Type of the piece. */
-  private PieceType type;
+  private final PieceType type;
 
   /**
-   * Construct Object for Chess Pieces.
+   * Construct a ChessPiece object.
    *
-   * @param c Color of the piece
-   * @param t Type of the piece
+   * @param color Color of the piece
+   * @param type  Type of the piece
    */
-  public ChessPiece(Color c, PieceType t) {
-    color = c;
-    type = t;
+  public ChessPiece(Color color, PieceType type) {
+    this.color = color;
+    this.type = type;
   }
 
   /**
-   * Get Color of the Piece.
+   * Get the color of the piece.
    *
-   * @return Color of the Piece.
+   * @return Color of the piece.
    */
   public Color getColor() {
     return color;
   }
 
   /**
-   * Get type of the Piece.
+   * Get the type of the piece.
    *
-   * @return Type of the Piece.
+   * @return Type of the piece.
    */
   public PieceType getType() {
     return type;
