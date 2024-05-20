@@ -2,34 +2,31 @@ package com.spamalot.chess.lib0x88;
 
 /**
  * Utility functions to handle 0x88 Board representations.
- *
- * @author gej
- *
  */
-public class ChessBoardUtil0x88 {
+public final class ChessBoardUtil0x88 {
 
-  /** Private Constructor. */
+  /** Private constructor to prevent instantiation. */
   private ChessBoardUtil0x88() {
   }
 
   /**
    * Get the file from the square's number.
    *
-   * @param s The Square's number
-   * @return The file the square is in.
+   * @param square the square's number
+   * @return the file the square is in
    */
-  static int fileFromSquare(int s) {
-    return s & 7;
+  public static int fileFromSquare(int square) {
+    return square & 7;
   }
 
   /**
-   * Given a square's number in an 0x88 board, give the rank.
+   * Get the rank from the square's number.
    *
-   * @param s The Square's number
-   * @return The rank the square is in.
+   * @param square the square's number
+   * @return the rank the square is in
    */
-  static int rankFromSquare(int s) {
-    return s >> 4;
+  public static int rankFromSquare(int square) {
+    return square >> 4;
   }
 
   /**
@@ -37,7 +34,7 @@ public class ChessBoardUtil0x88 {
    *
    * @param file the file
    * @param rank the rank
-   * @return the index of the square in the 0x88 board.
+   * @return the index of the square in the 0x88 board
    */
   public static int fileAndRankToSquare(int file, int rank) {
     return 16 * rank + file;
@@ -46,10 +43,10 @@ public class ChessBoardUtil0x88 {
   /**
    * Check if the square is on the board.
    *
-   * @param s index of square in the 0x88 board array
-   * @return true if the square is on the board.
+   * @param square index of the square in the 0x88 board array
+   * @return true if the square is on the board, false otherwise
    */
-  public static boolean isOnBoard(int s) {
-    return (s & 0x88) == 0;
+  public static boolean isOnBoard(int square) {
+    return (square & 0x88) == 0;
   }
 }
