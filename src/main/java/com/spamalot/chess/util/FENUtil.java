@@ -44,20 +44,15 @@ public final class FENUtil {
   }
 
   private static void processFENParts(ChessGameState board, String[] fenParts) {
-    checkArgument(fenParts.length == 6,
-        "FEN String does not have enough parts.  Needed : 6 Actual : " + fenParts.length);
+    assert fenParts.length == 6
+        : "FEN String does not have correct number of parts.  Needed : 6 Actual : " + fenParts.length;
 
-    String[] ranks = fenParts[0].split("/");
-
-    pieceSetup(board, ranks);
-
-    Color s = toColor(fenParts[1]);
-    board.setToMove(s);
-
+    pieceSetup(board, fenParts[0].split("/"));
+    board.setToMove(Color.toColor(fenParts[1]));
     toCastle(board, fenParts[2]);
     enPassantSquare(board, fenParts[3]);
-    board.setHalfMovesSinceCaptureOrPawnMove(halfMovesSinceCaptureOrPawnMove(fenParts[4]));
-    board.setMoveNumber(moveNumber(fenParts[5]));
+    board.setHalfMovesSinceCaptureOrPawnMove(Integer.parseInt(fenParts[4]));
+    board.setMoveNumber(Integer.parseInt(fenParts[5]));
   }
 
   private static void pieceSetup(ChessGameState board, String[] ranks) {
@@ -68,26 +63,6 @@ public final class FENUtil {
       processFENRow(board, r, rank);
       rank--;
     }
-  }
-
-  /**
-   * Parse move number.
-   *
-   * @param string Move number part of FEN string
-   * @return move number.
-   */
-  private static int moveNumber(String string) {
-    return Integer.parseInt(string);
-  }
-
-  /**
-   * Extract half moves since last Capture or Pawn move.
-   *
-   * @param string Half move part of FEN string
-   * @return half moves.
-   */
-  private static int halfMovesSinceCaptureOrPawnMove(String string) {
-    return Integer.parseInt(string);
   }
 
   /**
@@ -113,43 +88,13 @@ public final class FENUtil {
    * @param castlingString the String describing castling
    */
   private static void toCastle(ChessGameState board, String castlingString) {
-    if ("-".equals(castlingString)) {
-      return;
-    }
-
-    for (char ch : castlingString.toCharArray()) {
-      switch (ch) {
-        case 'K':
-          board.setCastling(PieceType.KING, Color.WHITE, true);
-          break;
-        case 'Q':
-          board.setCastling(PieceType.QUEEN, Color.WHITE, true);
-          break;
-        case 'k':
-          board.setCastling(PieceType.KING, Color.BLACK, true);
-          break;
-        case 'q':
-          board.setCastling(PieceType.QUEEN, Color.BLACK, true);
-          break;
-        default:
-          throw new IllegalStateException();
+    if (!"-".equals(castlingString)) {
+      for (char ch : castlingString.toCharArray()) {
+        Color color = Character.isUpperCase(ch) ? Color.WHITE : Color.BLACK;
+        PieceType pieceType = (ch == 'K' || ch == 'k') ? PieceType.KING : PieceType.QUEEN;
+        board.setCastling(pieceType, color, true);
       }
     }
-
-  }
-
-  /**
-   * Convert w or b to the Color.
-   *
-   * @param colorString "w" or "b"
-   * @return the Color.
-   */
-  private static Color toColor(String colorString) {
-    Color ret = Color.BLACK;
-    if ("w".equals(colorString)) {
-      ret = Color.WHITE;
-    }
-    return ret;
   }
 
   /**
@@ -161,14 +106,12 @@ public final class FENUtil {
    */
   private static void processFENRow(ChessGameState board, String fenRow, int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
-    int file = 1;
+    int file = 0;
     for (char s : fenRow.toCharArray()) {
       if (Character.isDigit(s)) {
-        file = file + s - '0';
+        file += Character.getNumericValue(s);
       } else {
-        genPiece(board, s, file - 1, rank - 1);
-
-        file++;
+        genPiece(board, s, file++, rank - 1);
       }
     }
   }
@@ -182,17 +125,9 @@ public final class FENUtil {
    * @param rank      the Piece's rank (1-8)
    */
   private static void genPiece(ChessGameState board, char pieceChar, int file, int rank) {
-    for (PieceType pt : PieceType.values()) {
-      if (pt.getBlackChar() == pieceChar) {
-        board.addPiece(pt, Color.BLACK, file, rank);
-        return;
-      }
-
-      if (pt.getWhiteChar() == pieceChar) {
-        board.addPiece(pt, Color.WHITE, file, rank);
-        return;
-      }
-    }
-    throw new IllegalArgumentException("Bad arguments : " + pieceChar + " " + file + " " + rank);
+    PieceType pieceType = PieceType.fromChar(pieceChar);
+    Color color = Character.isUpperCase(pieceChar) ? Color.WHITE : Color.BLACK;
+    board.addPiece(pieceType, color, file, rank);
   }
+
 }

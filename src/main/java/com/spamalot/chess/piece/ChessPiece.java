@@ -42,6 +42,7 @@ public class ChessPiece {
 
   @Override
   public String toString() {
-    return type.getStringForColor(color);
+    return type.getCharForColor(color);
   }
+
 }

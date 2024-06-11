@@ -22,20 +22,20 @@ public enum PieceType {
   /** Black character for this piece. */
   private final char blackChar;
   /** String array with String representation of the PieceType */
-  private final String[] stringRepresentation;
+  final String[] stringRepresentation;
 
   /**
    * Construct the piece type.
    *
-   * @param blackChar Black character representing this piece
-   * @param whiteChar White character representing this piece
+   * @param blackCh Black character representing this piece
+   * @param whiteCh White character representing this piece
    */
-  PieceType(char blackChar, char whiteChar) {
-    this.whiteChar = whiteChar;
-    this.blackChar = blackChar;
+  PieceType(char blackCh, char whiteCh) {
+    this.whiteChar = whiteCh;
+    this.blackChar = blackCh;
     this.stringRepresentation = new String[Color.values().length];
-    this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteChar);
-    this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackChar);
+    this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
+    this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
   }
 
   /**
@@ -56,13 +56,17 @@ public enum PieceType {
     return blackChar;
   }
 
-  /**
-   * Get the string representation of the piece for the given color.
-   *
-   * @param color the color of the piece
-   * @return the string representation of the piece
-   */
-  public String getStringForColor(Color color) {
+  public static PieceType fromChar(char c) {
+    for (PieceType pt : PieceType.values()) {
+      if (pt.getBlackChar() == c || pt.getWhiteChar() == c) {
+        return pt;
+      }
+    }
+    return null;
+  }
+
+  String getCharForColor(Color color) {
     return stringRepresentation[color.ordinal()];
   }
+
 }
