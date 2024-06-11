@@ -1,5 +1,7 @@
 package com.spamalot.chess.movegen;
 
+import com.spamalot.chess.lib0x88.SquareName0x88;
+
 /**
  * Hold a chess move.
  *
@@ -28,11 +30,15 @@ public class ChessMove {
    *
    * @see java.lang.Object#toString()
    */
+
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("ChessMove [source=").append(source).append(", destination=").append(destination).append(']');
-    return builder.toString();
+    return "ChessMove [source=" + source + ", destination=" + destination + "]";
+  }
+
+  public String toMoveString() {
+    return String.format("%s-%s", SquareName0x88.fromBoard0x88number(source),
+        SquareName0x88.fromBoard0x88number(destination));
   }
 
   /*
@@ -42,10 +48,8 @@ public class ChessMove {
    */
   @Override
   public int hashCode() {
-    int prime = 31;
-    int result = 1;
-    result = prime * result + destination;
-    return prime * result + source;
+    final int prime = 31;
+    return prime * (prime * destination + source);
   }
 
   /*
@@ -58,14 +62,10 @@ public class ChessMove {
     if (this == obj) {
       return true;
     }
-    if (obj == null || getClass() != obj.getClass()) {
+    if (!(obj instanceof ChessMove)) {
       return false;
     }
     ChessMove other = (ChessMove) obj;
-    if (destination != other.destination) {
-      return false;
-    }
-    return source == other.source;
+    return destination == other.destination && source == other.source;
   }
-
 }

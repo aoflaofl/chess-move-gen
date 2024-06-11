@@ -61,7 +61,7 @@ public final class ChessFileReader {
 
     LOGGER.debug("FEN string : {}", fenString);
     ChessGameState game = createChessGameState(fenString);
-    LOGGER.debug("The game:\n{}", game);
+  //  LOGGER.debug("The game:\n{}", game);
 
     return Optional.of(game);
   }

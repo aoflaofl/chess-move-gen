@@ -34,7 +34,7 @@ public final class SquareName0x88 {
    * @return the square name in standard chess notation, or null if the square
    *         number is not on the board.
    */
-  private static String fromBoard0x88number(int square) {
+  public static String fromBoard0x88number(int square) {
     if (!ChessBoardUtil0x88.isOnBoard(square)) {
       return null;
     }

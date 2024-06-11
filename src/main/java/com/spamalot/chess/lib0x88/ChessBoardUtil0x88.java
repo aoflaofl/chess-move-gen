@@ -15,7 +15,7 @@ public final class ChessBoardUtil0x88 {
    * @param square the square's number
    * @return the file the square is in
    */
-  public static int fileFromSquare(int square) {
+  static int fileFromSquare(int square) {
     return square & 7;
   }
 
@@ -25,7 +25,7 @@ public final class ChessBoardUtil0x88 {
    * @param square the square's number
    * @return the rank the square is in
    */
-  public static int rankFromSquare(int square) {
+  static int rankFromSquare(int square) {
     return square >> 4;
   }
 

@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -85,16 +86,16 @@ public class ChessGameState {
    * @param d the direction array
    * @return the move list.
    */
-  private static List<ChessMove> generateJumperMoves(int s, int[] d) {
+  private List<ChessMove> generateJumperMoves(int s, int[] d) {
     List<ChessMove> m = new ArrayList<>();
     int sd;
     for (int dir : d) {
 
       sd = s + dir;
 
-//      if (board.canMoveToSquare(sd)) {
-//        m.add(generateMove(s, sd));
-//      }
+      if (board.canMoveToSquare(sd)) {
+        m.add(generateMove(s, sd));
+      }
     }
     return m;
   }
@@ -158,7 +159,7 @@ public class ChessGameState {
   private List<ChessMove> buildMoveList() {
     List<ChessMove> m = new ArrayList<>();
     List<PieceNode> pieceList = getSideToMovePieceList();
-
+    LOGGER.info("PieceList {}", pieceList);
     for (PieceNode s : pieceList) {
       PieceType pt = s.getPiece().getType();
 
@@ -224,16 +225,18 @@ public class ChessGameState {
 
   @Override
   public String toString() {
-    LOGGER.debug("toString()");
-    StringBuilder builder = new StringBuilder();
-
-    builder.append("ChessBoard [whitePieceList=").append(whitePieceList).append(",\n            blackPieceList=")
-        .append(blackPieceList).append(",\n            toMove=").append(toMove).append("]\n");
-
-    builder.append(board);
-
-    builder.append(buildMoveList());
-
-    return builder.toString();
+    return buildChessBoardString() + buildMoveListString();
   }
+
+  private String buildChessBoardString() {
+    return "ChessBoard [whitePieceList=" + whitePieceList + ",\n            blackPieceList=" + blackPieceList
+        + ",\n            toMove=" + toMove + "]\n" + board;
+  }
+
+  private String buildMoveListString() {
+    return buildMoveList().stream()
+        .map(ChessMove::toMoveString)
+        .collect(Collectors.joining(", "));
+  }
+
 }

@@ -49,7 +49,7 @@ public class ChessBoard0x88 {
    * @param square the square in 0x88 representation
    * @return true if a piece can move to the square, false otherwise
    */
-  private boolean canMoveToSquare(int square) {
+  public boolean canMoveToSquare(int square) {
     return ChessBoardUtil0x88.isOnBoard(square) && getPiece(square) == null;
   }
 
