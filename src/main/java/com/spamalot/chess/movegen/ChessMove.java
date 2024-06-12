@@ -20,7 +20,7 @@ public class ChessMove {
    * @param s  source Square
    * @param sd Destination Square
    */
-  public ChessMove(int s, int sd) {
+  ChessMove(int s, int sd) {
     source = s;
     destination = sd;
   }

@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
-import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.movegen.ChessMove;
+import com.spamalot.chess.movegen.MoveGenerator;
 import com.spamalot.chess.movegen.PieceNode;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
@@ -55,7 +55,7 @@ public class ChessGameState {
   private LinkedList<PieceNode> blackPieceList = new LinkedList<>();
 
   /** The Board being used for this game. */
-  private ChessBoard0x88 board = new ChessBoard0x88();
+  public ChessBoard0x88 board = new ChessBoard0x88();
 
   /** The Color whose move it is. */
   private Color toMove;
@@ -77,58 +77,6 @@ public class ChessGameState {
 
     LOGGER.info("Constructing a ChessBoard using FEN String.");
     FENUtil.processFENString(this, fen);
-  }
-
-  /**
-   * Generate moves for single move pieces (Knights, Kings).
-   * @param chessPiece 
-   *
-   * @param s the Square
-   * @param d the direction array
-   * @return the move list.
-   */
-  private List<ChessMove> generateJumperMoves(ChessPiece chessPiece, int s, int[] d) {
-    List<ChessMove> m = new ArrayList<>();
-    int sd;
-    for (int dir : d) {
-
-      sd = s + dir;
-
-      if (board.canMoveToSquare(chessPiece, sd)) {
-        m.add(generateMove(s, sd));
-      }
-    }
-    return m;
-  }
-
-  /**
-   * Generate a move.
-   *
-   * @param s  the source square
-   * @param sd the destination square
-   * @return a chess move.
-   */
-  private static final ChessMove generateMove(int s, int sd) {
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("Generate move : ({}-{})", s, sd);
-      // LOGGER.info("Generate move : {}-{}", SquareName.toName(s),
-      // SquareName.toName(sd));
-    }
-    return new ChessMove(s, sd);
-  }
-
-  /**
-   * Generate moves for sliding pieces (Queens, Bishops, Rooks).
-   *
-   * @param s the Square
-   * @param d the direction array
-   */
-  static void generateSliderMoves(int s, int[] d) {
-    for (int dir : d) {
-      for (int sd = s + dir; ChessBoardUtil0x88.isOnBoard(sd); sd += dir) {
-        generateMove(s, sd);
-      }
-    }
   }
 
   /**
@@ -170,8 +118,8 @@ public class ChessGameState {
       LOGGER.info("Piece {}", s);
       switch (pt) {
         case KING:
-          m.addAll(generateJumperMoves(s.getPiece(), s.get0x88Square(), ORTHO_DIFF));
-          m.addAll(generateJumperMoves(s.getPiece(), s.get0x88Square(), DIAG_DIFF));
+          m.addAll(MoveGenerator.generateJumperMoves(this, s.getPiece(), s.get0x88Square(), ORTHO_DIFF));
+          m.addAll(MoveGenerator.generateJumperMoves(this, s.getPiece(), s.get0x88Square(), DIAG_DIFF));
 
           break;
         case BISHOP:
