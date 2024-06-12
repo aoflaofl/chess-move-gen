@@ -38,9 +38,9 @@ public class ChessBoard0x88 {
    * @param rank the rank (row) of the square
    * @return true if a piece can move to the square, false otherwise
    */
-  public boolean canMoveToSquare(int file, int rank) {
+  public boolean canMoveToSquare(ChessPiece chessPiece, int file, int rank) {
     int square = ChessBoardUtil0x88.fileAndRankToSquare(file, rank);
-    return canMoveToSquare(square);
+    return canMoveToSquare(chessPiece, square);
   }
 
   /**
@@ -49,8 +49,9 @@ public class ChessBoard0x88 {
    * @param square the square in 0x88 representation
    * @return true if a piece can move to the square, false otherwise
    */
-  public boolean canMoveToSquare(int square) {
-    return ChessBoardUtil0x88.isOnBoard(square) && getPiece(square) == null;
+  public boolean canMoveToSquare(ChessPiece chessPiece, int square) {
+    return ChessBoardUtil0x88.isOnBoard(square)
+        && (getPiece(square) == null || getPiece(square).getColor() != chessPiece.getColor());
   }
 
   /**

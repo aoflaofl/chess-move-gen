@@ -81,19 +81,20 @@ public class ChessGameState {
 
   /**
    * Generate moves for single move pieces (Knights, Kings).
+   * @param chessPiece 
    *
    * @param s the Square
    * @param d the direction array
    * @return the move list.
    */
-  private List<ChessMove> generateJumperMoves(int s, int[] d) {
+  private List<ChessMove> generateJumperMoves(ChessPiece chessPiece, int s, int[] d) {
     List<ChessMove> m = new ArrayList<>();
     int sd;
     for (int dir : d) {
 
       sd = s + dir;
 
-      if (board.canMoveToSquare(sd)) {
+      if (board.canMoveToSquare(chessPiece, sd)) {
         m.add(generateMove(s, sd));
       }
     }
@@ -161,13 +162,16 @@ public class ChessGameState {
     List<PieceNode> pieceList = getSideToMovePieceList();
     LOGGER.info("PieceList {}", pieceList);
     for (PieceNode s : pieceList) {
-      PieceType pt = s.getPiece().getType();
+      PieceType pt = s.getPiece()
+          .getType();
+      Color c = s.getPiece()
+          .getColor();
 
       LOGGER.info("Piece {}", s);
       switch (pt) {
         case KING:
-          m.addAll(generateJumperMoves(s.get0x88Square(), ORTHO_DIFF));
-          m.addAll(generateJumperMoves(s.get0x88Square(), DIAG_DIFF));
+          m.addAll(generateJumperMoves(s.getPiece(), s.get0x88Square(), ORTHO_DIFF));
+          m.addAll(generateJumperMoves(s.getPiece(), s.get0x88Square(), DIAG_DIFF));
 
           break;
         case BISHOP:
@@ -190,13 +194,7 @@ public class ChessGameState {
   }
 
   private List<PieceNode> getSideToMovePieceList() {
-    List<PieceNode> pieceList;
-    if (toMove == Color.WHITE) {
-      pieceList = whitePieceList;
-    } else {
-      pieceList = blackPieceList;
-    }
-    return pieceList;
+    return toMove == Color.WHITE ? whitePieceList : blackPieceList;
   }
 
   public void setCastling(PieceType king, Color white, boolean b) {
