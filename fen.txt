@@ -1,6 +1,14 @@
-rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
-8/Q7/2kp4/8/8/1K6/3R4/5B2 w - - 0 1
+# rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+# rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+# 8/Q7/2kp4/8/8/1K6/3R4/5B2 w - - 0 1
 # Comment test
-5B2/6P1/1p6/8/1N6/kP6/2K5/8 w - - 0 1 # inline comment
-7k/7B/8/1pK5/p7/Pp6/p7/3R4 w - - 0 1
+# 5B2/6P1/1p6/8/1N6/kP6/2K5/8 w - - 0 1 # inline comment
+# 7k/7B/8/1pK5/p7/Pp6/p7/3R4 w - - 0 1
+# 1 Black Knight
+# 8/4n3/8/3K4/8/8/7k/8 w - - 0 1
+# 1 Black Rook checking
+8/3r4/8/3K4/8/8/7k/8 w - - 0 1
+# 1 Black Rook Checking
+8/4r3/8/3K4/8/8/7k/8 w - - 0 1
+# 1 Black Rook Blocked by Pawn
+8/3r4/3p4/3K4/8/8/7k/8 w - - 0 1

@@ -72,7 +72,7 @@ public class ChessBoard0x88 {
    * @param square the square in 0x88 representation
    * @return the chess piece at the square, or null if the square is empty
    */
-  private ChessPiece getPiece(int square) {
+  public ChessPiece getPiece(int square) {
     return board[square];
   }
 
