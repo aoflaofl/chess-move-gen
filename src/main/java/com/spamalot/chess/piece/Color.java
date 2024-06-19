@@ -18,8 +18,12 @@ public enum Color {
    * @param colorString "w" or "b"
    * @return the Color.
    */
-  
+
   public static Color toColor(String colorString) {
     return "w".equals(colorString) ? WHITE : BLACK;
+  }
+
+  public Color opposite() {
+    return this == WHITE ? BLACK : WHITE;
   }
 }

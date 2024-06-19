@@ -1,23 +1,22 @@
 package com.spamalot.chess.piece;
 
-import com.spamalot.chess.piece.MoveStyle;
-
 /**
  * Enum for type of Chess Piece.
  */
 public enum PieceType {
+
   /** Pawn type. */
-  PAWN('p', 'P', MoveStyle.PAWN),
+  PAWN('p', 'P', MoveStyle.PAWN, ChessPiece.PAWN_MOVE),
   /** Knight type. */
-  KNIGHT('n', 'N', MoveStyle.JUMPER),
+  KNIGHT('n', 'N', MoveStyle.JUMPER, ChessPiece.KNIGHT_MOVE),
   /** Bishop type. */
-  BISHOP('b', 'B', MoveStyle.SLIDER),
+  BISHOP('b', 'B', MoveStyle.SLIDER, ChessPiece.DIAGONAL_MOVE),
   /** Rook type. */
-  ROOK('r', 'R', MoveStyle.SLIDER),
+  ROOK('r', 'R', MoveStyle.SLIDER, ChessPiece.ORTHOGONAL_MOVE),
   /** Queen type. */
-  QUEEN('q', 'Q', MoveStyle.SLIDER),
+  QUEEN('q', 'Q', MoveStyle.SLIDER, ChessPiece.DIAGONAL_MOVE | ChessPiece.ORTHOGONAL_MOVE),
   /** King type. */
-  KING('k', 'K', MoveStyle.JUMPER);
+  KING('k', 'K', MoveStyle.JUMPER, ChessPiece.KING_MOVE);
 
   /** White character for this piece. */
   private final char whiteChar;
@@ -26,6 +25,7 @@ public enum PieceType {
   /** String array with String representation of the PieceType */
   final String[] stringRepresentation;
   private MoveStyle moveStyle;
+  private int moveType;
 
   /**
    * Construct the piece type.
@@ -34,13 +34,14 @@ public enum PieceType {
    * @param whiteCh   White character representing this piece
    * @param moveStyle
    */
-  PieceType(char blackCh, char whiteCh, MoveStyle moveStyle) {
+  PieceType(char blackCh, char whiteCh, MoveStyle moveStyle, int moveType) {
     this.whiteChar = whiteCh;
     this.blackChar = blackCh;
     this.stringRepresentation = new String[Color.values().length];
     this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
     this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
     this.moveStyle = moveStyle;
+    this.moveType = moveType;
   }
 
   /**
@@ -78,4 +79,12 @@ public enum PieceType {
     return moveStyle;
   }
 
+  public boolean isOrthogonal() {
+    return (moveType | ChessPiece.ORTHOGONAL_MOVE) != 0;
+
+  }
+
+  public boolean isDiagonal() {
+    return (moveType | ChessPiece.DIAGONAL_MOVE) != 0;
+  }
 }

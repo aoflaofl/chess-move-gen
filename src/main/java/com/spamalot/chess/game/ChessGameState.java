@@ -176,4 +176,8 @@ public class ChessGameState {
         .collect(Collectors.joining(", "));
   }
 
+  public ChessBoard0x88 getBoard() {
+    return board;
+  }
+
 }

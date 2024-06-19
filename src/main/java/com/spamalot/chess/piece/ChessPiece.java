@@ -11,6 +11,12 @@ public class ChessPiece {
   /** Type of the piece. */
   private final PieceType type;
 
+  static final int DIAGONAL_MOVE = 1;
+  static final int ORTHOGONAL_MOVE = 2;
+  static final int KING_MOVE = 4;
+  static final int PAWN_MOVE = 8;
+  static final int KNIGHT_MOVE = 16;
+
   /**
    * Construct a ChessPiece object.
    *
