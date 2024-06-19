@@ -11,6 +11,7 @@ import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.lib0x88.SquareName0x88;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.MoveStyle;
 import com.spamalot.chess.piece.PieceType;
 
 public class MoveGenerator {
@@ -88,32 +89,32 @@ public class MoveGenerator {
    * @param chessPiece     The chess piece on the square.
    * @return true if the square is attacked by any piece, false otherwise.
    */
-  static boolean isAttacked(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
+  private static boolean isAttacked(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
     return isKnightAttacking(chessGameState, square, chessPiece) || isPawnAttacking(chessGameState, square, chessPiece)
         || isKingAttacking(chessGameState, square, chessPiece) || isQueenAttacking(chessGameState, square, chessPiece)
         || isBishopAttacking(chessGameState, square, chessPiece) || isRookAttacking(chessGameState, square, chessPiece);
   }
 
   private static boolean isPieceAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece,
-      PieceType pieceType, int[] diffs, boolean isSlider) {
+      PieceType pieceType, int[] diffs) {
     for (int p : diffs) {
-      if (isAttackingInDirection(chessGameState, square, chessPiece, pieceType, p, isSlider)) {
+      if (isAttackingInDirection(chessGameState, square, chessPiece, pieceType, p)) {
         return true;
       }
     }
     return false;
   }
 
-  private static boolean isAttackingInDirection(ChessGameState chessGameState, int square, ChessPiece chessPiece,
-      PieceType pieceType, int diff, boolean isSlider) {
+  private static boolean isAttackingInDirection(ChessGameState chessGameState, int square, ChessPiece color,
+      PieceType pieceType, int diff) {
     int potentialSquare = square + diff;
     while (ChessBoardUtil0x88.isOnBoard(potentialSquare)) {
       ChessPiece potentialAttacker = chessGameState.board.getPiece(potentialSquare);
       if (potentialAttacker != null && potentialAttacker.getType() == pieceType
-          && potentialAttacker.getColor() != chessPiece.getColor()) {
+          && potentialAttacker.getColor() != color.getColor()) {
         return true;
       }
-      if (!isSlider || potentialAttacker != null) {
+      if (pieceType.getMoveStyle() != MoveStyle.SLIDER || potentialAttacker != null) {
         break;
       }
       potentialSquare += diff;
@@ -124,25 +125,25 @@ public class MoveGenerator {
   private static boolean isRookAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
     System.out.println("isRookAttacking");
 
-    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.ROOK, ORTHO_DIFF, true);
+    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.ROOK, ORTHO_DIFF);
   }
 
   private static boolean isKnightAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
-    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.KNIGHT, KNIGHT_DIFF, false);
+    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.KNIGHT, KNIGHT_DIFF);
   }
 
   private static boolean isKingAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
-    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.KING, ORTHO_DIFF, false)
-        || isPieceAttacking(chessGameState, square, chessPiece, PieceType.KING, DIAG_DIFF, false);
+    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.KING, ORTHO_DIFF)
+        || isPieceAttacking(chessGameState, square, chessPiece, PieceType.KING, DIAG_DIFF);
   }
 
   private static boolean isQueenAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
-    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.QUEEN, ORTHO_DIFF, true)
-        || isPieceAttacking(chessGameState, square, chessPiece, PieceType.QUEEN, DIAG_DIFF, true);
+    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.QUEEN, ORTHO_DIFF)
+        || isPieceAttacking(chessGameState, square, chessPiece, PieceType.QUEEN, DIAG_DIFF);
   }
 
   private static boolean isBishopAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
-    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.BISHOP, DIAG_DIFF, true);
+    return isPieceAttacking(chessGameState, square, chessPiece, PieceType.BISHOP, DIAG_DIFF);
   }
 
   private static boolean isPawnAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {

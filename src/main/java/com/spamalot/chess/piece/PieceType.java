@@ -1,21 +1,23 @@
 package com.spamalot.chess.piece;
 
+import com.spamalot.chess.piece.MoveStyle;
+
 /**
  * Enum for type of Chess Piece.
  */
 public enum PieceType {
   /** Pawn type. */
-  PAWN('p', 'P'),
+  PAWN('p', 'P', MoveStyle.PAWN),
   /** Knight type. */
-  KNIGHT('n', 'N'),
+  KNIGHT('n', 'N', MoveStyle.JUMPER),
   /** Bishop type. */
-  BISHOP('b', 'B'),
+  BISHOP('b', 'B', MoveStyle.SLIDER),
   /** Rook type. */
-  ROOK('r', 'R'),
+  ROOK('r', 'R', MoveStyle.SLIDER),
   /** Queen type. */
-  QUEEN('q', 'Q'),
+  QUEEN('q', 'Q', MoveStyle.SLIDER),
   /** King type. */
-  KING('k', 'K');
+  KING('k', 'K', MoveStyle.JUMPER);
 
   /** White character for this piece. */
   private final char whiteChar;
@@ -23,19 +25,22 @@ public enum PieceType {
   private final char blackChar;
   /** String array with String representation of the PieceType */
   final String[] stringRepresentation;
+  private MoveStyle moveStyle;
 
   /**
    * Construct the piece type.
    *
-   * @param blackCh Black character representing this piece
-   * @param whiteCh White character representing this piece
+   * @param blackCh   Black character representing this piece
+   * @param whiteCh   White character representing this piece
+   * @param moveStyle
    */
-  PieceType(char blackCh, char whiteCh) {
+  PieceType(char blackCh, char whiteCh, MoveStyle moveStyle) {
     this.whiteChar = whiteCh;
     this.blackChar = blackCh;
     this.stringRepresentation = new String[Color.values().length];
     this.stringRepresentation[Color.WHITE.ordinal()] = String.valueOf(whiteCh);
     this.stringRepresentation[Color.BLACK.ordinal()] = String.valueOf(blackCh);
+    this.moveStyle = moveStyle;
   }
 
   /**
@@ -67,6 +72,10 @@ public enum PieceType {
 
   String getCharForColor(Color color) {
     return stringRepresentation[color.ordinal()];
+  }
+
+  public MoveStyle getMoveStyle() {
+    return moveStyle;
   }
 
 }
