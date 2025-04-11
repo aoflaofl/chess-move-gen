@@ -176,4 +176,9 @@ public class ChessGameState {
         .collect(Collectors.joining(", "));
   }
 
+  public boolean canCastle(PieceType king, Color white) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'canCastle'");
+  }
+
 }
