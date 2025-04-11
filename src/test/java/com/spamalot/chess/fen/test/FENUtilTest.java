@@ -1,10 +1,14 @@
 package com.spamalot.chess.fen.test;
 
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.spamalot.chess.game.ChessGameState;
+import com.spamalot.chess.piece.Color;
+import com.spamalot.chess.piece.PieceType;
 import com.spamalot.chess.util.FENUtil;
 
 /**
@@ -64,8 +68,8 @@ public class FENUtilTest {
    */
   @Test
   public void testTooFewFENPartsBoardElement() {
-    exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("FEN String does not have enough parts.  Needed : 6 Actual : 5");
+    exception.expect(AssertionError.class);
+    exception.expectMessage("FEN String does not have correct number of parts.  Needed : 6 Actual : 5");
 
     FENUtil.processFENString(new ChessGameState(), TOO_FEW_PARTS_FEN);
   }
@@ -83,5 +87,77 @@ public class FENUtilTest {
 
     FENUtil.processFENString(new ChessGameState(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
         GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
+  }
+
+  /**
+   * Test what happens when the en-passant square is invalid.
+   */
+  @Test
+  public void testInvalidEnPassantSquare() {
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("Expected condition to be true");
+
+    String invalidEnPassantFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, "e3",
+        GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER);
+
+    FENUtil.processFENString(new ChessGameState(), invalidEnPassantFEN);
+  }
+
+  /**
+   * Test what happens when the castling string is invalid.
+   */
+  @Test
+  public void testInvalidCastlingString() {
+    String invalidCastlingFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, "X", GOOD_EN_PASSANT,
+        GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER);
+
+    ChessGameState board = new ChessGameState();
+    FENUtil.processFENString(board, invalidCastlingFEN);
+
+    // Assert that no castling rights are set
+    assertFalse(board.canCastle(PieceType.KING, Color.WHITE));
+    assertFalse(board.canCastle(PieceType.QUEEN, Color.WHITE));
+    assertFalse(board.canCastle(PieceType.KING, Color.BLACK));
+    assertFalse(board.canCastle(PieceType.QUEEN, Color.BLACK));
+  }
+
+  /**
+   * Test what happens when the board setup string has invalid ranks.
+   */
+  @Test
+  public void testInvalidBoardSetup() {
+    exception.expect(IllegalArgumentException.class);
+    exception.expectMessage("FEN Board String does not have enough ranks");
+
+    String invalidBoardSetupFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP";
+
+    FENUtil.processFENString(new ChessGameState(), String.join(" ", invalidBoardSetupFEN, GOOD_COLOR_TO_MOVE,
+        GOOD_CASTLE, GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
+  }
+
+  /**
+   * Test what happens when the move number is invalid.
+   */
+  @Test
+  public void testInvalidMoveNumber() {
+    exception.expect(NumberFormatException.class);
+
+    String invalidMoveNumberFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
+        GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, "invalid");
+
+    FENUtil.processFENString(new ChessGameState(), invalidMoveNumberFEN);
+  }
+
+  /**
+   * Test what happens when the half-move clock is invalid.
+   */
+  @Test
+  public void testInvalidHalfMoveClock() {
+    exception.expect(NumberFormatException.class);
+
+    String invalidHalfMoveClockFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
+        "invalid", GOOD_MOVE_NUMBER);
+
+    FENUtil.processFENString(new ChessGameState(), invalidHalfMoveClockFEN);
   }
 }
