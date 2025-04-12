@@ -11,9 +11,13 @@ import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MoveGenerator {
+  /** Logger. */
   private static final Logger LOGGER = LoggerFactory.getLogger(MoveGenerator.class);
+
   /** Diagonal diffs. */
   public static final int[] DIAG_DIFF = new int[] { 17, 15, -17, -15 };
   /** Knight diffs. */
@@ -48,7 +52,7 @@ public class MoveGenerator {
       }
     }
     if (isAttacked(chessGameState, s, chessPiece.getColor().opposite())) {
-      System.out.println("Attacked");
+      LOGGER.info("Attacked");
     }
     return m;
   }
@@ -96,7 +100,6 @@ public class MoveGenerator {
     }
     return false;
   }
-
 
   private static boolean isOrthoAttacking(ChessBoard0x88 chessBoard0x88, int attackedSquare, Color attackingColor) {
     for (int diff : ORTHO_DIFF) {
