@@ -73,12 +73,20 @@ public final class FENUtil {
    */
   private static void enPassantSquare(ChessGameState board, String string) {
     checkNotNull(string);
-    checkArgument("-".equals(string));
-    if (!"-".equals(string) && string.length() == 2) {
-      int file = string.charAt(0) - 'a' + 1;
-      int rank = string.charAt(1) - '0';
-      board.setEnPassantSquare(file, rank);
+    if ("-".equals(string)) {
+      return;
     }
+
+    checkArgument(string.length() == 2, "Invalid en-passant square: %s", string);
+
+    int file = string.charAt(0) - 'a';
+    int rank = string.charAt(1) - '1';
+
+    checkArgument(file >= 0 && file < 8, "Invalid file in en-passant square: %s", string);
+    checkArgument(rank >= 0 && rank < 8, "Invalid rank in en-passant square: %s", string);
+
+    // Store file and rank using zero-based indexing.
+    board.setEnPassantSquare(file, rank);
   }
 
   /**

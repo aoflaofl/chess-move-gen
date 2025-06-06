@@ -82,11 +82,11 @@ public enum PieceType {
   }
 
   public boolean isOrthogonal() {
-    return (moveType | ChessPiece.ORTHOGONAL_MOVE) != 0;
+    return (moveType & ChessPiece.ORTHOGONAL_MOVE) != 0;
 
   }
 
   public boolean isDiagonal() {
-    return (moveType | ChessPiece.DIAGONAL_MOVE) != 0;
+    return (moveType & ChessPiece.DIAGONAL_MOVE) != 0;
   }
 }

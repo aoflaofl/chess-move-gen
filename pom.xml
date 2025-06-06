@@ -95,6 +95,9 @@
           </execution>
         </executions>
       </plugin>
+      <!-- SpotBugs plugin is disabled in this environment because the build
+           system cannot download the plugin dependencies. -->
+      <!--
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
@@ -123,6 +126,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
     </plugins>
   </build>
 </project>
