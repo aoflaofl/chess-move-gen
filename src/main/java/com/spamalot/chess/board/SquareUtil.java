@@ -81,13 +81,7 @@ public final class SquareUtil {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
-    }
-    SquareUtil other = (SquareUtil) obj;
-    return file == other.file && rank == other.rank;
+    // With proper flyweight implementation, only reference equality is needed
+    return this == obj;
   }
 }
