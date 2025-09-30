@@ -11,8 +11,6 @@ import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.spamalot.chess.piece.MoveStyle;
 import com.spamalot.chess.piece.PieceType;
 

@@ -1,7 +1,5 @@
 package com.spamalot.chess.piece;
 
-import com.spamalot.chess.piece.MoveStyle;
-
 /**
  * Enum for type of Chess Piece.
  */
