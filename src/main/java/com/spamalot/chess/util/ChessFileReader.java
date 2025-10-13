@@ -1,5 +1,6 @@
 package com.spamalot.chess.util;
 
+import com.spamalot.chess.game.ChessGameState;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,11 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.spamalot.chess.game.ChessGameState;
 
 public final class ChessFileReader {
 
@@ -35,25 +33,22 @@ public final class ChessFileReader {
    * @return A List of ChessGameState objects, each representing a FEN string from
    *         the files.
    */
-  public static List<ChessGameState> processFEN(Iterable<String> fenFiles) {
+  public static List<ChessGameState> processFen(Iterable<String> fenFiles) {
     List<ChessGameState> chessGameStates = new ArrayList<>();
-    fenFiles.forEach(fenFile -> processSingleFENFile(fenFile, chessGameStates));
+    fenFiles.forEach(fenFile -> processSingleFenFile(fenFile, chessGameStates));
     return chessGameStates;
   }
 
-  private static void processSingleFENFile(String fenFile, List<ChessGameState> chessGameStates) {
+  private static void processSingleFenFile(String fenFile, List<ChessGameState> chessGameStates) {
     LOGGER.debug("Processing FEN strings in file: {}", fenFile);
     try (Stream<String> fenStream = Files.lines(Paths.get(fenFile), StandardCharsets.UTF_8)) {
-      fenStream.map(fen -> readFEN(fen))
-          .filter(Optional::isPresent)
-          .map(Optional::get)
-          .forEach(chessGameStates::add);
+      fenStream.map(fen -> readFen(fen)).filter(Optional::isPresent).map(Optional::get).forEach(chessGameStates::add);
     } catch (IOException e) {
       LOGGER.error("IOException while processing file {}: {}", fenFile, e.getMessage());
     }
   }
 
-  private static Optional<ChessGameState> readFEN(String fen) {
+  private static Optional<ChessGameState> readFen(String fen) {
     String fenString = cleanLine(fen);
     if (fenString.isEmpty()) {
       return Optional.empty();
@@ -61,20 +56,18 @@ public final class ChessFileReader {
 
     LOGGER.debug("FEN string : {}", fenString);
     ChessGameState game = createChessGameState(fenString);
-  //  LOGGER.debug("The game:\n{}", game);
+    // LOGGER.debug("The game:\n{}", game);
 
     return Optional.of(game);
   }
 
   private static ChessGameState createChessGameState(String fenString) {
     ChessGameState game = new ChessGameState();
-    FENUtil.processFENString(game, fenString);
+    FenUtil.processFenString(game, fenString);
     return game;
   }
 
   private static String cleanLine(String line) {
-    return COMMENT_REGEX.matcher(line)
-        .replaceAll("")
-        .trim();
+    return COMMENT_REGEX.matcher(line).replaceAll("").trim();
   }
 }

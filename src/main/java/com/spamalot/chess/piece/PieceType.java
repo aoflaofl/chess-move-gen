@@ -22,7 +22,7 @@ public enum PieceType {
   private final char whiteChar;
   /** Black character for this piece. */
   private final char blackChar;
-  /** String array with String representation of the PieceType */
+  /** String array with String representation of the PieceType. */
   final String[] stringRepresentation;
   private MoveStyle moveStyle;
   private int moveType;
@@ -32,7 +32,7 @@ public enum PieceType {
    *
    * @param blackCh   Black character representing this piece
    * @param whiteCh   White character representing this piece
-   * @param moveStyle
+   * @param moveStyle the MoveStyle for this piece
    */
   PieceType(char blackCh, char whiteCh, MoveStyle moveStyle, int moveType) {
     this.whiteChar = whiteCh;

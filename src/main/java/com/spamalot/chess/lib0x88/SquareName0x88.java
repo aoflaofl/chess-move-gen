@@ -29,7 +29,7 @@ public final class SquareName0x88 {
   /**
    * Converts a square number in 0x88 representation to a square name in standard
    * chess notation.
-   * 
+   *
    * @param square the square number in 0x88 representation.
    * @return the square name in standard chess notation, or null if the square
    *         number is not on the board.
@@ -46,7 +46,7 @@ public final class SquareName0x88 {
 
   /**
    * Converts a file and rank to a square name in standard chess notation.
-   * 
+   *
    * @param file the file number (0-7).
    * @param rank the rank number (0-7).
    * @return the square name in standard chess notation.

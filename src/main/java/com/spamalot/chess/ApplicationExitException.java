@@ -7,6 +7,12 @@ public class ApplicationExitException extends Exception {
   private static final long serialVersionUID = 1L;
   private final int statusCode;
 
+  /**
+   * Constructor.
+   *
+   * @param message    the message
+   * @param statusCode the status code to exit with
+   */
   public ApplicationExitException(String message, int statusCode) {
     super(message);
     this.statusCode = statusCode;

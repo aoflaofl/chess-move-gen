@@ -1,11 +1,5 @@
 package com.spamalot.chess.movegen;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.lib0x88.ChessBoardUtil0x88;
@@ -13,6 +7,10 @@ import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.MoveStyle;
 import com.spamalot.chess.piece.PieceType;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MoveGenerator {
   /** Logger. */
@@ -30,10 +28,10 @@ public class MoveGenerator {
 
   /**
    * Generate moves for single move pieces (Knights, Kings).
+   *
+   * @param chessGameState the game state
    * 
-   * @param chessGameState
-   * 
-   * @param chessPiece
+   * @param chessPiece     the piece to move
    *
    * @param s              the Square
    * @param d              the direction array
@@ -88,11 +86,6 @@ public class MoveGenerator {
         || isKnightAttacking(chessGameState.getBoard(), square, attackingColor);
   }
 
-  private static boolean isKnightAttacking(ChessBoard0x88 chessBoard0x88, int square, Color color) {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
   private static boolean isAttacked(ChessGameState chessGameState, int square, ChessPiece chessPiece) {
     return isKnightAttacking(chessGameState, square, chessPiece) || isPawnAttacking(chessGameState, square, chessPiece)
         || isKingAttacking(chessGameState, square, chessPiece) || isQueenAttacking(chessGameState, square, chessPiece)
@@ -130,6 +123,11 @@ public class MoveGenerator {
     System.out.println("isRookAttacking");
 
     return isPieceAttacking(chessGameState, square, chessPiece, PieceType.ROOK, ORTHO_DIFF);
+  }
+
+  private static boolean isKnightAttacking(ChessBoard0x88 chessBoard0x88, int square, Color color) {
+    // TODO Auto-generated method stub
+    return false;
   }
 
   private static boolean isKnightAttacking(ChessGameState chessGameState, int square, ChessPiece chessPiece) {

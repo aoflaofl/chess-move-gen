@@ -2,26 +2,28 @@ package com.spamalot.chess.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Process Forsythe Edwards Notation for Chess positions.
  *
- * <p>
- * TODO: call a method in board to clear board? Or make it a prereq to be empty?
+ * <p>TODO: call a method in board to clear board? Or make it a prereq to be
+ * empty?
  *
  * @author gej
  *
  */
-public final class FENUtil {
+public final class FenUtil {
 
   /** Logger. */
-  private static final Logger LOGGER = LoggerFactory.getLogger(FENUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(FenUtil.class);
 
   /** Number of ranks on a chess board. */
   private static final int BOARD_SIZE = 8;
@@ -35,7 +37,7 @@ public final class FENUtil {
   /**
    * Don't construct the FEN parser.
    */
-  private FENUtil() {
+  private FenUtil() {
   }
 
   /**
@@ -44,13 +46,13 @@ public final class FENUtil {
    * @param board the board object
    * @param fen   the FEN String
    */
-  public static void processFENString(ChessGameState board, String fen) {
+  public static void processFenString(ChessGameState board, String fen) {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN String.");
     checkNotNull(board, "Null Board object.");
-    processFENParts(board, fen.split(" "));
+    processFenParts(board, fen.split(" "));
   }
 
-  private static void processFENParts(ChessGameState board, String[] fenParts) {
+  private static void processFenParts(ChessGameState board, String[] fenParts) {
     checkArgument(fenParts.length == FEN_PARTS_COUNT,
         "FEN String does not have correct number of parts.  Needed : %s Actual : %s", FEN_PARTS_COUNT, fenParts.length);
     pieceSetup(board, fenParts[0].split("/"));
@@ -66,7 +68,7 @@ public final class FENUtil {
     checkArgument(ranks.length == BOARD_SIZE, "FEN Board String does not have enough ranks : " + ranks.length);
     int rank = BOARD_SIZE;
     for (String r : ranks) {
-      processFENRow(board, r, rank);
+      processFenRow(board, r, rank);
       rank--;
     }
   }
@@ -75,7 +77,7 @@ public final class FENUtil {
    * Extract en-passant square from FEN string.
    *
    * @param board       board to work on
-   * @param toMoveColor
+   * @param toMoveColor Color whose move it is
    * @param string      En-passant square part of FEN string
    */
   private static void enPassantSquare(ChessGameState board, Color toMoveColor, String string) {
@@ -120,15 +122,15 @@ public final class FENUtil {
       Color color = Character.isUpperCase(ch) ? Color.WHITE : Color.BLACK;
       char upperCh = Character.toUpperCase(ch);
       switch (upperCh) {
-      case 'K':
-        board.setCastling(PieceType.KING, color, true);
-        break;
-      case 'Q':
-        board.setCastling(PieceType.QUEEN, color, true);
-        break;
-      default:
-        throw new IllegalArgumentException(
-            String.format("Invalid castling character: '%c'. Expected K, k, Q, or q", ch));
+        case 'K':
+          board.setCastling(PieceType.KING, color, true);
+          break;
+        case 'Q':
+          board.setCastling(PieceType.QUEEN, color, true);
+          break;
+        default:
+          throw new IllegalArgumentException(
+              String.format("Invalid castling character: '%c'. Expected K, k, Q, or q", ch));
       }
     }
   }
@@ -140,7 +142,7 @@ public final class FENUtil {
    * @param fenRow the FEN row String
    * @param rank   the row's rank (1-8)
    */
-  private static void processFENRow(ChessGameState board, String fenRow, int rank) {
+  private static void processFenRow(ChessGameState board, String fenRow, int rank) {
     LOGGER.debug("Parsing FEN string : {}", fenRow);
     int file = 0;
     for (char s : fenRow.toCharArray()) {

@@ -1,16 +1,6 @@
 package com.spamalot.chess.game;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.spamalot.chess.lib0x88.ChessBoard0x88;
 import com.spamalot.chess.movegen.ChessMove;
 import com.spamalot.chess.movegen.MoveGenerator;
@@ -18,22 +8,26 @@ import com.spamalot.chess.movegen.PieceNode;
 import com.spamalot.chess.piece.ChessPiece;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
-import com.spamalot.chess.util.FENUtil;
+import com.spamalot.chess.util.FenUtil;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // TODO: Add builder for FEN.
 
 /**
  * I'm just going to jump in and start doing an 0x88 board and refactor later.
  *
- * <p>
- * I'll give it a catchy name: "Spacky"
+ * <p>I'll give it a catchy name: "Spacky"
  *
- * <p>
- * First goal: Make it solve mate in X problems. This will require move
+ * <p>First goal: Make it solve mate in X problems. This will require move
  * generation and tree traversing code.
  *
- * <p>
- * WCGW?
+ * <p>WCGW?
  *
  * @author gej
  *
@@ -67,7 +61,7 @@ public class ChessGameState {
     checkArgument(StringUtils.isNotBlank(fen), "Empty FEN");
 
     LOGGER.info("Constructing a ChessBoard using FEN String.");
-    FENUtil.processFENString(this, fen);
+    FenUtil.processFenString(this, fen);
   }
 
   /**
@@ -101,10 +95,8 @@ public class ChessGameState {
     List<PieceNode> pieceList = getSideToMovePieceList();
     LOGGER.info("PieceList {}", pieceList);
     for (PieceNode s : pieceList) {
-      PieceType pt = s.getPiece()
-          .getType();
-      Color c = s.getPiece()
-          .getColor();
+      PieceType pt = s.getPiece().getType();
+      Color c = s.getPiece().getColor();
 
       LOGGER.info("Piece {}", s);
       switch (pt) {
@@ -171,9 +163,7 @@ public class ChessGameState {
   }
 
   private String buildMoveListString() {
-    return buildMoveList().stream()
-        .map(ChessMove::toMoveString)
-        .collect(Collectors.joining(", "));
+    return buildMoveList().stream().map(ChessMove::toMoveString).collect(Collectors.joining(", "));
   }
 
   public ChessBoard0x88 getBoard() {

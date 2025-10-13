@@ -1,8 +1,9 @@
 package com.spamalot.chess;
 
+import com.spamalot.chess.game.ChessGameState;
+import com.spamalot.chess.util.ChessFileReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -12,26 +13,16 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.spamalot.chess.game.ChessGameState;
-import com.spamalot.chess.util.ChessFileReader;
-
-/**
- * Entry class for Chess Move Generator program.
- */
 /**
  * The ChessMoveGen class serves as the main entry point for the chess move
- * generation application.
- * It processes command-line arguments, reads FEN files, and logs the resulting
- * chess game states.
+ * generation application. It processes command-line arguments, reads FEN files,
+ * and logs the resulting chess game states.
  * 
- * <p>
- * This class is designed to be non-instantiable by having a private
- * constructor.
- * It provides utility methods for parsing command-line arguments and displaying
- * help information.
+ * <p>This class is designed to be non-instantiable by having a private
+ * constructor. It provides utility methods for parsing command-line arguments
+ * and displaying help information.
  * 
- * <p>
- * Features:
+ * <p>Features:
  * <ul>
  * <li>Parses command-line arguments to retrieve FEN file paths.</li>
  * <li>Processes FEN files to generate chess game states.</li>
@@ -41,23 +32,20 @@ import com.spamalot.chess.util.ChessFileReader;
  * provided.</li>
  * </ul>
  * 
- * <p>
- * Usage:
+ * <p>Usage:
  * 
  * <pre>
  * java -jar ChessMoveGen.jar -f <file1.fen> <file2.fen> ...
  * </pre>
  * 
- * <p>
- * Command-line options:
+ * <p>Command-line options:
  * <ul>
  * <li><b>-f, --filetype</b>: Specifies the file type (currently only FEN is
  * supported).</li>
  * <li><b>-h, --help</b>: Displays help information.</li>
  * </ul>
  * 
- * <p>
- * Exceptions:
+ * <p>Exceptions:
  * <ul>
  * <li>{@link ApplicationExitException}: Thrown to indicate an intentional
  * application exit with a specific status code.</li>
@@ -65,15 +53,13 @@ import com.spamalot.chess.util.ChessFileReader;
  * arguments cannot be parsed.</li>
  * </ul>
  * 
- * <p>
- * Logging:
+ * <p>Logging:
  * <ul>
  * <li>Logs errors and unexpected exceptions.</li>
  * <li>Logs the parsed chess game states for informational purposes.</li>
  * </ul>
  * 
- * <p>
- * Dependencies:
+ * <p>Dependencies:
  * <ul>
  * <li>Apache Commons CLI for command-line argument parsing.</li>
  * <li>SLF4J for logging.</li>
@@ -95,7 +81,7 @@ public final class ChessMoveGen {
   public static void main(String[] args) {
     try {
       List<String> fenFiles = parseCommandLineArguments(args);
-      List<ChessGameState> gameStates = ChessFileReader.processFEN(fenFiles);
+      List<ChessGameState> gameStates = ChessFileReader.processFen(fenFiles);
       gameStates.forEach(gameState -> LOGGER.info("ChessGameState: {}", gameState));
     } catch (ApplicationExitException e) {
       LOGGER.info("Exiting: {}", e.getMessage());
@@ -111,7 +97,7 @@ public final class ChessMoveGen {
    *
    * @param args Arguments to parse.
    * @return a List of file names to read.
-   * @throws ApplicationExitException
+   * @throws ApplicationExitException if help is requested or parsing fails.
    */
   private static List<String> parseCommandLineArguments(String... args) throws ApplicationExitException {
     Options options = new Options();
@@ -147,7 +133,7 @@ public final class ChessMoveGen {
    *
    * @param options Command line options
    * @param status  Exit status code
-   * @throws ApplicationExitException
+   * @throws ApplicationExitException to indicate application exit
    */
   private static void printHelpAndExit(Options options, int status) throws ApplicationExitException {
     HelpFormatter formatter = new HelpFormatter();

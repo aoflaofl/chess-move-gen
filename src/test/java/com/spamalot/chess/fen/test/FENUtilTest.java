@@ -1,17 +1,15 @@
 package com.spamalot.chess.fen.test;
 
 import static org.junit.Assert.assertFalse;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.spamalot.chess.game.ChessGameState;
 import com.spamalot.chess.piece.Color;
 import com.spamalot.chess.piece.PieceType;
-import com.spamalot.chess.util.FENUtil;
+import com.spamalot.chess.util.FenUtil;
 
 /**
  * Test the FENUtil class.
@@ -53,7 +51,7 @@ public class FENUtilTest {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("Empty FEN String.");
 
-    FENUtil.processFENString(null, null);
+    FenUtil.processFenString(null, null);
   }
 
   /**
@@ -64,7 +62,7 @@ public class FENUtilTest {
     exception.expect(NullPointerException.class);
     exception.expectMessage("Null Board object.");
 
-    FENUtil.processFENString(null, String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
+    FenUtil.processFenString(null, String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
         GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
@@ -76,12 +74,12 @@ public class FENUtilTest {
     exception.expect(java.lang.IllegalArgumentException.class);
     exception.expectMessage("FEN String does not have correct number of parts.  Needed : 6 Actual : 5");
 
-    FENUtil.processFENString(new ChessGameState(), TOO_FEW_PARTS_FEN);
+    FenUtil.processFenString(new ChessGameState(), TOO_FEW_PARTS_FEN);
   }
 
   @Test
   public void testGoodFEN() {
-    FENUtil.processFENString(new ChessGameState(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+    FenUtil.processFenString(new ChessGameState(), String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
         GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
@@ -90,7 +88,7 @@ public class FENUtilTest {
     exception.expect(IllegalArgumentException.class);
     exception.expectMessage("FEN Board String does not have enough ranks : 7");
 
-    FENUtil.processFENString(new ChessGameState(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
+    FenUtil.processFenString(new ChessGameState(), String.join(" ", BAD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE,
         GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
@@ -99,7 +97,7 @@ public class FENUtilTest {
    */
   @Test
   public void testInvalidEnPassantSquare() {
-//    exception.expect(IllegalArgumentException.class);
+    // exception.expect(IllegalArgumentException.class);
     // exception.expectMessage("Expected condition to be true");
 
     String invalidEnPassantFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, "e3",
@@ -107,7 +105,7 @@ public class FENUtilTest {
 
     LOGGER.info("Testing invalid en-passant square with FEN: {}", invalidEnPassantFEN);
 
-    FENUtil.processFENString(new ChessGameState(), invalidEnPassantFEN);
+    FenUtil.processFenString(new ChessGameState(), invalidEnPassantFEN);
   }
 
   /**
@@ -121,7 +119,7 @@ public class FENUtilTest {
         GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER);
 
     ChessGameState board = new ChessGameState();
-    FENUtil.processFENString(board, invalidCastlingFEN);
+    FenUtil.processFenString(board, invalidCastlingFEN);
 
     // Assert that no castling rights are set
     assertFalse(board.canCastle(PieceType.KING, Color.WHITE));
@@ -140,7 +138,7 @@ public class FENUtilTest {
 
     String invalidBoardSetupFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP";
 
-    FENUtil.processFENString(new ChessGameState(), String.join(" ", invalidBoardSetupFEN, GOOD_COLOR_TO_MOVE,
+    FenUtil.processFenString(new ChessGameState(), String.join(" ", invalidBoardSetupFEN, GOOD_COLOR_TO_MOVE,
         GOOD_CASTLE, GOOD_EN_PASSANT, GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, GOOD_MOVE_NUMBER));
   }
 
@@ -154,7 +152,7 @@ public class FENUtilTest {
     String invalidMoveNumberFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
         GOOD_MOVES_SINCE_LAST_PAWN_OR_CAPTURE, "invalid");
 
-    FENUtil.processFENString(new ChessGameState(), invalidMoveNumberFEN);
+    FenUtil.processFenString(new ChessGameState(), invalidMoveNumberFEN);
   }
 
   /**
@@ -167,6 +165,6 @@ public class FENUtilTest {
     String invalidHalfMoveClockFEN = String.join(" ", GOOD_BOARD, GOOD_COLOR_TO_MOVE, GOOD_CASTLE, GOOD_EN_PASSANT,
         "invalid", GOOD_MOVE_NUMBER);
 
-    FENUtil.processFENString(new ChessGameState(), invalidHalfMoveClockFEN);
+    FenUtil.processFenString(new ChessGameState(), invalidHalfMoveClockFEN);
   }
 }
